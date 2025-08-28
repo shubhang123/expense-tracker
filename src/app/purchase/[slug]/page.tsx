@@ -1,18 +1,32 @@
 'use client';
-import { Bar, BarChart, ResponsiveContainer, XAxis, YAxis, Tooltip } from 'recharts';
+import { Bar, BarChart, ResponsiveContainer, XAxis, YAxis, Tooltip, Cell } from 'recharts';
 import { Card, CardContent, CardHeader } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { ArrowLeft, Pencil } from 'lucide-react';
+import { ArrowLeft, Check, Pencil, Trash2 } from 'lucide-react';
 import Link from 'next/link';
-import { useParams } from 'next/navigation';
+import { useParams, useRouter } from 'next/navigation';
 import { categories as initialCategories, transactions as initialTransactions } from '@/lib/data';
 import { useLocalStorage } from '@/hooks/use-local-storage';
-import { RecentTransactions } from '@/components/dashboard/recent-transactions';
 
+// Custom label for inside the bar
+const CustomBarLabel = (props: any) => {
+    const { x, y, width, height, value } = props;
+    const radius = 10;
+  
+    return (
+      <g>
+        <text x={x + width / 2} y={y + height - 10} fill="#fff" textAnchor="middle" dominantBaseline="middle" className="text-sm font-bold">
+          ${value}
+        </text>
+      </g>
+    );
+  };
+  
 export default function PurchaseDetailPage() {
   const params = useParams();
+  const router = useRouter();
   const slug = Array.isArray(params.slug) ? params.slug[0] : params.slug;
-  const [transactions] = useLocalStorage('transactions', initialTransactions);
+  const [transactions, setTransactions] = useLocalStorage('transactions', initialTransactions);
   const [categories] = useLocalStorage('categories', initialCategories);
 
   const category = categories.find(c => c.id === slug);
@@ -23,7 +37,6 @@ export default function PurchaseDetailPage() {
   const items = categoryTransactions.map(t => ({
     name: t.subcategory || t.merchant,
     value: Math.abs(t.amount),
-    full_name: `${t.merchant} ${t.subcategory ? '(' + t.subcategory + ')' : ''}`.trim()
   }));
   
   const purchaseData = {
@@ -33,86 +46,82 @@ export default function PurchaseDetailPage() {
     items: items,
   };
 
+  const handleDeleteCategoryTransactions = () => {
+    const remainingTransactions = transactions.filter(t => t.category.toLowerCase() !== slug);
+    setTransactions(remainingTransactions);
+    router.push('/');
+  }
 
   return (
     <div className="flex flex-col h-full space-y-6">
-      <div className="flex items-center justify-between">
-        <Button asChild variant="ghost" size="icon">
+       <div className="flex items-center justify-between">
+        <Button asChild variant="ghost" size="icon" className="bg-neutral-800 rounded-full">
           <Link href="/">
             <ArrowLeft />
           </Link>
         </Button>
-        <h1 className="text-3xl font-bold">{purchaseData.store}</h1>
-        <div className="w-10"></div>
+        <h1 className="text-3xl font-bold">Spent Purchase</h1>
+        <Button variant="ghost" size="icon" className="bg-neutral-800 rounded-full" onClick={handleDeleteCategoryTransactions}>
+            <Trash2 />
+        </Button>
       </div>
 
-      <Card className="flex-1 flex flex-col bg-neutral-900 rounded-3xl p-4">
+      <Card className="flex-1 flex flex-col bg-primary text-primary-foreground rounded-3xl p-4">
         <CardHeader>
-          <div className="flex justify-between items-center text-lg">
-            <span className="font-semibold">{purchaseData.store} Report</span>
+          <div className="flex justify-between items-center text-lg text-black">
+            <span className="font-semibold">{purchaseData.store}</span>
             <span className="text-sm">{purchaseData.date}</span>
           </div>
+          <hr className="border-black/20" />
         </CardHeader>
-        <CardContent className="flex-1 flex flex-col">
+        <CardContent className="flex-1 flex flex-col justify-between">
           <div className="flex-1 h-64">
             <ResponsiveContainer width="100%" height="100%">
               <BarChart data={purchaseData.items} margin={{ top: 20, right: 0, left: 0, bottom: 5 }}>
                 <XAxis
                   dataKey="name"
-                  stroke="hsl(var(--muted-foreground))"
+                  stroke="hsl(var(--primary-foreground))"
                   fontSize={12}
                   tickLine={false}
                   axisLine={false}
+                  dy={10}
                 />
-                <YAxis hide={true} domain={[0, 'dataMax + 20']} />
-                <Tooltip 
-                    cursor={{fill: 'hsla(var(--primary), 0.1)'}}
-                    contentStyle={{
-                        background: 'hsl(var(--background))',
-                        borderColor: 'hsl(var(--border))',
-                        borderRadius: 'var(--radius)'
-                    }}
-                    labelFormatter={(value) => {
-                        const item = items.find(i => i.name === value);
-                        return item?.full_name;
-                    }}
+                <YAxis hide={true} domain={[0, 'dataMax + 50']} />
+                <Tooltip
+                    contentStyle={{ display: 'none' }}
+                    cursor={{fill: 'rgba(0,0,0,0.1)', rx: 10}}
                 />
                 <Bar
                   dataKey="value"
-                  fill="hsl(var(--primary))"
-                  radius={[10, 10, 0, 0]}
-                  label={{
-                    position: 'top',
-                    fill: 'hsl(var(--foreground))',
-                    formatter: (value: number) => `$${value}`,
-                    fontSize: 14,
-                    fontWeight: 'bold',
-                  }}
-                />
+                  radius={[10, 10, 10, 10]}
+                  label={<CustomBarLabel />}
+                >
+                    {
+                        purchaseData.items.map((entry, index) => (
+                            <Cell key={`cell-${index}`} fill="black" />
+                        ))
+                    }
+                </Bar>
               </BarChart>
             </ResponsiveContainer>
           </div>
           <div className="flex justify-between items-center mt-4">
             <div>
-              <p className="text-sm text-muted-foreground">Total Spent</p>
-              <p className="text-4xl font-bold">${purchaseData.total.toLocaleString()}</p>
+              <p className="text-4xl font-bold text-black">${purchaseData.total.toLocaleString()}</p>
             </div>
             <div className="flex items-center gap-2">
-              <Button asChild variant="ghost" size="icon" className="bg-black/10 rounded-full">
-                <Link href="/categories">
-                    <Pencil className="h-5 w-5" />
+              <Button asChild variant="outline" size="icon" className="rounded-full w-12 h-12 border-black">
+                <Link href={`/edit/${transactions.find(t => t.category === slug)?.id || ''}`}>
+                    <Pencil className="h-5 w-5 text-black" />
                 </Link>
+              </Button>
+               <Button variant="secondary" size="icon" className="rounded-full w-12 h-12 bg-black text-white hover:bg-neutral-800">
+                    <Check className="h-5 w-5" />
               </Button>
             </div>
           </div>
         </CardContent>
       </Card>
-      
-      <div className="mt-6">
-        <h2 className="text-2xl font-bold mb-4">Transactions</h2>
-        <RecentTransactions filterByCategory={slug} hideHeader={true} />
-      </div>
-
     </div>
   );
 }
