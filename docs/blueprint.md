@@ -1,0 +1,162 @@
+# **App Name**: Emerald Finance
+
+## Core Features:
+
+- Financial Dashboard: Dashboard displaying key financial metrics, trends, and insights.
+- Interactive Charts: Interactive charts to visualize spending, income, and budget allocation.
+- Spending Tracker: Spending tracker interface with categorized transactions.
+- Budgeting Tools: Personalized budget creation and progress monitoring.
+- AI Finance Tips: AI-powered personal finance tips tool based on spending patterns. This will be a tool that incorporates user spending patterns to provide helpful tips.
+- Account Overview: Account overview displaying balances, transaction histories, and due dates.
+- Profile Management: User profile and settings management.
+
+## Style Guidelines:
+
+- Primary color: Deep emerald green (#1a5c3a) for a sense of stability and growth, reflecting the financial nature of the application.
+- Background color: Dark gray (#2a2a2a) for a sophisticated, modern look, ensuring the emerald elements stand out.
+- Accent color: Gold (#FFA000) to highlight important actions and financial data.
+- Body and headline font: 'Inter', a sans-serif, for a clean, modern look. Its neutrality ensures easy readability and a professional feel for financial data.
+- Use crisp, minimalist icons to represent financial categories and actions, maintaining a consistent style across the app.
+- Implement a card-based layout for clear organization of financial information and easy navigation.
+- Incorporate subtle animations for data updates and interactive elements to enhance user engagement without being distracting.
+- Base gradient: `linear-gradient(135deg, #0d4429 0%, #1a5c3a 25%, #2d7a57 100%)`
+- Card overlays: Semi-transparent emerald with 20% opacity
+- Text on emerald: Pure white (#FFFFFF) with subtle drop shadows
+- Primary yellow: `linear-gradient(135deg, #FFB800 0%, #FFA000 100%)`
+- Highlight yellow: `#FFF176` for active states
+- Warning yellow: `#FFD54F` with pulsing animations
+- Background: `linear-gradient(180deg, #1a1a1a 0%, #2a2a2a 100%)`
+- Card backgrounds: `rgba(255, 255, 255, 0.05)` with backdrop blur
+- Text hierarchy: #FFFFFF (primary), #B0B0B0 (secondary), #707070 (tertiary)
+- Background gradient: `linear-gradient(135deg, #4a1a2a 0%, #6d2d3d 50%, #8b4a5c 100%)`
+- Glass overlay: `rgba(255, 255, 255, 0.08)` with 20px blur
+- Accent colors: Rose gold (#E8B4A0) for highlights
+- H1: 32px, font-weight: 700, letter-spacing: -0.5px
+- H2: 24px, font-weight: 600, letter-spacing: -0.3px
+- H3: 18px, font-weight: 600, letter-spacing: 0px
+- Body: 16px, font-weight: 400, line-height: 1.5
+- Caption: 12px, font-weight: 500, opacity: 0.7
+- Large amounts: Tabular numbers, 28px, font-weight: 700
+- Currency symbols: Slightly smaller (24px) with reduced opacity
+- Animated counting effect with easing transitions
+- Commar separators with proper spacing
+- Dimensions: Minimum height 120px, 16px border radius, 4px elevation shadow
+- Background: Translucent with backdrop-filter: blur(20px)
+- Border: 1px solid rgba(255,255,255,0.1)
+- Hover States: Transform scale(1.02) with 300ms ease transition
+- Content Padding: 24px horizontal, 20px vertical
+- Layout: Grid system with 2-column mobile, 3-column tablet
+- Active State: Bright yellow background (#FFF176) with black text
+- Inactive State: Dark background with white text and subtle border
+- Progress Indicators: Circular progress bars with animated fills
+- Amount Display: Large centered numbers with currency formatting
+- Style: Fully rounded (border-radius: 50px), 48px height
+- Background: Yellow gradient with subtle glow effect
+- Typography: 16px semibold, all caps with letter-spacing: 0.5px
+- Default: Full opacity with subtle shadow
+- Hover: Brightness(110%) with scale(1.05)
+- Pressed: Brightness(90%) with scale(0.98)
+- Size: 44x44px touch targets
+- Background: Circular with rgba(255,255,255,0.1)
+- Icons: 24px stroke-based with 2px line weight
+- Animation: Rotation or scale effects on interaction
+- Design: 3D rendered character with green color scheme
+- Size: 64px for main display, 32px for navigation
+- Animation: Subtle breathing animation (scale 1.0 to 1.05)
+- Background: Circular frame with gradient border
+- States: Active (animated), idle (static), thinking (pulsing)
+- Frame: Circular with 2px border in brand colors
+- Fallback: Colorful geometric patterns with initials
+- Status Indicators: Small colored dots for online/offline states
+- Positive Values: Gradient from #00ff88 to #00cc6a
+- Negative Values: Gradient from #ff4757 to #cc1e35
+- Neutral Values: Gradient from #3d5afe to #1e40af
+- Background Grids: rgba(255,255,255,0.1) with 1px stroke
+- Entry Animations: Staggered appearance with 100ms delays
+- Data Updates: Smooth morphing transitions over 500ms
+- Hover Effects: Scale data points to 1.2x with glow effects
+- Loading States: Skeleton screens with shimmer animations
+- Line Styling: 3px stroke width with rounded line joins
+- Data Points: 8px circles with 2px white border
+- Fill Areas: Vertical gradients with 30% opacity
+- Grid Lines: Horizontal only, dashed style with 50% opacity
+- Tooltip Design: Dark rounded rectangles with arrow pointers
+- Bar Styling: Rounded tops (4px radius), minimum 8px width
+- Spacing: 50% bar width spacing between bars
+- Height Animation: Grow from bottom with ease-out timing
+- Value Labels: Positioned above bars with 8px offset
+- Background Bars: Light gray guides at 20% opacity
+- Segment Styling: 12px stroke width with 2px spacing
+- Center Content: Large percentage with descriptive text below
+- Hover Effects: Segment expansion by 8px with glow
+- Legend: Side-aligned with colored dots and percentages
+- Animation: Sequential segment drawing over 1.5 seconds
+- Track Styling: 8px height, fully rounded, light background
+- Progress Fill: Gradient backgrounds matching category colors
+- Labels: Percentage overlay in contrasting colors
+- Animation: Smooth width increase with spring physics
+- Overflow Indication: Red warning states for budget exceeds
+- Ripple Effects: Material design ripples for button presses
+- Scale Animations: Subtle scaling (0.95x) on press
+- Color Transitions: 200ms ease transitions for background changes
+- Shadow Depth: Elevated shadows on hover (0px 8px 32px rgba(0,0,0,0.3))
+- Swipe Cards: Horizontal swipe with spring-back animations
+- Pull-to-Refresh: Custom loading spinner with brand colors
+- Pinch-to-Zoom: Chart zooming with momentum scrolling
+- Long Press: Context menus with blur backgrounds
+- User Greeting: Large welcome text with time-based messaging
+- Profile Section: Avatar with balance display and settings access
+- Quick Stats: Row of 3-4 key metrics with trend indicators
+- Background: Hero gradient with subtle geometric patterns
+- Card Layout: Masonry grid with varying heights
+- AI Assistant Panel: Prominent placement with interactive elements
+- Financial Overview: Large balance card with breakdown
+- Quick Actions: Floating action button group in bottom right
+- Design: Horizontal scrolling pills with active/inactive states
+- Typography: 14px medium weight with proper contrast
+- Spacing: 12px between pills, 16px horizontal padding
+- Selection: Smooth background slide animation to active pill
+- Layout: 2x2 grid on mobile, scalable to larger screens
+- Card Styling: Large amounts with category icons
+- Progress Visualization: Subtle background progress fills
+- Interaction: Tap to expand with detailed breakdown
+- Design: Full-screen overlay with glassmorphism background
+- Chart Integration: Interactive bar chart with item breakdown
+- Action Buttons: Floating at bottom with haptic feedback
+- Close Interaction: Drag down to dismiss with rubber band effect
+- Design: Segmented control with pill-shaped selections
+- Animation: Sliding background indicator
+- Typography: 14px semibold with proper spacing
+- Position: Top-aligned with consistent margins
+- Grid System: Responsive columns adapting to screen size
+- Chart Cards: Individual containers with descriptive headers
+- Data Summary: Key metrics prominently displayed
+- Interactive Legend: Clickable items to show/hide data series
+- Card Design: Credit card mockups with realistic styling
+- Information Hierarchy: Account numbers, balances, and due dates
+- Status Indicators: Color-coded payment status badges
+- Quick Actions: Contextual buttons for common tasks
+- Navigation: Bottom tab bar with 5 primary sections
+- Card Layouts: Single column with full-width cards
+- Typography: Scaled font sizes maintaining readability
+- Touch Targets: Minimum 44px for all interactive elements
+- Grid System: 2-3 column layouts with proper gutters
+- Chart Sizing: Larger visualizations with more detail
+- Navigation: Side panel or expanded tab bar options
+- Modal Behavior: Centered overlays instead of full-screen
+- Multi-Panel Layout: Sidebar navigation with main content area
+- Chart Interactions: Mouse hover states and click behaviors
+- Data Density: More information per screen with proper spacing
+- Keyboard Navigation: Tab order and shortcut key support
+- Navigation: Slide transitions with directional awareness
+- Modal Appearance: Scale and fade with blur background
+- Tab Switching: Horizontal slide with momentum physics
+- Loading States: Skeleton screens morphing to real content
+- Number Counting: Eased counting animations for balance updates
+- Chart Rendering: Staggered animations for data visualization
+- Progress Updates: Smooth fills with spring physics
+- State Changes: Color transitions with proper timing curves
+- Success States: Checkmark animations with green highlights
+- Error Handling: Shake animations with red color shifts
+- Loading Indicators: Branded spinner designs with smooth rotation
+- Achievement Unlocks: Celebration animations with confetti effects
