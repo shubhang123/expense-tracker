@@ -4,17 +4,11 @@ import { useState } from 'react';
 import { Tabs, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { ScrollArea, ScrollBar } from '@/components/ui/scroll-area';
 import Link from 'next/link';
+import { categories, transactions as initialTransactions } from '@/lib/data';
+import { useLocalStorage } from '@/hooks/use-local-storage';
 
-const spendingData = [
-  { id: 'medicine', name: 'Medicine', spent: 5100, total: 10200, color: 'bg-white' },
-  { id: 'grocery', name: 'Grocery', spent: 1755, total: 5850, color: 'bg-primary' },
-  { id: 'loan-emi', name: 'Loan EMI', spent: 22900, total: 22900, color: 'bg-white' },
-  { id: 'health', name: 'Health', spent: 800, total: 2000, color: 'bg-white' },
-  { id: 'entertainment', name: 'Entertainment', spent: 1200, total: 1500, color: 'bg-white' },
-];
-
-const SpendingCard = ({ item, isSelected }: { item: typeof spendingData[0], isSelected: boolean }) => {
-  const progress = (item.spent / item.total) * 100;
+const SpendingCard = ({ item, isSelected }: { item: any, isSelected: boolean }) => {
+  const progress = item.total > 0 ? (item.spent / item.total) * 100 : 0;
 
   return (
     <Link href={`/purchase/${item.id}`}>
@@ -41,10 +35,25 @@ const SpendingCard = ({ item, isSelected }: { item: typeof spendingData[0], isSe
 export function SpendingDashboard() {
   const [activeTab, setActiveTab] = useState('all');
   const [selectedCard, setSelectedCard] = useState('grocery');
+  const [transactions] = useLocalStorage('transactions', initialTransactions);
+
+  const spendingData = categories.map(category => {
+    const categoryTransactions = transactions.filter(t => t.category.toLowerCase() === category.id.toLowerCase());
+    const spent = categoryTransactions.reduce((acc, t) => acc + Math.abs(t.amount), 0);
+    return {
+      ...category,
+      spent,
+      total: category.budget,
+    };
+  });
 
   const filteredData = activeTab === 'all'
     ? spendingData
-    : spendingData.filter(item => item.name.toLowerCase() === activeTab);
+    : spendingData.filter(item => item.id.toLowerCase() === activeTab);
+
+  const categoryTabs = categories.map(cat => (
+    <TabsTrigger key={cat.id} value={cat.id} className="data-[state=active]:bg-primary data-[state=active]:text-black rounded-full text-base px-4 py-2">{cat.name}</TabsTrigger>
+  ));
 
   return (
     <div className="space-y-6">
@@ -53,9 +62,7 @@ export function SpendingDashboard() {
           <ScrollArea className="w-full whitespace-nowrap">
             <div className="flex space-x-2">
                 <TabsTrigger value="all" className="data-[state=active]:bg-primary data-[state=active]:text-black rounded-full text-base px-4 py-2">All</TabsTrigger>
-                <TabsTrigger value="health" className="data-[state=active]:bg-primary data-[state=active]:text-black rounded-full text-base px-4 py-2">Health</TabsTrigger>
-                <TabsTrigger value="grocery" className="data-[state=active]:bg-primary data-[state=active]:text-black rounded-full text-base px-4 py-2">Grocery</TabsTrigger>
-                <TabsTrigger value="entertainment" className="data-[state=active]:bg-primary data-[state=active]:text-black rounded-full text-base px-4 py-2">Entertainment</TabsTrigger>
+                {categoryTabs}
             </div>
             <ScrollBar orientation="horizontal" className="hidden"/>
           </ScrollArea>

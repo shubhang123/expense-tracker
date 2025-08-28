@@ -23,7 +23,7 @@ export function AppLayout({ children }: { children: React.ReactNode }) {
           <Link href="/" className="p-2">
             <Home className="h-7 w-7 text-muted-foreground" />
           </Link>
-          <Link href="#" className="absolute -top-6">
+          <Link href="/add" className="absolute -top-6">
             <div className="bg-primary rounded-full p-4 shadow-lg shadow-primary/30">
               <Plus className="h-8 w-8 text-black" />
             </div>
