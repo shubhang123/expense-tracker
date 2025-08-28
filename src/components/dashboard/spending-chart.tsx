@@ -2,7 +2,7 @@
 
 import { Bar, BarChart, ResponsiveContainer, XAxis, YAxis, Tooltip } from 'recharts';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
-import { ChartTooltipContent } from '@/components/ui/chart';
+import { ChartContainer, ChartTooltipContent, type ChartConfig } from '@/components/ui/chart';
 
 const data = [
   { name: 'Groceries', total: 4890 },
@@ -14,6 +14,14 @@ const data = [
   { name: 'Health', total: 530 },
 ];
 
+const chartConfig = {
+  total: {
+    label: "Total",
+    color: "hsl(var(--chart-1))",
+  },
+} satisfies ChartConfig;
+
+
 export function SpendingChart() {
   return (
     <Card className="glassmorphic-card col-span-1 lg:col-span-2">
@@ -22,7 +30,7 @@ export function SpendingChart() {
         <CardDescription className="text-gray-400">Your spending by category this month.</CardDescription>
       </CardHeader>
       <CardContent className="pl-2">
-        <ResponsiveContainer width="100%" height={350}>
+        <ChartContainer config={chartConfig} className="min-h-[350px] w-full">
           <BarChart data={data} layout="vertical" margin={{ left: 10, right: 30 }}>
             <XAxis type="number" stroke="#888888" fontSize={12} tickLine={false} axisLine={false} hide />
             <YAxis
@@ -53,7 +61,7 @@ export function SpendingChart() {
                 </linearGradient>
             </defs>
           </BarChart>
-        </ResponsiveContainer>
+        </ChartContainer>
       </CardContent>
     </Card>
   );
