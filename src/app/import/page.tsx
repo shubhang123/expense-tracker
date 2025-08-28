@@ -12,10 +12,13 @@ import React, { useState } from 'react';
 import { useLocalStorage } from '@/hooks/use-local-storage';
 import { transactions as initialTransactions } from '@/lib/data';
 import { useRouter } from 'next/navigation';
+import { Label } from '@/components/ui/label';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 
 export default function ImportPage() {
   const { toast } = useToast();
   const [file, setFile] = useState<File | null>(null);
+  const [importDays, setImportDays] = useState('7');
   const [transactions, setTransactions] = useLocalStorage(
     'transactions',
     initialTransactions
@@ -44,8 +47,9 @@ export default function ImportPage() {
       if (typeof text !== 'string') return;
 
       const rows = text.split('\n').slice(1); // Skip header row
-      const sevenDaysAgo = new Date();
-      sevenDaysAgo.setDate(sevenDaysAgo.getDate() - 7);
+      const daysToImport = parseInt(importDays, 10);
+      const importFromDate = new Date();
+      importFromDate.setDate(importFromDate.getDate() - daysToImport);
 
       const newTransactions = rows
         .map((row) => {
@@ -57,7 +61,7 @@ export default function ImportPage() {
           const transactionDate = new Date(date);
           const parsedAmount = parseFloat(amount);
           
-          if (isNaN(parsedAmount) || !date || transactionDate < sevenDaysAgo) return null;
+          if (isNaN(parsedAmount) || !date || transactionDate < importFromDate) return null;
 
           // Duplicate prevention check
           const isDuplicate = transactions.some(
@@ -86,13 +90,13 @@ export default function ImportPage() {
         setTransactions([...newTransactions, ...transactions]);
         toast({
           title: 'Import Successful!',
-          description: `${newTransactions.length} new transactions from the last 7 days have been added.`,
+          description: `${newTransactions.length} new transactions from the last ${daysToImport} days have been added.`,
         });
         router.push('/');
       } else {
         toast({
           title: 'No New Transactions',
-          description: 'No new, valid, or non-duplicate transactions found in the file from the last 7 days.',
+          description: `No new, valid, or non-duplicate transactions found in the file from the last ${daysToImport} days.`,
           variant: 'destructive',
         });
       }
@@ -121,9 +125,26 @@ export default function ImportPage() {
           <p className="text-muted-foreground">
             Upload a CSV file with your transactions. The file should have the
             following columns: Date, Merchant, Amount, Category, Subcategory,
-            Notes. Only transactions from the last 7 days will be imported.
+            Notes.
           </p>
+          
+          <div className="space-y-2">
+            <Label htmlFor="import-days">Import Period</Label>
+            <Select value={importDays} onValueChange={setImportDays}>
+                <SelectTrigger id="import-days">
+                    <SelectValue placeholder="Select import period" />
+                </SelectTrigger>
+                <SelectContent>
+                    <SelectItem value="7">Last 7 Days</SelectItem>
+                    <SelectItem value="30">Last 30 Days</SelectItem>
+                    <SelectItem value="90">Last 90 Days</SelectItem>
+                    <SelectItem value="365">Last Year</SelectItem>
+                </SelectContent>
+            </Select>
+          </div>
+
           <Input type="file" accept=".csv" onChange={handleFileChange} />
+          
           <Button onClick={handleImport} className="w-full" size="lg" disabled={!file}>
             <Upload className="mr-2 h-4 w-4" /> Import File
           </Button>
