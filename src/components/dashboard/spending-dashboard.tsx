@@ -14,16 +14,8 @@ const SpendingCard = ({ item, isSelected }: { item: any, isSelected: boolean }) 
   const progress = item.total > 0 ? (item.spent / item.total) * 100 : 0;
   const router = useRouter();
 
-  let pressTimer: NodeJS.Timeout;
-
-  const handlePointerDown = () => {
-    pressTimer = setTimeout(() => {
-      router.push(`/add?category=${item.id}`);
-    }, 1000); // 1-second long press
-  };
-
-  const handlePointerUp = () => {
-    clearTimeout(pressTimer);
+  const handleDoubleClick = () => {
+    router.push(`/add?category=${item.id}`);
   };
 
   const handleClick = () => {
@@ -33,10 +25,8 @@ const SpendingCard = ({ item, isSelected }: { item: any, isSelected: boolean }) 
   return (
     <div 
         className={`w-40 h-64 rounded-3xl p-4 flex flex-col justify-between shrink-0 ${isSelected ? 'bg-primary text-black' : 'bg-neutral-800 text-white'}`}
-        onPointerDown={handlePointerDown}
-        onPointerUp={handlePointerUp}
+        onDoubleClick={handleDoubleClick}
         onClick={handleClick}
-        style={{ touchAction: 'pan-y' }}
         >
         <h3 className="font-semibold text-lg">{item.name}</h3>
         <div className="flex-1 flex items-center justify-center">
