@@ -34,7 +34,7 @@ const SpendingCard = ({ item, isSelected }: { item: any, isSelected: boolean }) 
         <h3 className="font-semibold text-lg">{item.name}</h3>
         <div className="flex-1 flex items-center justify-center">
         <div className="w-full space-y-2 text-center">
-          <div className={`text-3xl font-bold ${isSelected ? 'text-primary-foreground' : 'text-black'}`}>
+          <div className="text-3xl font-bold">
               ${item.spent.toLocaleString()}
           </div>
           <Progress 
