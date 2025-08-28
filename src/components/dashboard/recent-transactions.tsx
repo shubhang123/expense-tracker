@@ -12,7 +12,7 @@ import { categories as initialCategories, transactions as initialTransactions } 
 import { useLocalStorage } from '@/hooks/use-local-storage';
 import { useRouter } from 'next/navigation';
 
-export function RecentTransactions({ filterByCategory, hideHeader = false }: { filterByCategory?: string, hideHeader?: boolean }) {
+export function RecentTransactions({ filterByCategory, hideHeader = false, searchTerm }: { filterByCategory?: string, hideHeader?: boolean, searchTerm?: string }) {
   const [transactions] = useLocalStorage('transactions', initialTransactions);
   const [categories] = useLocalStorage('categories', initialCategories);
   const router = useRouter();
@@ -26,11 +26,16 @@ export function RecentTransactions({ filterByCategory, hideHeader = false }: { f
     return category ? category.name : 'N/A';
   }
 
-  const displayedTransactions = filterByCategory 
-    ? transactions.filter((t: any) => t.category === filterByCategory)
-    : transactions;
+  const filteredTransactions = transactions.filter((t: any) => {
+    const categoryMatch = !filterByCategory || t.category === filterByCategory;
+    const searchMatch = !searchTerm || 
+      t.merchant.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      (t.subcategory && t.subcategory.toLowerCase().includes(searchTerm.toLowerCase())) ||
+      (t.notes && t.notes.toLowerCase().includes(searchTerm.toLowerCase()));
+    return categoryMatch && searchMatch;
+  });
 
-  const limitedTransactions = hideHeader ? displayedTransactions : displayedTransactions.slice(0,5);
+  const limitedTransactions = hideHeader ? filteredTransactions : filteredTransactions.slice(0,5);
 
   return (
     <Card>
@@ -66,7 +71,7 @@ export function RecentTransactions({ filterByCategory, hideHeader = false }: { f
           </div>
         ))}
         {limitedTransactions.length === 0 && (
-          <p className="text-muted-foreground text-center">No transactions in this category yet.</p>
+          <p className="text-muted-foreground text-center">No transactions found.</p>
         )}
       </CardContent>
     </Card>
