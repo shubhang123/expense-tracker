@@ -8,7 +8,7 @@ import { Button } from '@/components/ui/button';
 import { useLocalStorage } from '@/hooks/use-local-storage';
 import { categories as initialCategories, transactions as initialTransactions } from '@/lib/data';
 import { useSearchParams } from 'next/navigation';
-import React, { useState, useMemo } from 'react';
+import React, { useState, useMemo, useEffect } from 'react';
 import { Input } from '@/components/ui/input';
 import { RecentTransactions } from '@/components/dashboard/recent-transactions';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
@@ -20,6 +20,8 @@ import { cn } from '@/lib/utils';
 import { DateRange } from 'react-day-picker';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 
+type SmartFilterType = 'high-value' | 'uncategorized' | 'recent';
+
 function SearchPageContent() {
   const searchParams = useSearchParams();
   const [transactions] = useLocalStorage('transactions', initialTransactions);
@@ -29,6 +31,15 @@ function SearchPageContent() {
   const [date, setDate] = useState<DateRange | undefined>(undefined);
   const [category, setCategory] = useState<string>('all');
   const [amountFilter, setAmountFilter] = useState<{min?: number, max?: number} | undefined>(undefined);
+  const [activeSmartFilter, setActiveSmartFilter] = useState<SmartFilterType | null>(null);
+
+  useEffect(() => {
+    // Deselect smart filter if any manual filter is changed
+    if(activeSmartFilter) {
+        setActiveSmartFilter(null);
+    }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [searchTerm, date, category, amountFilter]);
 
   const filteredTransactions = useMemo(() => {
     return transactions.filter((t: any) => {
@@ -54,24 +65,33 @@ function SearchPageContent() {
     });
   }, [searchTerm, category, date, transactions, amountFilter]);
   
-  const applySmartFilter = (type: 'high-value' | 'uncategorized' | 'recent') => {
+  const applySmartFilter = (type: SmartFilterType) => {
+    setActiveSmartFilter(type);
+    setSearchTerm('');
     if (type === 'high-value') {
         setAmountFilter({ min: 100 });
         setCategory('all');
         setDate(undefined);
-        setSearchTerm('');
     } else if (type === 'uncategorized') {
         setCategory('uncategorized');
         setAmountFilter(undefined);
         setDate(undefined);
-        setSearchTerm('');
     } else if (type === 'recent') {
         setDate({ from: subDays(new Date(), 7), to: new Date() });
         setAmountFilter(undefined);
         setCategory('all');
-        setSearchTerm('');
     }
   }
+
+  const clearFilters = () => {
+    setSearchTerm('');
+    setDate(undefined);
+    setCategory('all');
+    setAmountFilter(undefined);
+    setActiveSmartFilter(null);
+  }
+  
+  const hasActiveFilters = searchTerm || date || category !== 'all' || amountFilter || activeSmartFilter;
 
   return (
     <div className="space-y-6">
@@ -151,11 +171,15 @@ function SearchPageContent() {
             <div>
                 <h3 className="mb-2 text-sm font-medium text-muted-foreground">Smart Filters</h3>
                 <div className="flex flex-wrap gap-2">
-                    <Button variant="outline" size="sm" onClick={() => applySmartFilter('high-value')}>High-Value (>$100)</Button>
-                    <Button variant="outline" size="sm" onClick={() => applySmartFilter('uncategorized')}>Uncategorized</Button>
-                    <Button variant="outline" size="sm" onClick={() => applySmartFilter('recent')}>Last 7 Days</Button>
+                    <Button variant={activeSmartFilter === 'high-value' ? 'secondary' : 'outline'} size="sm" onClick={() => applySmartFilter('high-value')}>High-Value (>$100)</Button>
+                    <Button variant={activeSmartFilter === 'uncategorized' ? 'secondary' : 'outline'} size="sm" onClick={() => applySmartFilter('uncategorized')}>Uncategorized</Button>
+                    <Button variant={activeSmartFilter === 'recent' ? 'secondary' : 'outline'} size="sm" onClick={() => applySmartFilter('recent')}>Last 7 Days</Button>
                 </div>
             </div>
+
+            {hasActiveFilters && (
+                <Button variant="link" onClick={clearFilters} className="p-0 h-auto">Clear all filters</Button>
+            )}
             
         </CardContent>
       </Card>
