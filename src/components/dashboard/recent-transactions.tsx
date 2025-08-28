@@ -28,23 +28,29 @@ export function RecentTransactions({ filterByCategory, hideHeader = false, searc
 
   const filteredTransactions = transactions.filter((t: any) => {
     const categoryMatch = !filterByCategory || t.category === filterByCategory;
-    const searchMatch = !searchTerm || 
-      t.merchant.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      (t.subcategory && t.subcategory.toLowerCase().includes(searchTerm.toLowerCase())) ||
-      (t.notes && t.notes.toLowerCase().includes(searchTerm.toLowerCase()));
+    
+    const trimmedSearch = searchTerm?.trim().toLowerCase();
+    const searchMatch = !trimmedSearch || 
+      t.merchant.toLowerCase().includes(trimmedSearch) ||
+      (t.subcategory && t.subcategory.toLowerCase().includes(trimmedSearch)) ||
+      (t.notes && t.notes.toLowerCase().includes(trimmedSearch));
+      
     return categoryMatch && searchMatch;
   });
 
-  const limitedTransactions = hideHeader ? filteredTransactions : filteredTransactions.slice(0,5);
+  const hasSearchTerm = searchTerm && searchTerm.trim().length > 0;
+  const limitedTransactions = hideHeader || hasSearchTerm ? filteredTransactions : filteredTransactions.slice(0, 5);
 
   return (
     <Card>
       {!hideHeader && (
         <CardHeader>
-          <CardTitle>Recent Transactions</CardTitle>
-          <CardDescription>
-            Here are your most recent expenses. Click to edit.
-          </CardDescription>
+          <CardTitle>{hasSearchTerm ? 'Search Results' : 'Recent Transactions'}</CardTitle>
+          {!hasSearchTerm && (
+            <CardDescription>
+              Here are your most recent expenses. Click to edit.
+            </CardDescription>
+          )}
         </CardHeader>
       )}
       <CardContent className={`space-y-4 ${hideHeader ? 'pt-6' : ''}`}>
