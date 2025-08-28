@@ -17,7 +17,7 @@ export function RecentTransactions() {
     <Card className="glassmorphic-card">
       <CardHeader>
         <CardTitle className="text-white">Recent Transactions</CardTitle>
-        <CardDescription className="text-gray-400">Your latest transactions.</CardDescription>
+        <CardDescription className="text-muted-foreground">Your latest transactions.</CardDescription>
       </CardHeader>
       <CardContent>
         <ScrollArea className="h-[350px] pr-4">
@@ -29,7 +29,7 @@ export function RecentTransactions() {
                 </Avatar>
                 <div className="ml-4 space-y-1">
                   <p className="text-sm font-medium leading-none text-white">{transaction.name}</p>
-                  <p className="text-sm text-gray-400">{transaction.category}</p>
+                  <p className="text-sm text-muted-foreground">{transaction.category}</p>
                 </div>
                 <div className="ml-auto text-right">
                     <p className="font-medium text-sm text-red-400">

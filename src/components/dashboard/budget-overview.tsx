@@ -13,7 +13,7 @@ export function BudgetOverview() {
     <Card className="glassmorphic-card">
       <CardHeader>
         <CardTitle className="text-white">Budget Progress</CardTitle>
-        <CardDescription className="text-gray-400">Your performance against your budgets this month.</CardDescription>
+        <CardDescription className="text-muted-foreground">Your performance against your budgets this month.</CardDescription>
       </CardHeader>
       <CardContent className="space-y-6">
         {budgets.map((budget, index) => {
@@ -22,7 +22,7 @@ export function BudgetOverview() {
             <div key={index}>
               <div className="flex justify-between mb-1">
                 <span className="text-sm font-medium text-white">{budget.name}</span>
-                <span className="text-sm text-gray-400">${budget.spent} / ${budget.total}</span>
+                <span className="text-sm text-muted-foreground">${budget.spent} / ${budget.total}</span>
               </div>
               <Progress value={progress} className="h-2 [&>div]:bg-gradient-to-r [&>div]:from-primary [&>div]:to-accent" />
                {progress > 90 && (
