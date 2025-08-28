@@ -8,7 +8,7 @@ export default function Home() {
         <h1 className="text-4xl font-bold">Your Spending</h1>
       </div>
       <SpendingDashboard />
-      <RecentTransactions />
+      <RecentTransactions hideHeader={false} />
     </div>
   );
 }

@@ -12,7 +12,7 @@ import { categories as initialCategories, transactions as initialTransactions } 
 import { useLocalStorage } from '@/hooks/use-local-storage';
 import { useRouter } from 'next/navigation';
 
-export function RecentTransactions() {
+export function RecentTransactions({ filterByCategory, hideHeader = false }: { filterByCategory?: string, hideHeader?: boolean }) {
   const [transactions] = useLocalStorage('transactions', initialTransactions);
   const [categories] = useLocalStorage('categories', initialCategories);
   const router = useRouter();
@@ -26,16 +26,22 @@ export function RecentTransactions() {
     return category ? category.name : 'N/A';
   }
 
+  const displayedTransactions = filterByCategory 
+    ? transactions.filter((t: any) => t.category === filterByCategory)
+    : transactions.slice(0, 5);
+
   return (
     <Card>
-      <CardHeader>
-        <CardTitle>Recent Transactions</CardTitle>
-        <CardDescription>
-          Here are your most recent expenses. Click to edit.
-        </CardDescription>
-      </CardHeader>
-      <CardContent className="space-y-4">
-        {transactions.slice(0, 5).map((t: any) => (
+      {!hideHeader && (
+        <CardHeader>
+          <CardTitle>Recent Transactions</CardTitle>
+          <CardDescription>
+            Here are your most recent expenses. Click to edit.
+          </CardDescription>
+        </CardHeader>
+      )}
+      <CardContent className={`space-y-4 ${hideHeader ? 'pt-6' : ''}`}>
+        {displayedTransactions.map((t: any) => (
           <div
             key={t.id}
             onClick={() => handleTransactionClick(t.id)}
