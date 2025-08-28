@@ -39,6 +39,7 @@ const formSchema = z.object({
   subcategory: z.string().optional(),
   date: z.date(),
   notes: z.string().optional(),
+  receiptUrl: z.string().url('Please enter a valid URL.').optional().or(z.literal('')),
 });
 
 type AddTransactionFormProps = {
@@ -66,6 +67,7 @@ export function AddTransactionForm({
       category: initialData?.category || defaultCategory || '',
       subcategory: initialData?.subcategory || '',
       notes: initialData?.notes || '',
+      receiptUrl: initialData?.receiptUrl || '',
     },
   });
 
@@ -216,6 +218,21 @@ export function AddTransactionForm({
             </FormItem>
           )}
         />
+
+        <FormField
+            control={form.control}
+            name="receiptUrl"
+            render={({ field }) => (
+                <FormItem>
+                <FormLabel>Receipt URL (Optional)</FormLabel>
+                <FormControl>
+                    <Input placeholder="https://example.com/receipt.png" {...field} />
+                </FormControl>
+                <FormMessage />
+                </FormItem>
+            )}
+        />
+        
         <Button type="submit" className="w-full" size="lg">
           {isEditMode ? 'Save Changes' : 'Add Transaction'}
         </Button>

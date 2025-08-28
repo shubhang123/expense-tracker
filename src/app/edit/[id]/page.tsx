@@ -20,6 +20,7 @@ import {
   AlertDialogTitle,
   AlertDialogTrigger,
 } from '@/components/ui/alert-dialog';
+import Image from 'next/image';
 
 export default function EditTransactionPage() {
   const [transactions, setTransactions] = useLocalStorage(
@@ -105,6 +106,15 @@ export default function EditTransactionPage() {
           </AlertDialogContent>
         </AlertDialog>
       </div>
+
+      {transaction.receiptUrl && (
+        <div className="mt-6">
+            <h3 className="text-lg font-semibold mb-2">Receipt</h3>
+            <div className="relative aspect-video w-full rounded-lg overflow-hidden border">
+                <Image src={transaction.receiptUrl} alt="Receipt" layout="fill" objectFit="contain" />
+            </div>
+        </div>
+      )}
 
       <AddTransactionForm
         categories={categories}
