@@ -81,10 +81,8 @@ export default function PurchaseDetailPage() {
                   fill="#000000"
                   radius={[10, 10, 10, 10]}
                   label={{
-                    position: 'insideBottom',
-                    angle: -90,
-                    dy: 20,
-                    fill: '#ffffff',
+                    position: 'top',
+                    fill: '#000000',
                     formatter: (value: number) => `$${value}`,
                     fontSize: 14,
                     fontWeight: 'bold',
