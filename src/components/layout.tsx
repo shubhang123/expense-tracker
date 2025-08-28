@@ -10,6 +10,7 @@ import {
   CreditCard,
   LogOut,
   Shield,
+  Upload,
 } from 'lucide-react';
 import { Avatar, AvatarImage, AvatarFallback } from '@/components/ui/avatar';
 import { Button } from '@/components/ui/button';
@@ -56,6 +57,12 @@ export function AppLayout({ children }: { children: React.ReactNode }) {
             <div className="flex flex-col space-y-4 py-8">
               <Link href="/profile" className="flex items-center gap-4 text-lg">
                 <Settings /> Account
+              </Link>
+              <Link
+                href="/import"
+                className="flex items-center gap-4 text-lg"
+              >
+                <Upload /> Import CSV
               </Link>
               <Link href="#" className="flex items-center gap-4 text-lg">
                 <CreditCard /> Subscription
