@@ -25,6 +25,8 @@ export function RecentTransactions({ filterByCategory, hideHeader = false, searc
     const category = categories.find(c => c.id.toLowerCase() === id.toLowerCase());
     return category ? category.name : 'N/A';
   }
+  
+  const hasSearchTerm = searchTerm && searchTerm.trim().length > 0;
 
   const filteredTransactions = transactions.filter((t: any) => {
     const categoryMatch = !filterByCategory || t.category === filterByCategory;
@@ -38,7 +40,6 @@ export function RecentTransactions({ filterByCategory, hideHeader = false, searc
     return categoryMatch && searchMatch;
   });
 
-  const hasSearchTerm = searchTerm && searchTerm.trim().length > 0;
   const limitedTransactions = hideHeader || hasSearchTerm ? filteredTransactions : filteredTransactions.slice(0, 5);
 
   return (
