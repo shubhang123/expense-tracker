@@ -12,6 +12,7 @@ import {
   Shield,
   Upload,
   FolderKanban,
+  Download,
 } from 'lucide-react';
 import { Avatar, AvatarImage, AvatarFallback } from '@/components/ui/avatar';
 import { Button } from '@/components/ui/button';
@@ -64,6 +65,12 @@ export function AppLayout({ children }: { children: React.ReactNode }) {
                 className="flex items-center gap-4 text-lg"
               >
                 <Upload /> Import CSV
+              </Link>
+              <Link
+                href="/export"
+                className="flex items-center gap-4 text-lg"
+              >
+                <Download /> Export Data
               </Link>
               <Link
                 href="/categories"
