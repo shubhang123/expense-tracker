@@ -11,7 +11,10 @@ import { useRouter } from 'next/navigation';
 import { Progress } from '../ui/progress';
 
 const SpendingCard = ({ item, isSelected }: { item: any, isSelected: boolean }) => {
-  const progress = item.total > 0 ? (item.spent / item.total) * 100 : 0;
+  const spent = item.spent;
+  const total = item.total;
+  const progress = total > 0 ? (spent / total) * 100 : 0;
+  const isOverBudget = spent > total && total > 0;
   const router = useRouter();
 
   const handleDoubleClick = () => {
@@ -34,7 +37,13 @@ const SpendingCard = ({ item, isSelected }: { item: any, isSelected: boolean }) 
           <div className={`text-3xl font-bold ${isSelected ? 'text-black' : 'text-white'}`}>
               ${item.spent.toLocaleString()}
           </div>
-          <Progress value={progress} className="h-2" indicatorClassName={isSelected ? 'bg-black' : 'bg-primary'}/>
+          <Progress 
+            value={progress} 
+            className="h-2" 
+            indicatorClassName={
+              isOverBudget ? 'bg-destructive' : (isSelected ? 'bg-black' : 'bg-primary')
+            }
+          />
           <p className="text-center font-bold text-sm">of ${item.total.toLocaleString()}</p>
         </div>
         </div>
