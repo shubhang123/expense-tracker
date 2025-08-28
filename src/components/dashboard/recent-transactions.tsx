@@ -12,10 +12,25 @@ import { categories as initialCategories, transactions as initialTransactions } 
 import { useLocalStorage } from '@/hooks/use-local-storage';
 import { useRouter } from 'next/navigation';
 
-export function RecentTransactions({ filterByCategory, hideHeader = false, searchTerm }: { filterByCategory?: string, hideHeader?: boolean, searchTerm?: string }) {
-  const [transactions] = useLocalStorage('transactions', initialTransactions);
-  const [categories] = useLocalStorage('categories', initialCategories);
+export function RecentTransactions({ 
+  filterByCategory, 
+  hideHeader = false, 
+  searchTerm,
+  transactions: propsTransactions,
+  categories: propsCategories
+}: { 
+  filterByCategory?: string, 
+  hideHeader?: boolean, 
+  searchTerm?: string,
+  transactions?: any[],
+  categories?: any[]
+}) {
+  const [localStorageTransactions] = useLocalStorage('transactions', initialTransactions);
+  const [localStorageCategories] = useLocalStorage('categories', initialCategories);
   const router = useRouter();
+
+  const transactions = propsTransactions || localStorageTransactions;
+  const categories = propsCategories || localStorageCategories;
 
   const handleTransactionClick = (id: string) => {
     router.push(`/edit/${id}`);
