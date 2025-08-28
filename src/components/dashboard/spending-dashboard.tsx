@@ -44,7 +44,7 @@ const SpendingCard = ({ item, isSelected }: { item: any, isSelected: boolean }) 
               isOverBudget ? 'bg-destructive' : (isSelected ? 'bg-black' : 'bg-primary')
             }
           />
-          <p className={`text-center font-bold text-sm ${isSelected ? 'text-primary-foreground/80' : ''}`}>of ${item.total.toLocaleString()}</p>
+          <p className={`text-center font-bold text-sm ${isSelected ? 'text-primary-foreground/80' : 'text-white/80'}`}>of ${item.total.toLocaleString()}</p>
         </div>
         </div>
     </div>
