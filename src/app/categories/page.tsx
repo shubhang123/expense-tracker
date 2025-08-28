@@ -32,6 +32,7 @@ import {
   AlertDialogTitle,
   AlertDialogTrigger,
 } from '@/components/ui/alert-dialog';
+import { BudgetRecommender } from '@/components/dashboard/budget-recommender';
 
 const categoryFormSchema = z.object({
   name: z.string().min(2, 'Category name is too short'),
@@ -107,6 +108,8 @@ export default function CategoriesPage() {
         </Button>
         <h1 className="text-2xl font-bold">Manage Categories</h1>
       </div>
+
+      <BudgetRecommender />
 
       <Card>
         <CardHeader>
