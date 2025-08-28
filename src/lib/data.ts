@@ -6,6 +6,7 @@ export const categories = [
   { id: 'entertainment', name: 'Entertainment', budget: 1500 },
   { id: 'transport', name: 'Transport', budget: 1000 },
   { id: 'utilities', name: 'Utilities', budget: 3000 },
+  { id: 'uncategorized', name: 'Uncategorized', budget: 0 },
 ];
 
 export const transactions = [

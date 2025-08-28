@@ -10,7 +10,7 @@ import { Input } from '@/components/ui/input';
 import { useToast } from '@/hooks/use-toast';
 import React, { useState } from 'react';
 import { useLocalStorage } from '@/hooks/use-local-storage';
-import { transactions as initialTransactions } from '@/lib/data';
+import { transactions as initialTransactions, categories } from '@/lib/data';
 import { useRouter } from 'next/navigation';
 import { Label } from '@/components/ui/label';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
@@ -73,12 +73,14 @@ export default function ImportPage() {
 
           if (isDuplicate) return null;
 
+          const matchedCategory = categories.find(c => c.name.toLowerCase() === category?.toLowerCase().trim());
+
           return {
             id: `trx-${Date.now()}-${Math.random()}`,
             date: transactionDate.toISOString(),
             merchant: merchant || 'Unknown',
             amount: parsedAmount,
-            category: category || 'Uncategorized',
+            category: matchedCategory ? matchedCategory.id : 'uncategorized',
             subcategory: subcategory || '',
             notes: notes || '',
           };
@@ -87,7 +89,7 @@ export default function ImportPage() {
 
       if (newTransactions.length > 0) {
         // @ts-ignore
-        setTransactions([...newTransactions, ...transactions]);
+        setTransactions([...newTransactions.reverse(), ...transactions]);
         toast({
           title: 'Import Successful!',
           description: `${newTransactions.length} new transactions from the last ${daysToImport} days have been added.`,
