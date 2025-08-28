@@ -84,7 +84,7 @@ export function AppLayout({ children }: { children: React.ReactNode }) {
               <Plus className="h-8 w-8 text-black" />
             </div>
           </Link>
-          <Link href="#" className="p-2">
+          <Link href="/notifications" className="p-2">
             <Bell className="h-7 w-7 text-white" />
           </Link>
         </div>
