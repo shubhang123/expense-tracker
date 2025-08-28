@@ -11,19 +11,24 @@ import {
 import { categories as initialCategories, transactions as initialTransactions } from '@/lib/data';
 import { useLocalStorage } from '@/hooks/use-local-storage';
 import { useRouter } from 'next/navigation';
+import { Button } from '../ui/button';
+import Link from 'next/link';
+import { ArrowRight } from 'lucide-react';
 
 export function RecentTransactions({ 
   filterByCategory, 
   hideHeader = false, 
   searchTerm,
   transactions: propsTransactions,
-  categories: propsCategories
+  categories: propsCategories,
+  showViewAll = false,
 }: { 
   filterByCategory?: string, 
   hideHeader?: boolean, 
   searchTerm?: string,
   transactions?: any[],
-  categories?: any[]
+  categories?: any[],
+  showViewAll?: boolean,
 }) {
   const [localStorageTransactions] = useLocalStorage('transactions', initialTransactions);
   const [localStorageCategories] = useLocalStorage('categories', initialCategories);
@@ -55,17 +60,26 @@ export function RecentTransactions({
     return categoryMatch && searchMatch;
   });
 
-  const limitedTransactions = hideHeader || hasSearchTerm ? filteredTransactions : filteredTransactions.slice(0, 5);
+  const limitedTransactions = (hideHeader || hasSearchTerm) && !showViewAll ? filteredTransactions : filteredTransactions.slice(0, 5);
 
   return (
     <Card>
       {!hideHeader && (
-        <CardHeader>
-          <CardTitle>{hasSearchTerm ? 'Search Results' : 'Recent Transactions'}</CardTitle>
-          {!hasSearchTerm && (
-            <CardDescription>
-              Here are your most recent expenses. Click to edit.
-            </CardDescription>
+        <CardHeader className="flex flex-row items-center justify-between">
+          <div>
+            <CardTitle>{hasSearchTerm ? 'Search Results' : 'Recent Transactions'}</CardTitle>
+            {!hasSearchTerm && (
+              <CardDescription>
+                Here are your most recent expenses. Click to edit.
+              </CardDescription>
+            )}
+          </div>
+          {showViewAll && !hasSearchTerm && (
+            <Button asChild variant="link">
+              <Link href="/search">
+                View All <ArrowRight className="ml-2" />
+              </Link>
+            </Button>
           )}
         </CardHeader>
       )}

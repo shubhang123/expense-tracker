@@ -53,6 +53,7 @@ export default function Home() {
         hideHeader={false} 
         filterByCategory={activeTab === 'all' ? undefined : activeTab}
         searchTerm={searchTerm}
+        showViewAll={true}
       />
     </div>
   );
