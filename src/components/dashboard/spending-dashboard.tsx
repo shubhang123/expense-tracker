@@ -4,7 +4,7 @@
 import { useState } from 'react';
 import { Tabs, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { ScrollArea, ScrollBar } from '@/components/ui/scroll-area';
-import { categories, transactions as initialTransactions } from '@/lib/data';
+import { categories as initialCategories, transactions as initialTransactions } from '@/lib/data';
 import { useLocalStorage } from '@/hooks/use-local-storage';
 import { FinanceTips } from './finance-tips';
 import { useRouter } from 'next/navigation';
@@ -46,6 +46,7 @@ export function SpendingDashboard() {
   const [activeTab, setActiveTab] = useState('all');
   const [selectedCard, setSelectedCard] = useState('grocery');
   const [transactions] = useLocalStorage('transactions', initialTransactions);
+  const [categories] = useLocalStorage('categories', initialCategories);
 
   const spendingData = categories.map(category => {
     const categoryTransactions = transactions.filter(t => t.category.toLowerCase() === category.id.toLowerCase());

@@ -11,6 +11,7 @@ import {
   LogOut,
   Shield,
   Upload,
+  FolderKanban,
 } from 'lucide-react';
 import { Avatar, AvatarImage, AvatarFallback } from '@/components/ui/avatar';
 import { Button } from '@/components/ui/button';
@@ -63,6 +64,12 @@ export function AppLayout({ children }: { children: React.ReactNode }) {
                 className="flex items-center gap-4 text-lg"
               >
                 <Upload /> Import CSV
+              </Link>
+              <Link
+                href="/categories"
+                className="flex items-center gap-4 text-lg"
+              >
+                <FolderKanban /> Manage Categories
               </Link>
               <Link href="#" className="flex items-center gap-4 text-lg">
                 <CreditCard /> Subscription

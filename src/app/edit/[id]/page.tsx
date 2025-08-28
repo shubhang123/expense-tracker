@@ -5,7 +5,7 @@ import { ArrowLeft, Trash2 } from 'lucide-react';
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
 import { AddTransactionForm } from '@/components/forms/add-transaction-form';
-import { transactions as initialTransactions, categories } from '@/lib/data';
+import { categories as initialCategories, transactions as initialTransactions } from '@/lib/data';
 import { useLocalStorage } from '@/hooks/use-local-storage';
 import { useParams, useRouter } from 'next/navigation';
 import { useToast } from '@/hooks/use-toast';
@@ -27,6 +27,7 @@ export default function EditTransactionPage() {
     'transactions',
     initialTransactions
   );
+  const [categories] = useLocalStorage('categories', initialCategories);
   const router = useRouter();
   const params = useParams();
   const { toast } = useToast();

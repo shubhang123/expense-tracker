@@ -8,12 +8,13 @@ import {
   CardHeader,
   CardTitle,
 } from '@/components/ui/card';
-import { transactions as initialTransactions, categories } from '@/lib/data';
+import { categories as initialCategories, transactions as initialTransactions } from '@/lib/data';
 import { useLocalStorage } from '@/hooks/use-local-storage';
 import { useRouter } from 'next/navigation';
 
 export function RecentTransactions() {
   const [transactions] = useLocalStorage('transactions', initialTransactions);
+  const [categories] = useLocalStorage('categories', initialCategories);
   const router = useRouter();
 
   const handleTransactionClick = (id: string) => {

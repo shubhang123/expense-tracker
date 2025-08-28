@@ -10,7 +10,7 @@ import { Input } from '@/components/ui/input';
 import { useToast } from '@/hooks/use-toast';
 import React, { useState } from 'react';
 import { useLocalStorage } from '@/hooks/use-local-storage';
-import { transactions as initialTransactions, categories } from '@/lib/data';
+import { categories as initialCategories, transactions as initialTransactions } from '@/lib/data';
 import { useRouter } from 'next/navigation';
 import { Label } from '@/components/ui/label';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
@@ -23,6 +23,7 @@ export default function ImportPage() {
     'transactions',
     initialTransactions
   );
+  const [categories] = useLocalStorage('categories', initialCategories);
   const router = useRouter();
 
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {

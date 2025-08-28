@@ -5,13 +5,14 @@ import { Button } from '@/components/ui/button';
 import { ArrowLeft, Pencil } from 'lucide-react';
 import Link from 'next/link';
 import { useParams } from 'next/navigation';
-import { categories, transactions as initialTransactions } from '@/lib/data';
+import { categories as initialCategories, transactions as initialTransactions } from '@/lib/data';
 import { useLocalStorage } from '@/hooks/use-local-storage';
 
 export default function PurchaseDetailPage() {
   const params = useParams();
   const slug = Array.isArray(params.slug) ? params.slug[0] : params.slug;
   const [transactions] = useLocalStorage('transactions', initialTransactions);
+  const [categories] = useLocalStorage('categories', initialCategories);
 
   const category = categories.find(c => c.id === slug);
   const categoryTransactions = transactions.filter(t => t.category.toLowerCase() === slug);
