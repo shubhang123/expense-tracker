@@ -7,6 +7,7 @@ import { ScrollArea, ScrollBar } from '@/components/ui/scroll-area';
 import Link from 'next/link';
 import { categories, transactions as initialTransactions } from '@/lib/data';
 import { useLocalStorage } from '@/hooks/use-local-storage';
+import { FinanceTips } from './finance-tips';
 
 const SpendingCard = ({ item, isSelected }: { item: any, isSelected: boolean }) => {
   const progress = item.total > 0 ? (item.spent / item.total) * 100 : 0;
@@ -56,6 +57,9 @@ export function SpendingDashboard() {
     <TabsTrigger key={cat.id} value={cat.id} className="data-[state=active]:bg-primary data-[state=active]:text-black rounded-full text-base px-4 py-2">{cat.name}</TabsTrigger>
   ));
 
+  const spendingPatterns = JSON.stringify(transactions, null, 2);
+
+
   return (
     <div className="space-y-6">
       <Tabs value={activeTab} onValueChange={setActiveTab}>
@@ -80,6 +84,8 @@ export function SpendingDashboard() {
         </div>
         <ScrollBar orientation="horizontal" className="hidden"/>
       </ScrollArea>
+
+      <FinanceTips spendingPatterns={spendingPatterns} />
     </div>
   );
 }
