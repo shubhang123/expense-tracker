@@ -1,3 +1,4 @@
+
 'use client';
 
 import { useState } from 'react';
@@ -12,21 +13,21 @@ const SpendingCard = ({ item, isSelected }: { item: any, isSelected: boolean }) 
 
   return (
     <Link href={`/purchase/${item.id}`}>
-        <div className={`w-40 h-64 rounded-3xl p-3 flex flex-col justify-between shrink-0 ${isSelected ? 'bg-primary text-black' : 'bg-neutral-800 text-white'}`}>
+        <div className={`w-40 h-64 rounded-3xl p-4 flex flex-col justify-between shrink-0 ${isSelected ? 'bg-primary text-black' : 'bg-neutral-800 text-white'}`}>
             <h3 className="font-semibold text-lg">{item.name}</h3>
-            <div className="flex-1 flex items-end justify-center">
-                <div className="w-16 h-40 bg-white/20 rounded-2xl overflow-hidden relative">
+            <div className="flex-1 flex items-center justify-center">
+                <div className="w-24 h-24 bg-white/20 rounded-full flex items-center justify-center relative overflow-hidden">
                     <div
-                        className="absolute bottom-0 w-full bg-white rounded-2xl"
+                        className="absolute bottom-0 w-full bg-white"
                         style={{ height: `${progress}%` }}
-                    >
-                      <div className={`absolute bottom-2 left-0 right-0 text-center font-bold text-sm transform -rotate-90 origin-bottom-left text-black`}>
-                          ${item.spent.toLocaleString()}
-                      </div>
+                    ></div>
+                    <div className={`relative text-center font-bold ${isSelected ? 'text-black' : 'text-white'}`}>
+                        <div className="text-2xl">${item.spent.toLocaleString()}</div>
+                        <div className="text-xs">Spent</div>
                     </div>
                 </div>
             </div>
-            <p className="text-center font-bold text-xl mt-2">${item.total.toLocaleString()}</p>
+            <p className="text-center font-bold text-sm mt-2">of ${item.total.toLocaleString()}</p>
         </div>
     </Link>
   );
