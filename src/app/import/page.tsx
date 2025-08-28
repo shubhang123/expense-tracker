@@ -9,10 +9,18 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import { useToast } from '@/hooks/use-toast';
 import React, { useState } from 'react';
+import { useLocalStorage } from '@/hooks/use-local-storage';
+import { transactions as initialTransactions } from '@/lib/data';
+import { useRouter } from 'next/navigation';
 
 export default function ImportPage() {
   const { toast } = useToast();
   const [file, setFile] = useState<File | null>(null);
+  const [transactions, setTransactions] = useLocalStorage(
+    'transactions',
+    initialTransactions
+  );
+  const router = useRouter();
 
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     if (event.target.files) {
@@ -29,12 +37,56 @@ export default function ImportPage() {
       });
       return;
     }
-    // This is a placeholder for the actual CSV import logic.
-    toast({
-      title: 'Import in Progress',
-      description: `Processing "${file.name}". This may take a moment.`,
-    });
+
+    const reader = new FileReader();
+    reader.onload = (e) => {
+      const text = e.target?.result;
+      if (typeof text !== 'string') return;
+
+      const rows = text.split('\n').slice(1); // Skip header row
+      const newTransactions = rows
+        .map((row) => {
+          const columns = row.split(',');
+          if (columns.length < 3) return null;
+
+          const [date, merchant, amount, category, subcategory, notes] = columns;
+          
+          const parsedAmount = parseFloat(amount);
+          if (isNaN(parsedAmount)) return null;
+
+
+          return {
+            id: `trx-${Date.now()}-${Math.random()}`,
+            date: new Date(date).toISOString(),
+            merchant: merchant || 'Unknown',
+            amount: parsedAmount,
+            category: category || 'Uncategorized',
+            subcategory: subcategory || '',
+            notes: notes || '',
+          };
+        })
+        .filter(Boolean);
+
+      if (newTransactions.length > 0) {
+        // @ts-ignore
+        setTransactions([...newTransactions, ...transactions]);
+        toast({
+          title: 'Import Successful!',
+          description: `${newTransactions.length} transactions have been added.`,
+        });
+        router.push('/');
+      } else {
+        toast({
+          title: 'Import Failed',
+          description: 'No valid transactions found in the file.',
+          variant: 'destructive',
+        });
+      }
+    };
+
+    reader.readAsText(file);
   };
+
 
   return (
     <div className="space-y-6">
