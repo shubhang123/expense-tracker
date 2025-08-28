@@ -44,6 +44,9 @@ export default function ImportPage() {
       if (typeof text !== 'string') return;
 
       const rows = text.split('\n').slice(1); // Skip header row
+      const sevenDaysAgo = new Date();
+      sevenDaysAgo.setDate(sevenDaysAgo.getDate() - 7);
+
       const newTransactions = rows
         .map((row) => {
           const columns = row.split(',');
@@ -51,13 +54,24 @@ export default function ImportPage() {
 
           const [date, merchant, amount, category, subcategory, notes] = columns;
           
+          const transactionDate = new Date(date);
           const parsedAmount = parseFloat(amount);
-          if (isNaN(parsedAmount)) return null;
+          
+          if (isNaN(parsedAmount) || !date || transactionDate < sevenDaysAgo) return null;
 
+          // Duplicate prevention check
+          const isDuplicate = transactions.some(
+            (t: any) =>
+              new Date(t.date).getTime() === transactionDate.getTime() &&
+              t.merchant === merchant &&
+              t.amount === parsedAmount
+          );
+
+          if (isDuplicate) return null;
 
           return {
             id: `trx-${Date.now()}-${Math.random()}`,
-            date: new Date(date).toISOString(),
+            date: transactionDate.toISOString(),
             merchant: merchant || 'Unknown',
             amount: parsedAmount,
             category: category || 'Uncategorized',
@@ -72,13 +86,13 @@ export default function ImportPage() {
         setTransactions([...newTransactions, ...transactions]);
         toast({
           title: 'Import Successful!',
-          description: `${newTransactions.length} transactions have been added.`,
+          description: `${newTransactions.length} new transactions from the last 7 days have been added.`,
         });
         router.push('/');
       } else {
         toast({
-          title: 'Import Failed',
-          description: 'No valid transactions found in the file.',
+          title: 'No New Transactions',
+          description: 'No new, valid, or non-duplicate transactions found in the file from the last 7 days.',
           variant: 'destructive',
         });
       }
@@ -107,7 +121,7 @@ export default function ImportPage() {
           <p className="text-muted-foreground">
             Upload a CSV file with your transactions. The file should have the
             following columns: Date, Merchant, Amount, Category, Subcategory,
-            Notes.
+            Notes. Only transactions from the last 7 days will be imported.
           </p>
           <Input type="file" accept=".csv" onChange={handleFileChange} />
           <Button onClick={handleImport} className="w-full" size="lg" disabled={!file}>
