@@ -34,7 +34,7 @@ const SpendingCard = ({ item, isSelected }: { item: any, isSelected: boolean }) 
         <h3 className="font-semibold text-lg">{item.name}</h3>
         <div className="flex-1 flex items-center justify-center">
         <div className="w-full space-y-2 text-center">
-          <div className={`text-3xl font-bold ${isSelected ? 'text-primary-foreground' : 'text-white'}`}>
+          <div className={`text-3xl font-bold ${isSelected ? 'text-primary-foreground' : 'text-black'}`}>
               ${item.spent.toLocaleString()}
           </div>
           <Progress 
@@ -51,8 +51,13 @@ const SpendingCard = ({ item, isSelected }: { item: any, isSelected: boolean }) 
   );
 };
 
-export function SpendingDashboard() {
-  const [activeTab, setActiveTab] = useState('all');
+type SpendingDashboardProps = {
+    activeTab: string;
+    onTabChange: (tab: string) => void;
+    categoryTabs: { id: string; name: string }[];
+}
+
+export function SpendingDashboard({ activeTab, onTabChange, categoryTabs }: SpendingDashboardProps) {
   const [selectedCard, setSelectedCard] = useState('grocery');
   const [transactions] = useLocalStorage('transactions', initialTransactions);
   const [categories] = useLocalStorage('categories', initialCategories);
@@ -71,21 +76,19 @@ export function SpendingDashboard() {
     ? spendingData
     : spendingData.filter(item => item.id.toLowerCase() === activeTab);
 
-  const categoryTabs = categories.map(cat => (
-    <TabsTrigger key={cat.id} value={cat.id} className="data-[state=active]:bg-primary data-[state=active]:text-black rounded-full text-base px-4 py-2">{cat.name}</TabsTrigger>
-  ));
-
   const spendingPatterns = JSON.stringify(transactions, null, 2);
 
 
   return (
     <div className="space-y-6">
-      <Tabs value={activeTab} onValueChange={setActiveTab}>
+      <Tabs value={activeTab} onValueChange={onTabChange}>
         <TabsList className="bg-transparent p-0 justify-start">
           <ScrollArea className="w-full whitespace-nowrap">
             <div className="flex space-x-2">
                 <TabsTrigger value="all" className="data-[state=active]:bg-primary data-[state=active]:text-black rounded-full text-base px-4 py-2">All</TabsTrigger>
-                {categoryTabs}
+                {categoryTabs.map(cat => (
+                    <TabsTrigger key={cat.id} value={cat.id} className="data-[state=active]:bg-primary data-[state=active]:text-black rounded-full text-base px-4 py-2">{cat.name}</TabsTrigger>
+                ))}
             </div>
             <ScrollBar orientation="horizontal" className="hidden"/>
           </ScrollArea>
