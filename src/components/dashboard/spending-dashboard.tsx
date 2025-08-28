@@ -8,29 +8,51 @@ import Link from 'next/link';
 import { categories, transactions as initialTransactions } from '@/lib/data';
 import { useLocalStorage } from '@/hooks/use-local-storage';
 import { FinanceTips } from './finance-tips';
+import { useRouter } from 'next/navigation';
 
 const SpendingCard = ({ item, isSelected }: { item: any, isSelected: boolean }) => {
   const progress = item.total > 0 ? (item.spent / item.total) * 100 : 0;
+  const router = useRouter();
+
+  let pressTimer: NodeJS.Timeout;
+
+  const handlePointerDown = () => {
+    pressTimer = setTimeout(() => {
+      router.push(`/add?category=${item.id}`);
+    }, 1000); // 1-second long press
+  };
+
+  const handlePointerUp = () => {
+    clearTimeout(pressTimer);
+  };
+
+  const handleClick = () => {
+    router.push(`/purchase/${item.id}`);
+  }
 
   return (
-    <Link href={`/purchase/${item.id}`}>
-        <div className={`w-40 h-64 rounded-3xl p-4 flex flex-col justify-between shrink-0 ${isSelected ? 'bg-primary text-black' : 'bg-neutral-800 text-white'}`}>
-            <h3 className="font-semibold text-lg">{item.name}</h3>
-            <div className="flex-1 flex items-center justify-center">
-                <div className="w-24 h-24 bg-white/20 rounded-full flex items-center justify-center relative overflow-hidden">
-                    <div
-                        className="absolute bottom-0 w-full bg-white"
-                        style={{ height: `${progress}%` }}
-                    ></div>
-                    <div className={`relative text-center font-bold ${isSelected ? 'text-black' : 'text-white'}`}>
-                        <div className="text-2xl">${item.spent.toLocaleString()}</div>
-                        <div className="text-xs">Spent</div>
-                    </div>
+    <div 
+        className={`w-40 h-64 rounded-3xl p-4 flex flex-col justify-between shrink-0 ${isSelected ? 'bg-primary text-black' : 'bg-neutral-800 text-white'}`}
+        onPointerDown={handlePointerDown}
+        onPointerUp={handlePointerUp}
+        onClick={handleClick}
+        style={{ touchAction: 'pan-y' }}
+        >
+        <h3 className="font-semibold text-lg">{item.name}</h3>
+        <div className="flex-1 flex items-center justify-center">
+            <div className="w-24 h-24 bg-white/20 rounded-full flex items-center justify-center relative overflow-hidden">
+                <div
+                    className="absolute bottom-0 w-full bg-white"
+                    style={{ height: `${progress}%` }}
+                ></div>
+                <div className={`relative text-center font-bold ${isSelected ? 'text-black' : 'text-white'}`}>
+                    <div className="text-2xl">${item.spent.toLocaleString()}</div>
+                    <div className="text-xs">Spent</div>
                 </div>
             </div>
-            <p className="text-center font-bold text-sm mt-2">of ${item.total.toLocaleString()}</p>
         </div>
-    </Link>
+        <p className="text-center font-bold text-sm mt-2">of ${item.total.toLocaleString()}</p>
+    </div>
   );
 };
 
