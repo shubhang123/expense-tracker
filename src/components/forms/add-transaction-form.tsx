@@ -45,34 +45,42 @@ type AddTransactionFormProps = {
   categories: { id: string; name: string }[];
   onSubmit: (data: z.infer<typeof formSchema>) => void;
   defaultCategory?: string | null;
+  initialData?: z.infer<typeof formSchema> & { date: string };
+  isEditMode?: boolean;
 };
 
 export function AddTransactionForm({
   categories,
   onSubmit,
   defaultCategory,
+  initialData,
+  isEditMode = false,
 }: AddTransactionFormProps) {
   const router = useRouter();
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      amount: 0,
-      merchant: '',
-      date: new Date(),
-      category: defaultCategory || '',
+      amount: initialData?.amount || 0,
+      merchant: initialData?.merchant || '',
+      date: initialData ? new Date(initialData.date) : new Date(),
+      category: initialData?.category || defaultCategory || '',
+      subcategory: initialData?.subcategory || '',
+      notes: initialData?.notes || '',
     },
   });
 
   useEffect(() => {
-    if (defaultCategory) {
+    if (defaultCategory && !isEditMode) {
       form.setValue('category', defaultCategory);
     }
-  }, [defaultCategory, form]);
+  }, [defaultCategory, form, isEditMode]);
 
   function handleFormSubmit(values: z.infer<typeof formSchema>) {
     onSubmit(values);
-    toast({ title: 'Transaction Added!', description: 'Your transaction has been successfully saved.'})
-    router.push('/');
+    if (!isEditMode) {
+      toast({ title: 'Transaction Added!', description: 'Your transaction has been successfully saved.'})
+      router.push('/');
+    }
   }
 
   return (
@@ -93,6 +101,7 @@ export function AddTransactionForm({
                   placeholder="0.00"
                   {...field}
                   className="text-4xl h-auto p-4 font-bold"
+                  onChange={e => field.onChange(Math.abs(Number(e.target.value)))}
                 />
               </FormControl>
               <FormMessage />
@@ -208,7 +217,7 @@ export function AddTransactionForm({
           )}
         />
         <Button type="submit" className="w-full" size="lg">
-          Add Transaction
+          {isEditMode ? 'Save Changes' : 'Add Transaction'}
         </Button>
       </form>
     </Form>

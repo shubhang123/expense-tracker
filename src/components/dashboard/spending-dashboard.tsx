@@ -4,11 +4,11 @@
 import { useState } from 'react';
 import { Tabs, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { ScrollArea, ScrollBar } from '@/components/ui/scroll-area';
-import Link from 'next/link';
 import { categories, transactions as initialTransactions } from '@/lib/data';
 import { useLocalStorage } from '@/hooks/use-local-storage';
 import { FinanceTips } from './finance-tips';
 import { useRouter } from 'next/navigation';
+import { Progress } from '../ui/progress';
 
 const SpendingCard = ({ item, isSelected }: { item: any, isSelected: boolean }) => {
   const progress = item.total > 0 ? (item.spent / item.total) * 100 : 0;
@@ -30,18 +30,14 @@ const SpendingCard = ({ item, isSelected }: { item: any, isSelected: boolean }) 
         >
         <h3 className="font-semibold text-lg">{item.name}</h3>
         <div className="flex-1 flex items-center justify-center">
-            <div className="w-24 h-24 bg-white/20 rounded-full flex items-center justify-center relative overflow-hidden">
-                <div
-                    className="absolute bottom-0 w-full bg-white"
-                    style={{ height: `${progress}%` }}
-                ></div>
-                <div className={`relative text-center font-bold ${isSelected ? 'text-black' : 'text-white'}`}>
-                    <div className="text-2xl">${item.spent.toLocaleString()}</div>
-                    <div className="text-xs">Spent</div>
-                </div>
-            </div>
+        <div className="w-full space-y-2 text-center">
+          <div className={`text-3xl font-bold ${isSelected ? 'text-black' : 'text-white'}`}>
+              ${item.spent.toLocaleString()}
+          </div>
+          <Progress value={progress} className="h-2" indicatorClassName={isSelected ? 'bg-black' : 'bg-primary'}/>
+          <p className="text-center font-bold text-sm">of ${item.total.toLocaleString()}</p>
         </div>
-        <p className="text-center font-bold text-sm mt-2">of ${item.total.toLocaleString()}</p>
+        </div>
     </div>
   );
 };
