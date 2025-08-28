@@ -28,7 +28,9 @@ export function RecentTransactions({ filterByCategory, hideHeader = false }: { f
 
   const displayedTransactions = filterByCategory 
     ? transactions.filter((t: any) => t.category === filterByCategory)
-    : transactions.slice(0, 5);
+    : transactions;
+
+  const limitedTransactions = hideHeader ? displayedTransactions : displayedTransactions.slice(0,5);
 
   return (
     <Card>
@@ -41,7 +43,7 @@ export function RecentTransactions({ filterByCategory, hideHeader = false }: { f
         </CardHeader>
       )}
       <CardContent className={`space-y-4 ${hideHeader ? 'pt-6' : ''}`}>
-        {displayedTransactions.map((t: any) => (
+        {limitedTransactions.map((t: any) => (
           <div
             key={t.id}
             onClick={() => handleTransactionClick(t.id)}
@@ -63,6 +65,9 @@ export function RecentTransactions({ filterByCategory, hideHeader = false }: { f
             </div>
           </div>
         ))}
+        {limitedTransactions.length === 0 && (
+          <p className="text-muted-foreground text-center">No transactions in this category yet.</p>
+        )}
       </CardContent>
     </Card>
   );

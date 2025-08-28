@@ -110,7 +110,7 @@ export default function PurchaseDetailPage() {
       
       <div className="mt-6">
         <h2 className="text-2xl font-bold mb-4">Transactions</h2>
-        <RecentTransactions filterByCategory={slug} />
+        <RecentTransactions filterByCategory={slug} hideHeader={true} />
       </div>
 
     </div>
