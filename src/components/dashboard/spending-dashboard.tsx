@@ -27,14 +27,14 @@ const SpendingCard = ({ item, isSelected }: { item: any, isSelected: boolean }) 
 
   return (
     <div 
-        className={`w-40 h-64 rounded-3xl p-4 flex flex-col justify-between shrink-0 ${isSelected ? 'bg-primary text-black' : 'bg-neutral-800 text-white'}`}
+        className={`w-40 h-64 rounded-3xl p-4 flex flex-col justify-between shrink-0 ${isSelected ? 'bg-primary text-primary-foreground' : 'bg-neutral-800 text-white'}`}
         onDoubleClick={handleDoubleClick}
         onClick={handleClick}
         >
         <h3 className="font-semibold text-lg">{item.name}</h3>
         <div className="flex-1 flex items-center justify-center">
         <div className="w-full space-y-2 text-center">
-          <div className={`text-3xl font-bold ${isSelected ? 'text-black' : 'text-white'}`}>
+          <div className={`text-3xl font-bold ${isSelected ? 'text-primary-foreground' : 'text-white'}`}>
               ${item.spent.toLocaleString()}
           </div>
           <Progress 
@@ -44,7 +44,7 @@ const SpendingCard = ({ item, isSelected }: { item: any, isSelected: boolean }) 
               isOverBudget ? 'bg-destructive' : (isSelected ? 'bg-black' : 'bg-primary')
             }
           />
-          <p className="text-center font-bold text-sm">of ${item.total.toLocaleString()}</p>
+          <p className={`text-center font-bold text-sm ${isSelected ? 'text-primary-foreground/80' : ''}`}>of ${item.total.toLocaleString()}</p>
         </div>
         </div>
     </div>
