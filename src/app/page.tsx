@@ -25,6 +25,8 @@ export default function Home() {
   const onTabChange = (tab: string) => {
     setActiveTab(tab);
   }
+  
+  const hasSearchTerm = searchTerm.trim().length > 0;
 
   return (
     <div className="space-y-6 pb-24">
@@ -39,21 +41,21 @@ export default function Home() {
           onChange={(e) => setSearchTerm(e.target.value)}
           className="text-base"
         />
-        {searchTerm && (
+        {hasSearchTerm && (
           <Button asChild variant="link" className="absolute right-0 top-0 h-full">
             <Link href={`/search?q=${searchTerm}`}>
-              View All <ArrowRight className="ml-2" />
+              Advanced Search <ArrowRight className="ml-2" />
             </Link>
           </Button>
         )}
       </div>
 
-      <SpendingDashboard activeTab={activeTab} onTabChange={onTabChange} categoryTabs={categoryTabs} />
+      {!hasSearchTerm && <SpendingDashboard activeTab={activeTab} onTabChange={onTabChange} categoryTabs={categoryTabs} />}
       <RecentTransactions 
-        hideHeader={false} 
-        filterByCategory={activeTab === 'all' ? undefined : activeTab}
+        hideHeader={hasSearchTerm} 
+        filterByCategory={activeTab === 'all' || hasSearchTerm ? undefined : activeTab}
         searchTerm={searchTerm}
-        showViewAll={true}
+        showViewAll={!hasSearchTerm}
       />
     </div>
   );
