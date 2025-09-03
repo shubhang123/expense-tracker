@@ -60,7 +60,7 @@ export function AppLayout({ children }: { children: React.ReactNode }) {
             <div className="p-4 bg-white/10 rounded-2xl">
               <item.icon className="h-8 w-8" />
             </div>
-            <span className="text-xs">{item.label}</span>
+            <span className="text-xs font-semibold">{item.label}</span>
           </Link>
         ))}
       </div>
@@ -108,17 +108,18 @@ export function AppLayout({ children }: { children: React.ReactNode }) {
 
       <main className="flex-1 overflow-y-auto px-4">{children}</main>
 
-      <footer className="sticky bottom-0 left-0 right-0 bg-black">
-        <div className="flex justify-around items-center p-4 max-w-md mx-auto relative">
+      <footer className="sticky bottom-0 left-0 right-0 bg-black/50 backdrop-blur-lg">
+        <div className="flex justify-around items-center p-4 max-w-md mx-auto relative h-20">
           <Link href="/" className="p-2">
             <Home className="h-7 w-7 text-white" />
           </Link>
-          <FloatingActionButton />
+          
           <Link href="/notifications" className="p-2">
             <Bell className="h-7 w-7 text-white" />
           </Link>
         </div>
       </footer>
+      <FloatingActionButton />
     </div>
   );
 }
