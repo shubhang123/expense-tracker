@@ -82,17 +82,15 @@ export function SpendingDashboard({ activeTab, onTabChange, categoryTabs }: Spen
   return (
     <div className="space-y-6">
       <Tabs value={activeTab} onValueChange={onTabChange}>
-        <TabsList className="bg-transparent p-0 justify-start">
-          <ScrollArea className="w-full whitespace-nowrap">
-            <div className="flex space-x-2">
-                <TabsTrigger value="all" className="data-[state=active]:bg-primary data-[state=active]:text-black rounded-full text-base px-4 py-2">All</TabsTrigger>
-                {categoryTabs.map(cat => (
-                    <TabsTrigger key={cat.id} value={cat.id} className="data-[state=active]:bg-primary data-[state=active]:text-black rounded-full text-base px-4 py-2">{cat.name}</TabsTrigger>
-                ))}
-            </div>
-            <ScrollBar orientation="horizontal" className="hidden"/>
-          </ScrollArea>
-        </TabsList>
+        <ScrollArea className="w-full whitespace-nowrap">
+          <TabsList className="bg-transparent p-0 justify-start">
+              <TabsTrigger value="all" className="data-[state=active]:bg-primary data-[state=active]:text-black rounded-full text-base px-4 py-2">All</TabsTrigger>
+              {categoryTabs.map(cat => (
+                  <TabsTrigger key={cat.id} value={cat.id} className="data-[state=active]:bg-primary data-[state=active]:text-black rounded-full text-base px-4 py-2">{cat.name}</TabsTrigger>
+              ))}
+          </TabsList>
+          <ScrollBar orientation="horizontal" className="hidden"/>
+        </ScrollArea>
       </Tabs>
 
       <ScrollArea className="w-full">
