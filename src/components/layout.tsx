@@ -25,11 +25,58 @@ import {
   SheetTrigger,
 } from '@/components/ui/sheet';
 import { Separator } from '@/components/ui/separator';
+import { useState } from 'react';
+import { useIsMobile } from '@/hooks/use-mobile';
 
 export function AppLayout({ children }: { children: React.ReactNode }) {
   const [profile] = useLocalStorage('user-profile', {
     avatarUrl: 'https://picsum.photos/100/100',
   });
+  const [isSheetOpen, setIsSheetOpen] = useState(false);
+  const isMobile = useIsMobile();
+
+  const handleLinkClick = () => {
+    setIsSheetOpen(false);
+  }
+
+  const SheetMenuItems = () => (
+    <>
+        <Link href="/profile" className="flex items-center gap-4 text-lg" onClick={handleLinkClick}>
+            <Settings /> Account
+        </Link>
+        <Link
+            href="/import"
+            className="flex items-center gap-4 text-lg"
+            onClick={handleLinkClick}
+        >
+            <Upload /> Import CSV
+        </Link>
+        <Link
+            href="/export"
+            className="flex items-center gap-4 text-lg"
+            onClick={handleLinkClick}
+        >
+            <Download /> Export Data
+        </Link>
+        <Link
+            href="/categories"
+            className="flex items-center gap-4 text-lg"
+            onClick={handleLinkClick}
+        >
+            <FolderKanban /> Manage Categories
+        </Link>
+        <Link href="#" className="flex items-center gap-4 text-lg" onClick={handleLinkClick}>
+            <CreditCard /> Subscription
+        </Link>
+        <Link href="#" className="flex items-center gap-4 text-lg" onClick={handleLinkClick}>
+            <Shield /> Privacy
+        </Link>
+        <Separator className="bg-neutral-700" />
+        <Link href="#" className="flex items-center gap-4 text-lg" onClick={handleLinkClick}>
+            <LogOut /> Sign Out
+        </Link>
+    </>
+  )
 
   return (
     <div className="flex flex-col h-screen bg-black text-white">
@@ -44,50 +91,20 @@ export function AppLayout({ children }: { children: React.ReactNode }) {
             <AvatarFallback>U</AvatarFallback>
           </Avatar>
         </Link>
-        <Sheet>
+        <Sheet open={isSheetOpen} onOpenChange={setIsSheetOpen}>
           <SheetTrigger asChild>
             <Button variant="ghost" size="icon">
               <Menu className="h-6 w-6" />
             </Button>
           </SheetTrigger>
-          <SheetContent side="right" className="bg-black text-white w-3/4">
+          <SheetContent side={isMobile ? 'bottom' : 'right'} className="bg-black text-white">
             <SheetHeader>
               <SheetTitle className="text-primary text-2xl">
                 Settings
               </SheetTitle>
             </SheetHeader>
             <div className="flex flex-col space-y-4 py-8">
-              <Link href="/profile" className="flex items-center gap-4 text-lg">
-                <Settings /> Account
-              </Link>
-              <Link
-                href="/import"
-                className="flex items-center gap-4 text-lg"
-              >
-                <Upload /> Import CSV
-              </Link>
-              <Link
-                href="/export"
-                className="flex items-center gap-4 text-lg"
-              >
-                <Download /> Export Data
-              </Link>
-              <Link
-                href="/categories"
-                className="flex items-center gap-4 text-lg"
-              >
-                <FolderKanban /> Manage Categories
-              </Link>
-              <Link href="#" className="flex items-center gap-4 text-lg">
-                <CreditCard /> Subscription
-              </Link>
-              <Link href="#" className="flex items-center gap-4 text-lg">
-                <Shield /> Privacy
-              </Link>
-              <Separator className="bg-neutral-700" />
-              <Link href="#" className="flex items-center gap-4 text-lg">
-                <LogOut /> Sign Out
-              </Link>
+              <SheetMenuItems />
             </div>
           </SheetContent>
         </Sheet>
