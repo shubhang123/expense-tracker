@@ -61,9 +61,6 @@ export default function PurchaseDetailPage() {
           </Link>
         </Button>
         <h1 className="text-3xl font-bold">Spent Purchase</h1>
-        <Button variant="ghost" size="icon" className="bg-neutral-800 rounded-full" onClick={handleDeleteCategoryTransactions}>
-            <Trash2 />
-        </Button>
       </div>
 
       <Card className="flex-1 flex flex-col bg-primary text-primary-foreground rounded-3xl p-4">
