@@ -5,7 +5,6 @@ import Link from 'next/link';
 import {
   Home,
   Bell,
-  Plus,
   Menu,
   Settings,
   CreditCard,
@@ -29,9 +28,11 @@ import {
 import { Separator } from '@/components/ui/separator';
 import { useState } from 'react';
 import { useIsMobile } from '@/hooks/use-mobile';
+import type { Profile } from '@/lib/types';
+import { FloatingActionButton } from './floating-action-button';
 
 export function AppLayout({ children }: { children: React.ReactNode }) {
-  const [profile] = useLocalStorage('user-profile', {
+  const [profile] = useLocalStorage<Profile>('user-profile', {
     avatarUrl: 'https://picsum.photos/100/100',
   });
   const [isSheetOpen, setIsSheetOpen] = useState(false);
@@ -91,7 +92,7 @@ export function AppLayout({ children }: { children: React.ReactNode }) {
           </SheetTrigger>
           <SheetContent
             side={isMobile ? 'bottom' : 'right'}
-            className="bg-neutral-800/60 text-white backdrop-blur-xl border-neutral-700 rounded-t-3xl md:rounded-l-3xl md:rounded-t-none"
+            className="bg-neutral-900/80 text-white backdrop-blur-xl border-neutral-700 rounded-t-3xl md:rounded-l-3xl md:rounded-t-none"
           >
             <SheetHeader>
               <SheetTitle className="text-primary text-2xl">
@@ -112,11 +113,7 @@ export function AppLayout({ children }: { children: React.ReactNode }) {
           <Link href="/" className="p-2">
             <Home className="h-7 w-7 text-white" />
           </Link>
-          <Link href="/add" className="absolute -top-6">
-            <div className="bg-primary rounded-full p-4 shadow-lg shadow-primary/30">
-              <Plus className="h-8 w-8 text-black" />
-            </div>
-          </Link>
+          <FloatingActionButton />
           <Link href="/notifications" className="p-2">
             <Bell className="h-7 w-7 text-white" />
           </Link>
