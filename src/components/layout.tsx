@@ -29,12 +29,6 @@ import {
 import { Separator } from '@/components/ui/separator';
 import { useState } from 'react';
 import { useIsMobile } from '@/hooks/use-mobile';
-import {
-  Tooltip,
-  TooltipContent,
-  TooltipProvider,
-  TooltipTrigger,
-} from './ui/tooltip';
 
 export function AppLayout({ children }: { children: React.ReactNode }) {
   const [profile] = useLocalStorage('user-profile', {
@@ -49,41 +43,31 @@ export function AppLayout({ children }: { children: React.ReactNode }) {
 
   const menuItems = [
     { href: '/profile', icon: User, label: 'Profile' },
-    { href: '/categories', icon: FolderKanban, label: 'Manage Categories' },
-    { href: '/import', icon: Upload, label: 'Import CSV' },
-    { href: '/export', icon: Download, label: 'Export Data' },
+    { href: '/categories', icon: FolderKanban, label: 'Categories' },
+    { href: '/import', icon: Upload, label: 'Import' },
+    { href: '/export', icon: Download, label: 'Export' },
     { href: '/settings', icon: Settings, label: 'Settings' },
     { href: '#', icon: CreditCard, label: 'Subscription' },
     { href: '#', icon: Shield, label: 'Privacy' },
   ];
 
   const SheetMenuItems = () => (
-    <TooltipProvider>
-      <div className="flex items-center justify-around flex-wrap gap-4">
+    <div className="space-y-8">
+       <div className="grid grid-cols-3 gap-4 text-center">
         {menuItems.map(item => (
-          <Tooltip key={item.href}>
-            <TooltipTrigger asChild>
-              <Link href={item.href} onClick={handleLinkClick}>
-                <Button
-                  variant="outline"
-                  size="icon"
-                  className="h-16 w-16 rounded-2xl bg-white/10 border-white/20"
-                >
-                  <item.icon className="h-8 w-8" />
-                </Button>
-              </Link>
-            </TooltipTrigger>
-            <TooltipContent>
-              <p>{item.label}</p>
-            </TooltipContent>
-          </Tooltip>
+          <Link href={item.href} key={item.href} onClick={handleLinkClick} className="flex flex-col items-center space-y-2 text-white/80 hover:text-white">
+            <div className="p-4 bg-white/10 rounded-2xl">
+              <item.icon className="h-8 w-8" />
+            </div>
+            <span className="text-xs">{item.label}</span>
+          </Link>
         ))}
       </div>
-      <Separator className="my-8 bg-white/20" />
+      <Separator className="bg-white/20" />
       <Button variant="destructive" className="w-full text-lg py-6">
         <LogOut className="mr-2" /> Sign Out
       </Button>
-    </TooltipProvider>
+    </div>
   );
 
   return (
