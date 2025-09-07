@@ -19,13 +19,14 @@ import { format, subDays } from 'date-fns';
 import { cn } from '@/lib/utils';
 import { DateRange } from 'react-day-picker';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
+import type { Transaction, Category } from '@/lib/types';
 
 type SmartFilterType = 'high-value' | 'uncategorized' | 'recent';
 
 function SearchPageContent() {
   const searchParams = useSearchParams();
-  const [transactions] = useLocalStorage('transactions', initialTransactions);
-  const [categories] = useLocalStorage('categories', initialCategories);
+  const [transactions] = useLocalStorage<Transaction[]>('transactions', initialTransactions);
+  const [categories] = useLocalStorage<Category[]>('categories', initialCategories);
   
   const [searchTerm, setSearchTerm] = useState(searchParams.get('q') || '');
   const [date, setDate] = useState<DateRange | undefined>(undefined);
@@ -42,7 +43,7 @@ function SearchPageContent() {
   }, [searchTerm, date, category, amountFilter]);
 
   const filteredTransactions = useMemo(() => {
-    return transactions.filter((t: any) => {
+    return transactions.filter((t: Transaction) => {
       const trimmedSearch = searchTerm.trim().toLowerCase();
       const searchMatch = !trimmedSearch ||
         t.merchant.toLowerCase().includes(trimmedSearch) ||
@@ -159,7 +160,7 @@ function SearchPageContent() {
                     </SelectTrigger>
                     <SelectContent>
                         <SelectItem value="all">All Categories</SelectItem>
-                        {categories.map((cat: any) => (
+                        {categories.map((cat: Category) => (
                             <SelectItem key={cat.id} value={cat.id}>
                                 {cat.name}
                             </SelectItem>
@@ -171,7 +172,7 @@ function SearchPageContent() {
             <div>
                 <h3 className="mb-2 text-sm font-medium text-muted-foreground">Smart Filters</h3>
                 <div className="flex flex-wrap gap-2">
-                    <Button variant={activeSmartFilter === 'high-value' ? 'secondary' : 'outline'} size="sm" onClick={() => applySmartFilter('high-value')}>High-Value (>$100)</Button>
+                    <Button variant={activeSmartFilter === 'high-value' ? 'secondary' : 'outline'} size="sm" onClick={() => applySmartFilter('high-value')}>High-Value (>₹100)</Button>
                     <Button variant={activeSmartFilter === 'uncategorized' ? 'secondary' : 'outline'} size="sm" onClick={() => applySmartFilter('uncategorized')}>Uncategorized</Button>
                     <Button variant={activeSmartFilter === 'recent' ? 'secondary' : 'outline'} size="sm" onClick={() => applySmartFilter('recent')}>Last 7 Days</Button>
                 </div>

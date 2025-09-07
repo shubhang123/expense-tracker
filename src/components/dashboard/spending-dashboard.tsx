@@ -9,10 +9,16 @@ import { useLocalStorage } from '@/hooks/use-local-storage';
 import { FinanceTips } from './finance-tips';
 import { useRouter } from 'next/navigation';
 import { Progress } from '../ui/progress';
+import type { Transaction, Category } from '@/lib/types';
 
-const SpendingCard = ({ item, isSelected }: { item: any, isSelected: boolean }) => {
+interface SpendingCardProps {
+  item: Category & { spent: number; total?: number };
+  isSelected: boolean;
+}
+
+const SpendingCard = ({ item, isSelected }: SpendingCardProps) => {
   const spent = item.spent;
-  const total = item.total;
+  const total = item.total || 0;
   const progress = total > 0 ? (spent / total) * 100 : 0;
   const isOverBudget = spent > total && total > 0;
   const router = useRouter();
@@ -35,7 +41,7 @@ const SpendingCard = ({ item, isSelected }: { item: any, isSelected: boolean }) 
         <div className="flex-1 flex items-center justify-center">
         <div className="w-full space-y-2 text-center">
           <div className="text-3xl font-bold">
-              ${item.spent.toLocaleString()}
+              ₹{item.spent.toLocaleString()}
           </div>
           <Progress 
             value={progress} 
@@ -44,7 +50,7 @@ const SpendingCard = ({ item, isSelected }: { item: any, isSelected: boolean }) 
               isOverBudget ? 'bg-destructive' : (isSelected ? 'bg-black' : 'bg-primary')
             }
           />
-          <p className={`text-center font-bold text-sm ${isSelected ? 'text-primary-foreground/80' : 'text-white/80'}`}>of ${item.total.toLocaleString()}</p>
+          <p className={`text-center font-bold text-sm ${isSelected ? 'text-primary-foreground/80' : 'text-white/80'}`}>of ₹{total.toLocaleString()}</p>
         </div>
         </div>
     </div>
@@ -59,8 +65,8 @@ type SpendingDashboardProps = {
 
 export function SpendingDashboard({ activeTab, onTabChange, categoryTabs }: SpendingDashboardProps) {
   const [selectedCard, setSelectedCard] = useState('grocery');
-  const [transactions] = useLocalStorage('transactions', initialTransactions);
-  const [categories] = useLocalStorage('categories', initialCategories);
+  const [transactions] = useLocalStorage<Transaction[]>('transactions', initialTransactions);
+  const [categories] = useLocalStorage<Category[]>('categories', initialCategories);
 
   const spendingData = categories.map(category => {
     const categoryTransactions = transactions.filter(t => t.category.toLowerCase() === category.id.toLowerCase());

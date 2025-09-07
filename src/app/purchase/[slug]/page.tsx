@@ -2,11 +2,13 @@
 import { Bar, BarChart, ResponsiveContainer, XAxis, YAxis, Tooltip, Cell } from 'recharts';
 import { Card, CardContent, CardHeader } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { ArrowLeft, Check, Pencil, Trash2 } from 'lucide-react';
+import { ArrowLeft, Check, Pencil } from 'lucide-react';
 import Link from 'next/link';
 import { useParams, useRouter } from 'next/navigation';
 import { categories as initialCategories, transactions as initialTransactions } from '@/lib/data';
 import { useLocalStorage } from '@/hooks/use-local-storage';
+import type { Transaction, Category } from '@/lib/types';
+
 
 // Custom label for inside the bar
 const CustomBarLabel = (props: any) => {
@@ -16,7 +18,7 @@ const CustomBarLabel = (props: any) => {
     return (
       <g>
         <text x={x + width / 2} y={y + height - 10} fill="#fff" textAnchor="middle" dominantBaseline="middle" className="text-sm font-bold">
-          ${value}
+          ₹{value}
         </text>
       </g>
     );
@@ -26,8 +28,8 @@ export default function PurchaseDetailPage() {
   const params = useParams();
   const router = useRouter();
   const slug = Array.isArray(params.slug) ? params.slug[0] : params.slug;
-  const [transactions, setTransactions] = useLocalStorage('transactions', initialTransactions);
-  const [categories] = useLocalStorage('categories', initialCategories);
+  const [transactions, setTransactions] = useLocalStorage<Transaction[]>('transactions', initialTransactions);
+  const [categories] = useLocalStorage<Category[]>('categories', initialCategories);
 
   const category = categories.find(c => c.id === slug);
   const categoryTransactions = transactions.filter(t => t.category.toLowerCase() === slug);
@@ -54,13 +56,13 @@ export default function PurchaseDetailPage() {
 
   return (
     <div className="flex flex-col h-full space-y-6">
-       <div className="flex items-center justify-between">
-        <Button asChild variant="ghost" size="icon" className="bg-neutral-800 rounded-full">
+       <div className="flex items-center justify-between relative text-center">
+        <Button asChild variant="ghost" size="icon" className="bg-neutral-800 rounded-full absolute left-0">
           <Link href="/">
             <ArrowLeft />
           </Link>
         </Button>
-        <h1 className="text-3xl font-bold">Spent Purchase</h1>
+        <h1 className="text-3xl font-bold flex-1 text-center">Category Details</h1>
       </div>
 
       <Card className="flex-1 flex flex-col bg-primary text-primary-foreground rounded-3xl p-4">
@@ -104,7 +106,7 @@ export default function PurchaseDetailPage() {
           </div>
           <div className="flex justify-between items-center mt-4">
             <div>
-              <p className="text-4xl font-bold text-black">${purchaseData.total.toLocaleString()}</p>
+              <p className="text-4xl font-bold text-black">₹{purchaseData.total.toLocaleString()}</p>
             </div>
             <div className="flex items-center gap-2">
               <Button asChild variant="outline" size="icon" className="rounded-full w-12 h-12 border-black">

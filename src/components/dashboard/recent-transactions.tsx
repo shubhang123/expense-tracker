@@ -15,6 +15,7 @@ import { useRouter } from 'next/navigation';
 import { Button } from '../ui/button';
 import Link from 'next/link';
 import { ArrowRight } from 'lucide-react';
+import type { Transaction, Category } from '@/lib/types';
 
 export function RecentTransactions({ 
   filterByCategory, 
@@ -27,12 +28,12 @@ export function RecentTransactions({
   filterByCategory?: string, 
   hideHeader?: boolean, 
   searchTerm?: string,
-  transactions?: any[],
-  categories?: any[],
+  transactions?: Transaction[],
+  categories?: Category[],
   showViewAll?: boolean,
 }) {
-  const [localStorageTransactions] = useLocalStorage('transactions', initialTransactions);
-  const [localStorageCategories] = useLocalStorage('categories', initialCategories);
+  const [localStorageTransactions] = useLocalStorage<Transaction[]>('transactions', initialTransactions);
+  const [localStorageCategories] = useLocalStorage<Category[]>('categories', initialCategories);
   const router = useRouter();
 
   const transactions = propsTransactions || localStorageTransactions;
@@ -49,7 +50,7 @@ export function RecentTransactions({
   
   const hasSearchTerm = searchTerm && searchTerm.trim().length > 0;
 
-  const filteredTransactions = transactions.filter((t: any) => {
+  const filteredTransactions = transactions.filter((t) => {
     const categoryMatch = !filterByCategory || t.category === filterByCategory;
     
     const trimmedSearch = searchTerm?.trim().toLowerCase();
@@ -83,7 +84,7 @@ export function RecentTransactions({
         </CardHeader>
       )}
       <CardContent className={`space-y-4 ${hideHeader ? 'pt-6' : ''}`}>
-        {limitedTransactions.map((t: any) => (
+        {limitedTransactions.map((t) => (
           <div
             key={t.id}
             onClick={() => handleTransactionClick(t.id)}
@@ -97,7 +98,7 @@ export function RecentTransactions({
             </div>
             <div className="text-right">
               <span className="font-bold text-lg">
-                ${Math.abs(t.amount).toLocaleString()}
+                ₹{Math.abs(t.amount).toLocaleString()}
               </span>
               <p className="text-sm text-muted-foreground">
                 {new Date(t.date).toLocaleDateString()}

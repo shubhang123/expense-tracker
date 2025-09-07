@@ -4,21 +4,22 @@
 import { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { getBudgetRecommendations } from '@/ai/flows/budget-recommendation';
+import { getBudgetRecommendations, type BudgetRecommendationOutput } from '@/ai/flows/budget-recommendation';
 import { Loader2, Sparkles } from 'lucide-react';
 import { Skeleton } from '../ui/skeleton';
 import { useLocalStorage } from '@/hooks/use-local-storage';
 import { categories as initialCategories, transactions as initialTransactions } from '@/lib/data';
 import { Alert, AlertDescription, AlertTitle } from '../ui/alert';
+import type { Transaction, Category } from '@/lib/types';
 
 export function BudgetRecommender() {
-  const [recommendations, setRecommendations] = useState<any[]>([]);
+  const [recommendations, setRecommendations] = useState<BudgetRecommendationOutput['recommendations']>([]);
   const [loading, setLoading] = useState(false);
   const [showCard, setShowCard] = useState(false);
   const [error, setError] = useState('');
 
-  const [transactions] = useLocalStorage('transactions', initialTransactions);
-  const [categories] = useLocalStorage('categories', initialCategories);
+  const [transactions] = useLocalStorage<Transaction[]>('transactions', initialTransactions);
+  const [categories] = useLocalStorage<Category[]>('categories', initialCategories);
 
   const handleGetRecommendations = async () => {
     setLoading(true);
@@ -29,7 +30,7 @@ export function BudgetRecommender() {
       const thirtyDaysAgo = new Date();
       thirtyDaysAgo.setDate(thirtyDaysAgo.getDate() - 30);
       const recentTransactions = transactions.filter(
-        (t: any) => new Date(t.date) > thirtyDaysAgo
+        (t: Transaction) => new Date(t.date) > thirtyDaysAgo
       );
       
       const response = await getBudgetRecommendations({
@@ -86,7 +87,7 @@ export function BudgetRecommender() {
                   <div key={index} className="p-3 bg-neutral-800 rounded-lg">
                     <div className="flex justify-between items-center">
                         <p className="font-bold text-lg">{rec.category}</p>
-                        <p className="font-bold text-lg">${rec.budget.toLocaleString()}</p>
+                        <p className="font-bold text-lg">₹{rec.budget.toLocaleString()}</p>
                     </div>
                     <p className="text-sm text-muted-foreground mt-1">{rec.reasoning}</p>
                   </div>

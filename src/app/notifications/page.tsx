@@ -7,6 +7,7 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { useLocalStorage } from '@/hooks/use-local-storage';
 import { categories as initialCategories, transactions as initialTransactions } from '@/lib/data';
+import type { Transaction, Category } from '@/lib/types';
 
 const LARGE_PURCHASE_THRESHOLD = 200;
 const BUDGET_ALERT_THRESHOLD = 0.8; // 80%
@@ -24,8 +25,8 @@ type Alert = {
 };
 
 export default function NotificationsPage() {
-    const [transactions] = useLocalStorage('transactions', initialTransactions);
-    const [categories] = useLocalStorage('categories', initialCategories);
+    const [transactions] = useLocalStorage<Transaction[]>('transactions', initialTransactions);
+    const [categories] = useLocalStorage<Category[]>('categories', initialCategories);
 
     const spendingData = categories.map(category => {
         const categoryTransactions = transactions.filter(t => t.category.toLowerCase() === category.id.toLowerCase());
@@ -44,7 +45,7 @@ export default function NotificationsPage() {
             id: `budget-${cat.id}`,
             type: 'budget',
             title: `Nearing budget for ${cat.name}`,
-            description: `You've spent $${cat.spent.toLocaleString()} of your $${cat.total.toLocaleString()} budget (${Math.round(cat.progress * 100)}%).`,
+            description: `You've spent ₹${cat.spent.toLocaleString()} of your ₹${cat.total.toLocaleString()} budget (${Math.round(cat.progress * 100)}%).`,
             timestamp: new Date(),
             cta: {
                 text: 'Manage Budgets',
@@ -57,8 +58,8 @@ export default function NotificationsPage() {
         .map(t => ({
             id: `large-${t.id}`,
             type: 'large_purchase',
-            title: `Large Purchase: $${Math.abs(t.amount).toLocaleString()}`,
-            description: `A transaction of $${Math.abs(t.amount).toLocaleString()} was made at ${t.merchant}.`,
+            title: `Large Purchase: ₹${Math.abs(t.amount).toLocaleString()}`,
+            description: `A transaction of ₹${Math.abs(t.amount).toLocaleString()} was made at ${t.merchant}.`,
             timestamp: new Date(t.date),
             cta: {
                 text: 'View Transaction',

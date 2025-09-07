@@ -33,6 +33,7 @@ import {
   AlertDialogTrigger,
 } from '@/components/ui/alert-dialog';
 import { BudgetRecommender } from '@/components/dashboard/budget-recommender';
+import type { Transaction, Category } from '@/lib/types';
 
 const categoryFormSchema = z.object({
   name: z.string().min(2, 'Category name is too short'),
@@ -42,8 +43,8 @@ const categoryFormSchema = z.object({
 type CategoryFormValues = z.infer<typeof categoryFormSchema>;
 
 export default function CategoriesPage() {
-  const [categories, setCategories] = useLocalStorage('categories', initialCategories);
-  const [transactions, setTransactions] = useLocalStorage('transactions', initialTransactions);
+  const [categories, setCategories] = useLocalStorage<Category[]>('categories', initialCategories);
+  const [transactions, setTransactions] = useLocalStorage<Transaction[]>('transactions', initialTransactions);
   const { toast } = useToast();
 
   const form = useForm<CategoryFormValues>({
@@ -55,7 +56,7 @@ export default function CategoriesPage() {
   });
 
   const onSubmit = (data: CategoryFormValues) => {
-    const newCategory = {
+    const newCategory: Category = {
       id: data.name.toLowerCase().replace(/\s+/g, '-'),
       name: data.name,
       budget: data.budget,
@@ -80,7 +81,7 @@ export default function CategoriesPage() {
   
   const handleDeleteCategory = (id: string) => {
     // Re-assign transactions from the deleted category to 'uncategorized'
-    const updatedTransactions = transactions.map((t: any) => {
+    const updatedTransactions = transactions.map(t => {
       if (t.category === id) {
         return { ...t, category: 'uncategorized' };
       }
@@ -88,7 +89,7 @@ export default function CategoriesPage() {
     });
     setTransactions(updatedTransactions);
 
-    const updatedCategories = categories.filter((c: any) => c.id !== id);
+    const updatedCategories = categories.filter(c => c.id !== id);
     setCategories(updatedCategories);
 
     toast({
@@ -160,11 +161,11 @@ export default function CategoriesPage() {
           </CardDescription>
         </CardHeader>
         <CardContent className="space-y-2">
-            {categories.map((category: any) => (
+            {categories.map((category) => (
                 <div key={category.id} className="flex items-center justify-between p-2 rounded-lg hover:bg-neutral-900">
                     <div>
                         <p className="font-semibold">{category.name}</p>
-                        <p className="text-sm text-muted-foreground">Budget: ${category.budget.toLocaleString()}</p>
+                        <p className="text-sm text-muted-foreground">Budget: ₹{category.budget.toLocaleString()}</p>
                     </div>
                     <AlertDialog>
                       <AlertDialogTrigger asChild>
