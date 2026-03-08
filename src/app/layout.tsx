@@ -1,11 +1,18 @@
 import type { Metadata } from 'next';
+import '@fontsource/cormorant-garamond/400.css';
+import '@fontsource/cormorant-garamond/700.css';
+import '@fontsource/jost/400.css';
+import '@fontsource/jost/500.css';
+import '@fontsource/jost/600.css';
+import '@fontsource/jost/700.css';
+import '@fontsource/inter/400.css';
 import './globals.css';
 import { AppLayout } from '@/components/layout';
 import { Toaster } from "@/components/ui/toaster";
 
 export const metadata: Metadata = {
-  title: 'Your Spending',
-  description: 'Your personal finance dashboard',
+  title: 'Emerald Finance | The Artistic Gallery',
+  description: 'A soft, premium finance app UI that feels like a living art piece.',
 };
 
 export default function RootLayout({
@@ -14,13 +21,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className="dark">
-      <head>
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="" />
-        <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
-      </head>
-      <body className="font-body antialiased">
+    <html lang="en" suppressHydrationWarning>
+      <body className="antialiased min-h-screen font-ui">
         <AppLayout>{children}</AppLayout>
         <Toaster />
       </body>

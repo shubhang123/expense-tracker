@@ -21,22 +21,23 @@ import {
   AlertDialogTrigger,
 } from '@/components/ui/alert-dialog';
 import Image from 'next/image';
+import type { Transaction, Category } from '@/lib/types';
 
 export default function EditTransactionPage() {
-  const [transactions, setTransactions] = useLocalStorage(
+  const [transactions, setTransactions] = useLocalStorage<Transaction[]>(
     'transactions',
     initialTransactions
   );
-  const [categories] = useLocalStorage('categories', initialCategories);
+  const [categories] = useLocalStorage<Category[]>('categories', initialCategories);
   const router = useRouter();
   const params = useParams();
   const { toast } = useToast();
   const id = Array.isArray(params.id) ? params.id[0] : params.id;
 
-  const transaction = transactions.find((t: any) => t.id === id);
+  const transaction = transactions.find((t: Transaction) => t.id === id);
 
   const handleEditTransaction = (data: any) => {
-    const updatedTransactions = transactions.map((t: any) =>
+    const updatedTransactions = transactions.map((t: Transaction) =>
       t.id === id ? { ...t, ...data, date: new Date(data.date).toISOString() } : t
     );
     setTransactions(updatedTransactions);
@@ -48,7 +49,7 @@ export default function EditTransactionPage() {
   };
 
   const handleDeleteTransaction = () => {
-    const updatedTransactions = transactions.filter((t: any) => t.id !== id);
+    const updatedTransactions = transactions.filter((t: Transaction) => t.id !== id);
     setTransactions(updatedTransactions);
     toast({
       title: 'Transaction Deleted!',
@@ -61,46 +62,46 @@ export default function EditTransactionPage() {
   if (!transaction) {
     return (
       <div className="space-y-6">
-        <div className="flex items-center gap-4">
-          <Button asChild variant="ghost" size="icon">
+        <div className="flex items-center gap-4 bg-card p-4 md:p-6 rounded-3xl border border-border/50 premium-shadow">
+          <Button asChild variant="ghost" size="icon" className="rounded-full hover:bg-secondary transition-all">
             <Link href="/">
-              <ArrowLeft />
+              <ArrowLeft className="h-6 w-6" />
             </Link>
           </Button>
-          <h1 className="text-2xl font-bold">Transaction Not Found</h1>
+          <h1 className="text-xl font-headline font-semibold tracking-tight">Transaction Not Found</h1>
         </div>
-        <p>The transaction you are looking for does not exist.</p>
+        <p className="text-muted-foreground font-body">The transaction you are looking for does not exist.</p>
       </div>
     );
   }
 
   return (
     <div className="space-y-6">
-      <div className="flex items-center justify-between">
+      <div className="flex items-center justify-between bg-card p-4 md:p-6 rounded-3xl border border-border/50 premium-shadow mb-8">
         <div className="flex items-center gap-4">
-          <Button asChild variant="ghost" size="icon">
+          <Button asChild variant="ghost" size="icon" className="rounded-full hover:bg-secondary transition-all">
             <Link href="/">
-              <ArrowLeft />
+              <ArrowLeft className="h-6 w-6" />
             </Link>
           </Button>
-          <h1 className="text-2xl font-bold">Edit Transaction</h1>
+          <h1 className="text-xl font-headline font-semibold tracking-tight">Edit Transaction</h1>
         </div>
         <AlertDialog>
           <AlertDialogTrigger asChild>
-            <Button variant="destructive" size="icon">
-              <Trash2 />
+            <Button variant="destructive" size="icon" className="rounded-full premium-shadow-hover hover:-translate-y-1 transition-all h-10 w-10">
+              <Trash2 className="h-4 w-4" />
             </Button>
           </AlertDialogTrigger>
-          <AlertDialogContent>
+          <AlertDialogContent className="rounded-3xl border border-border/50 premium-shadow bg-card">
             <AlertDialogHeader>
-              <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
-              <AlertDialogDescription>
+              <AlertDialogTitle className="font-headline font-semibold tracking-tight">Are you absolutely sure?</AlertDialogTitle>
+              <AlertDialogDescription className="font-body text-muted-foreground leading-relaxed">
                 This action cannot be undone. This will permanently delete this transaction.
               </AlertDialogDescription>
             </AlertDialogHeader>
-            <AlertDialogFooter>
-              <AlertDialogCancel>Cancel</AlertDialogCancel>
-              <AlertDialogAction onClick={handleDeleteTransaction}>
+            <AlertDialogFooter className="gap-2 sm:gap-0 mt-4">
+              <AlertDialogCancel className="rounded-full">Cancel</AlertDialogCancel>
+              <AlertDialogAction onClick={handleDeleteTransaction} className="rounded-full bg-destructive text-destructive-foreground hover:bg-destructive/90">
                 Delete
               </AlertDialogAction>
             </AlertDialogFooter>
@@ -110,17 +111,17 @@ export default function EditTransactionPage() {
 
       {transaction.receiptUrl && (
         <div className="mt-6">
-            <h3 className="text-lg font-semibold mb-2">Receipt</h3>
-            <div className="relative aspect-video w-full rounded-lg overflow-hidden border">
-                <Image src={transaction.receiptUrl} alt="Receipt" layout="fill" objectFit="contain" />
-            </div>
+          <h3 className="text-lg font-headline font-semibold tracking-tight mb-2">Receipt</h3>
+          <div className="relative aspect-video w-full rounded-2xl overflow-hidden border border-border/50 premium-shadow">
+            <Image src={transaction.receiptUrl} alt="Receipt" layout="fill" objectFit="contain" />
+          </div>
         </div>
       )}
 
       <AddTransactionForm
         categories={categories}
         onSubmit={handleEditTransaction}
-        initialData={transaction}
+        initialData={transaction as any}
         isEditMode={true}
       />
     </div>

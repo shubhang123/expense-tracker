@@ -2,28 +2,24 @@
 import { Bar, BarChart, ResponsiveContainer, XAxis, YAxis, Tooltip, Cell } from 'recharts';
 import { Card, CardContent, CardHeader } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { ArrowLeft, Check, Pencil } from 'lucide-react';
+import { ArrowLeft, Pencil } from 'lucide-react';
 import Link from 'next/link';
 import { useParams, useRouter } from 'next/navigation';
 import { categories as initialCategories, transactions as initialTransactions } from '@/lib/data';
 import { useLocalStorage } from '@/hooks/use-local-storage';
 import type { Transaction, Category } from '@/lib/types';
 
-
-// Custom label for inside the bar
 const CustomBarLabel = (props: any) => {
-    const { x, y, width, height, value } = props;
-    const radius = 10;
-  
-    return (
-      <g>
-        <text x={x + width / 2} y={y + height - 10} fill="#fff" textAnchor="middle" dominantBaseline="middle" className="text-sm font-bold">
-          ₹{value}
-        </text>
-      </g>
-    );
-  };
-  
+  const { x, y, width, height, value } = props;
+  return (
+    <g>
+      <text x={x + width / 2} y={y + height - 10} fill="hsl(var(--primary-foreground))" textAnchor="middle" dominantBaseline="middle" className="text-xs font-bold font-mono">
+        ₹{value}
+      </text>
+    </g>
+  );
+};
+
 export default function PurchaseDetailPage() {
   const params = useParams();
   const router = useRouter();
@@ -33,14 +29,14 @@ export default function PurchaseDetailPage() {
 
   const category = categories.find(c => c.id === slug);
   const categoryTransactions = transactions.filter(t => t.category.toLowerCase() === slug);
-  
+
   const total = categoryTransactions.reduce((acc, t) => acc + Math.abs(t.amount), 0);
-  
+
   const items = categoryTransactions.map(t => ({
     name: t.subcategory || t.merchant,
     value: Math.abs(t.amount),
   }));
-  
+
   const purchaseData = {
     store: category?.name || 'Category',
     date: new Date().toLocaleString('default', { month: 'long', year: 'numeric' }),
@@ -48,77 +44,95 @@ export default function PurchaseDetailPage() {
     items: items,
   };
 
-  const handleDeleteCategoryTransactions = () => {
-    const remainingTransactions = transactions.filter(t => t.category.toLowerCase() !== slug);
-    setTransactions(remainingTransactions);
-    router.push('/');
-  }
-
   return (
-    <div className="flex flex-col h-full space-y-6">
-       <div className="flex items-center justify-between relative text-center">
-        <Button asChild variant="ghost" size="icon" className="bg-neutral-800 rounded-full absolute left-0">
+    <div className="space-y-6 pb-24">
+      <div className="flex items-center gap-4">
+        <Button asChild variant="ghost" size="icon">
           <Link href="/">
-            <ArrowLeft />
+            <ArrowLeft className="h-5 w-5" />
           </Link>
         </Button>
-        <h1 className="text-3xl font-bold flex-1 text-center">Category Details</h1>
+        <div>
+          <h1 className="text-fluid-2xl font-headline font-bold">{purchaseData.store}</h1>
+          <p className="text-sm text-muted-foreground">{purchaseData.date}</p>
+        </div>
       </div>
 
-      <Card className="flex-1 flex flex-col bg-primary text-primary-foreground rounded-3xl p-4">
-        <CardHeader>
-          <div className="flex justify-between items-center text-lg text-black">
-            <span className="font-semibold">{purchaseData.store}</span>
-            <span className="text-sm">{purchaseData.date}</span>
-          </div>
-          <hr className="border-black/20" />
+      {/* Total Card */}
+      <div className="relative overflow-hidden rounded-2xl bg-gradient-to-br from-primary to-primary/80 text-primary-foreground p-6">
+        <div className="absolute -right-8 -top-8 w-28 h-28 rounded-full bg-white/10" />
+        <div className="absolute right-10 -bottom-6 w-14 h-14 bg-white/5 rotate-45" />
+        <div className="relative z-10">
+          <p className="text-sm font-medium opacity-80">Total Spent</p>
+          <p className="text-fluid-3xl font-headline font-bold mt-1">₹{purchaseData.total.toLocaleString()}</p>
+          <p className="text-sm opacity-70 mt-1">{items.length} transaction{items.length !== 1 ? 's' : ''}</p>
+        </div>
+      </div>
+
+      {/* Bar Chart */}
+      {items.length > 0 && (
+        <Card className="border-border/50 shadow-card">
+          <CardHeader className="pb-2">
+            <p className="font-headline font-semibold text-sm">Spending Breakdown</p>
+          </CardHeader>
+          <CardContent>
+            <div className="h-64">
+              <ResponsiveContainer width="100%" height="100%">
+                <BarChart data={purchaseData.items} margin={{ top: 20, right: 0, left: 0, bottom: 5 }}>
+                  <XAxis
+                    dataKey="name"
+                    tick={{ fontSize: 11, fill: 'hsl(var(--muted-foreground))' }}
+                    tickLine={false}
+                    axisLine={false}
+                    dy={10}
+                  />
+                  <YAxis hide={true} domain={[0, 'dataMax + 50']} />
+                  <Tooltip
+                    contentStyle={{
+                      backgroundColor: 'hsl(var(--card))',
+                      border: '1px solid hsl(var(--border))',
+                      borderRadius: '12px',
+                      color: 'hsl(var(--foreground))',
+                      fontSize: '13px',
+                    }}
+                    formatter={(value: number) => [`₹${value.toLocaleString()}`, 'Amount']}
+                  />
+                  <Bar dataKey="value" radius={[8, 8, 8, 8]} label={<CustomBarLabel />}>
+                    {purchaseData.items.map((_, index) => (
+                      <Cell key={`cell-${index}`} fill="hsl(var(--primary))" />
+                    ))}
+                  </Bar>
+                </BarChart>
+              </ResponsiveContainer>
+            </div>
+          </CardContent>
+        </Card>
+      )}
+
+      {/* Transaction List */}
+      <Card className="border-border/50 shadow-card">
+        <CardHeader className="pb-2">
+          <p className="font-headline font-semibold text-sm">Transactions</p>
         </CardHeader>
-        <CardContent className="flex-1 flex flex-col justify-between">
-          <div className="flex-1 h-64">
-            <ResponsiveContainer width="100%" height="100%">
-              <BarChart data={purchaseData.items} margin={{ top: 20, right: 0, left: 0, bottom: 5 }}>
-                <XAxis
-                  dataKey="name"
-                  stroke="hsl(var(--primary-foreground))"
-                  fontSize={12}
-                  tickLine={false}
-                  axisLine={false}
-                  dy={10}
-                />
-                <YAxis hide={true} domain={[0, 'dataMax + 50']} />
-                <Tooltip
-                    contentStyle={{ display: 'none' }}
-                    cursor={{fill: 'rgba(0,0,0,0.1)', rx: 10}}
-                />
-                <Bar
-                  dataKey="value"
-                  radius={[10, 10, 10, 10]}
-                  label={<CustomBarLabel />}
-                >
-                    {
-                        purchaseData.items.map((entry, index) => (
-                            <Cell key={`cell-${index}`} fill="black" />
-                        ))
-                    }
-                </Bar>
-              </BarChart>
-            </ResponsiveContainer>
-          </div>
-          <div className="flex justify-between items-center mt-4">
-            <div>
-              <p className="text-4xl font-bold text-black">₹{purchaseData.total.toLocaleString()}</p>
-            </div>
-            <div className="flex items-center gap-2">
-              <Button asChild variant="outline" size="icon" className="rounded-full w-12 h-12 border-black">
-                <Link href={`/edit/${transactions.find(t => t.category === slug)?.id || ''}`}>
-                    <Pencil className="h-5 w-5 text-black" />
-                </Link>
-              </Button>
-               <Button variant="secondary" size="icon" className="rounded-full w-12 h-12 bg-black text-white hover:bg-neutral-800">
-                    <Check className="h-5 w-5" />
-              </Button>
-            </div>
-          </div>
+        <CardContent className="space-y-1">
+          {categoryTransactions.map(t => (
+            <Link
+              key={t.id}
+              href={`/edit/${t.id}`}
+              className="flex items-center justify-between p-3 rounded-xl hover:bg-secondary/50 transition-colors"
+            >
+              <div className="flex items-center gap-3">
+                <div className="w-8 h-8 rounded-lg bg-primary/10 flex items-center justify-center">
+                  <span className="text-xs font-bold text-primary">{t.merchant.charAt(0)}</span>
+                </div>
+                <div>
+                  <p className="font-semibold text-sm">{t.merchant}</p>
+                  <p className="text-xs text-muted-foreground">{new Date(t.date).toLocaleDateString('en-IN', { day: 'numeric', month: 'short' })}</p>
+                </div>
+              </div>
+              <span className="font-mono font-bold text-sm">₹{Math.abs(t.amount).toLocaleString()}</span>
+            </Link>
+          ))}
         </CardContent>
       </Card>
     </div>
