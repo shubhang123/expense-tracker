@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,200..800;1,6..72,200..800&amp;family=Manrope:wght@200..800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "surface": "#110e0a",
+              "tertiary-container": "#e4d7fd",
+              "tertiary-dim": "#d6c9ee",
+              "secondary": "#bacabe",
+              "primary-fixed-dim": "#e1d1d1",
+              "on-background": "#efe4d8",
+              "primary-container": "#f9e7e7",
+              "secondary-container": "#1b2921",
+              "primary-dim": "#eddcdc",
+              "tertiary": "#f1e7ff",
+              "outline-variant": "#4d473e",
+              "surface-variant": "#2a251e",
+              "surface-container-highest": "#2a251e",
+              "on-tertiary-container": "#534968",
+              "on-secondary-fixed-variant": "#59685e",
+              "on-primary-fixed": "#483d3d",
+              "inverse-on-surface": "#59544f",
+              "surface-tint": "#fff8f7",
+              "inverse-surface": "#fff8f3",
+              "surface-dim": "#110e0a",
+              "surface-container-high": "#241f18",
+              "error-container": "#8a1632",
+              "surface-container-lowest": "#000000",
+              "outline": "#7c746b",
+              "secondary-fixed": "#e5f5e8",
+              "surface-container": "#1d1913",
+              "on-error-container": "#ff97a3",
+              "on-surface": "#efe4d8",
+              "on-secondary-container": "#98a89c",
+              "inverse-primary": "#685c5c",
+              "primary": "#fff8f7",
+              "on-secondary": "#35433a",
+              "on-surface-variant": "#b3aa9f",
+              "on-tertiary": "#5c5271",
+              "surface-container-low": "#16130e",
+              "secondary-dim": "#adbdb1",
+              "error": "#fd6f85",
+              "error-dim": "#c8475d",
+              "tertiary-fixed-dim": "#d6c9ee",
+              "on-secondary-fixed": "#3d4b42",
+              "on-error": "#490013",
+              "on-primary-fixed-variant": "#655959",
+              "tertiary-fixed": "#e4d7fd",
+              "primary-fixed": "#f0dfde",
+              "background": "#110e0a",
+              "on-tertiary-fixed-variant": "#5d5372",
+              "secondary-fixed-dim": "#d6e7da",
+              "on-primary-container": "#605454",
+              "on-tertiary-fixed": "#403755",
+              "surface-bright": "#312b23",
+              "on-primary": "#685c5c"
+            },
+            fontFamily: {
+              "headline": ["Newsreader", "serif"],
+              "body": ["Manrope", "sans-serif"],
+              "label": ["Manrope", "sans-serif"]
+            },
+            borderRadius: {"DEFAULT": "0.125rem", "lg": "0.25rem", "xl": "0.5rem", "full": "0.75rem"},
+          },
+        },
+      }
+    </script>
+<style>
+        body {
+            background-color: #110e0a;
+            color: #efe4d8;
+            font-family: 'Manrope', sans-serif;
+            -webkit-font-smoothing: antialiased;
+        }
+        .noise-overlay {
+            position: fixed;
+            inset: 0;
+            z-index: 9999;
+            pointer-events: none;
+            opacity: 0.05;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+        }
+        .bioluminescent-glow {
+            box-shadow: 0 0 20px rgba(241, 231, 255, 0.15);
+        }
+        .glow-hover:hover {
+            box-shadow: inset 0 0 40px rgba(255, 248, 247, 0.03), 0 0 15px rgba(255, 248, 247, 0.05);
+        }
+        .tabular-nums {
+            font-variant-numeric: tabular-nums;
+        }
+    
+        @keyframes breathing {
+            0%, 100% {
+                transform: scale(1) rotate(0deg);
+            }
+            50% {
+                transform: scale(1.02) rotate(0.5deg);
+            }
+        }
+        .animate-breathing {
+            animation: breathing 8s ease-in-out infinite;
+            display: inline-block;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  
+        @keyframes breathing {
+            0%, 100% {
+                transform: scale(1) rotate(0deg);
+            }
+            50% {
+                transform: scale(1.02) rotate(0.5deg);
+            }
+        }
+        .animate-breathing {
+            animation: breathing 8s ease-in-out infinite;
+            display: inline-block;
+        }
+    </style>
+</head>
+<body class="bg-surface text-on-surface selection:bg-tertiary selection:text-on-tertiary">
+<div class="noise-overlay"></div>
+<!-- Top Navigation -->
+<header class="fixed top-0 w-full z-50 bg-[#110E0A]/80 backdrop-blur-xl flex justify-between items-center px-6 py-4 w-full">
+<div class="flex items-center gap-4">
+<div class="w-10 h-10 rounded-full border border-tertiary/20 flex items-center justify-center overflow-hidden">
+<img alt="User Profile" class="w-full h-full object-cover" data-alt="User profile with bioluminescent glow border" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDfrmo-rMxML-VZDTXDg2Nio56zh8FmZiyQVBUCCizvSjcios-NBtalnczosnKnLKH-ayOGBILF_RWb7Ya5t_gyZWd6wOTodvf9Ni1O2YTi-5JNF6jdvuyuFDwY8Lom9GMvm-Eecmeb-xVSPQR-7HP_xND7-KdySe2sF4R1f60KJ7TYMZQ7MerrJMY5IrIIpA05lQZBJ_BGPPf0e5nBn7diZE31BX8YaiVd5EhfIgOEm2Q-c86tqzBwj0Ku2blUbj4sGkbtRkNWbwNg"/>
+</div>
+<span class="font-serif text-2xl tracking-tighter Newsreader text-[#FFF8F7] uppercase tracking-[0.2em]">BLOOM</span>
+</div>
+<div class="flex items-center gap-6">
+<button class="material-symbols-outlined text-[#4D473E] hover:text-[#F1E7FF] transition-colors">notifications</button>
+</div>
+</header>
+<main class="pt-32 pb-48 px-6 max-w-5xl mx-auto min-h-screen">
+<!-- Header Section -->
+<section class="mb-20">
+<h1 class="font-serif text-6xl md:text-8xl text-primary tracking-tighter leading-none mb-8 animate-breathing">The Exhibition Ledger</h1>
+<div class="flex flex-col md:flex-row md:items-end justify-between gap-8">
+<div class="max-w-md">
+<p class="font-body text-on-surface-variant text-sm leading-relaxed">
+                        A chronological curation of value exchanges. Every entry preserved with architectural precision in the gallery of your private history.
+                    </p>
+</div>
+<!-- Filter Toggle -->
+<div class="group flex items-center gap-4 bg-surface-container-high px-4 py-2 rounded-full border border-outline-variant/10 hover:border-outline-variant/30 transition-all cursor-pointer">
+<span class="font-label text-[10px] uppercase tracking-[0.2em] text-on-surface-variant">Filter by Date</span>
+<div class="w-8 h-4 bg-surface-variant rounded-full relative flex items-center px-0.5">
+<div class="w-3 h-3 bg-primary rounded-full transition-all duration-500 ease-[cubic-bezier(0.34,1.56,0.64,1)] translate-x-0 group-hover:translate-x-4 bioluminescent-glow"></div>
+</div>
+</div>
+</div>
+</section>
+<!-- Ledger List -->
+<section class="space-y-0">
+<!-- Table Header -->
+<div class="grid grid-cols-12 gap-4 pb-4 border-b border-outline-variant/10">
+<div class="col-span-2">
+<span class="font-label text-[11px] uppercase tracking-[0.15em] text-outline">Date</span>
+</div>
+<div class="col-span-5">
+<span class="font-label text-[11px] uppercase tracking-[0.15em] text-outline">Exhibition / Item</span>
+</div>
+<div class="col-span-2 text-center">
+<span class="font-label text-[11px] uppercase tracking-[0.15em] text-outline">Genre</span>
+</div>
+<div class="col-span-3 text-right">
+<span class="font-label text-[11px] uppercase tracking-[0.15em] text-outline">Amount</span>
+</div>
+</div>
+<!-- Entries -->
+<div class="divide-y divide-outline-variant/10">
+<!-- Entry 1 -->
+<div class="grid grid-cols-12 gap-4 py-8 items-center group glow-hover transition-all px-4 -mx-4">
+<div class="col-span-2">
+<span class="font-label text-xs text-on-surface-variant">Oct 24. 2023</span>
+</div>
+<div class="col-span-5 flex flex-col">
+<span class="font-serif text-xl text-primary tracking-tight">The Midnight Archive</span>
+<span class="font-body text-[11px] text-outline uppercase tracking-wider">Subscription Service</span>
+</div>
+<div class="col-span-2 flex justify-center">
+<div class="w-6 h-6 rounded-full border border-tertiary/30 flex items-center justify-center">
+<span class="material-symbols-outlined text-[14px] text-tertiary">auto_awesome</span>
+</div>
+</div>
+<div class="col-span-3 text-right">
+<span class="font-headline text-3xl tabular-nums text-primary-dim tracking-tighter">1,240.00</span>
+</div>
+</div>
+<!-- Entry 2 -->
+<div class="grid grid-cols-12 gap-4 py-8 items-center group glow-hover transition-all px-4 -mx-4">
+<div class="col-span-2">
+<span class="font-label text-xs text-on-surface-variant">Oct 21. 2023</span>
+</div>
+<div class="col-span-5 flex flex-col">
+<span class="font-serif text-xl text-primary tracking-tight">Vanguard Textiles</span>
+<span class="font-body text-[11px] text-outline uppercase tracking-wider">Apparel &amp; Identity</span>
+</div>
+<div class="col-span-2 flex justify-center">
+<div class="w-6 h-6 rounded-full border border-secondary/30 flex items-center justify-center">
+<span class="material-symbols-outlined text-[14px] text-secondary">shopping_bag</span>
+</div>
+</div>
+<div class="col-span-3 text-right">
+<span class="font-headline text-3xl tabular-nums text-primary-dim tracking-tighter">485.50</span>
+</div>
+</div>
+<!-- Entry 3 -->
+<div class="grid grid-cols-12 gap-4 py-8 items-center group glow-hover transition-all px-4 -mx-4">
+<div class="col-span-2">
+<span class="font-label text-xs text-on-surface-variant">Oct 18. 2023</span>
+</div>
+<div class="col-span-5 flex flex-col">
+<span class="font-serif text-xl text-primary tracking-tight">Atelier Noir Dinner</span>
+<span class="font-body text-[11px] text-outline uppercase tracking-wider">Gastronomy</span>
+</div>
+<div class="col-span-2 flex justify-center">
+<div class="w-6 h-6 rounded-full border border-primary-fixed-dim/30 flex items-center justify-center">
+<span class="material-symbols-outlined text-[14px] text-primary-fixed-dim">restaurant</span>
+</div>
+</div>
+<div class="col-span-3 text-right">
+<span class="font-headline text-3xl tabular-nums text-primary-dim tracking-tighter">210.00</span>
+</div>
+</div>
+<!-- Entry 4 -->
+<div class="grid grid-cols-12 gap-4 py-8 items-center group glow-hover transition-all px-4 -mx-4">
+<div class="col-span-2">
+<span class="font-label text-xs text-on-surface-variant">Oct 14. 2023</span>
+</div>
+<div class="col-span-5 flex flex-col">
+<span class="font-serif text-xl text-primary tracking-tight">The Observatory</span>
+<span class="font-body text-[11px] text-outline uppercase tracking-wider">Creative Studio Rent</span>
+</div>
+<div class="col-span-2 flex justify-center">
+<div class="w-6 h-6 rounded-full border border-tertiary/30 flex items-center justify-center">
+<span class="material-symbols-outlined text-[14px] text-tertiary">workspaces</span>
+</div>
+</div>
+<div class="col-span-3 text-right">
+<span class="font-headline text-3xl tabular-nums text-primary-dim tracking-tighter">3,500.00</span>
+</div>
+</div>
+<!-- Entry 5 -->
+<div class="grid grid-cols-12 gap-4 py-8 items-center group glow-hover transition-all px-4 -mx-4">
+<div class="col-span-2">
+<span class="font-label text-xs text-on-surface-variant">Oct 10. 2023</span>
+</div>
+<div class="col-span-5 flex flex-col">
+<span class="font-serif text-xl text-primary tracking-tight">Kinetic Essence</span>
+<span class="font-body text-[11px] text-outline uppercase tracking-wider">Wellness</span>
+</div>
+<div class="col-span-2 flex justify-center">
+<div class="w-6 h-6 rounded-full border border-secondary/30 flex items-center justify-center">
+<span class="material-symbols-outlined text-[14px] text-secondary">fitness_center</span>
+</div>
+</div>
+<div class="col-span-3 text-right">
+<span class="font-headline text-3xl tabular-nums text-primary-dim tracking-tighter">95.00</span>
+</div>
+</div>
+</div>
+</section>
+<!-- Aesthetic Divider -->
+<div class="mt-32 w-full h-px bg-gradient-to-r from-transparent via-outline-variant/20 to-transparent"></div>
+</main>
+<!-- Grand Footer Branding -->
+<footer class="relative overflow-hidden pt-20 h-96 pointer-events-none">
+<div class="absolute bottom-0 left-1/2 -translate-x-1/2 translate-y-1/3">
+<h2 class="font-serif text-[40vw] text-outline-variant/5 tracking-tighter select-none leading-none animate-breathing">BLOOM</h2>
+</div>
+<div class="relative z-10 flex flex-col items-center justify-center">
+<p class="font-label text-[10px] uppercase tracking-[0.5em] text-outline-variant">The Night Ledger © 2024</p>
+</div>
+</footer>
+<!-- Bottom Navigation Shell -->
+<nav class="fixed bottom-6 left-1/2 -translate-x-1/2 w-[90%] max-w-md rounded-2xl border border-[#4D473E]/20 bg-[#16130E]/90 backdrop-blur-2xl shadow-[0_20px_50px_rgba(0,0,0,0.5)] flex justify-around items-center h-20 px-4 z-50">
+<a class="flex flex-col items-center justify-center text-[#4D473E] hover:text-[#F1E7FF]" href="#">
+<span class="material-symbols-outlined mb-1">dashboard</span>
+<span class="font-sans text-[11px] uppercase tracking-[0.15em] Manrope">ATRIUM</span>
+</a>
+<a class="flex flex-col items-center justify-center text-[#FFF8F7] scale-110" href="#">
+<span class="material-symbols-outlined mb-1" style="font-variation-settings: 'FILL' 1;">account_balance_wallet</span>
+<span class="font-sans text-[11px] uppercase tracking-[0.15em] Manrope">GARDENS</span>
+</a>
+<a class="flex flex-col items-center justify-center text-[#4D473E] hover:text-[#F1E7FF]" href="#">
+<span class="material-symbols-outlined mb-1">swap_calls</span>
+<span class="font-sans text-[11px] uppercase tracking-[0.15em] Manrope">FLOW</span>
+</a>
+<a class="flex flex-col items-center justify-center text-[#4D473E] hover:text-[#F1E7FF]" href="#">
+<span class="material-symbols-outlined mb-1">person</span>
+<span class="font-sans text-[11px] uppercase tracking-[0.15em] Manrope">PROFILE</span>
+</a>
+</nav>
+</body></html>

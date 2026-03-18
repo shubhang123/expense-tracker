@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&amp;family=Inter:wght@400;500;600&amp;family=Jost:wght@400;500;600;700&amp;family=Manrope:wght@300;400;500;600;700&amp;family=Newsreader:ital,opsz,wght@0,6..72,200..800;1,6..72,200..800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "on-primary-container": "#605454",
+                        "background": "#110e0a",
+                        "tertiary-container": "#e4d7fd",
+                        "surface": "#110e0a",
+                        "secondary-dim": "#adbdb1",
+                        "secondary-container": "#1b2921",
+                        "surface-container-lowest": "#000000",
+                        "on-surface-variant": "#b3aa9f",
+                        "on-tertiary": "#5c5271",
+                        "error-dim": "#c8475d",
+                        "on-error-container": "#ff97a3",
+                        "tertiary": "#f1e7ff",
+                        "error": "#fd6f85",
+                        "outline": "#7c746b",
+                        "surface-variant": "#2a251e",
+                        "on-secondary-fixed-variant": "#59685e",
+                        "tertiary-fixed-dim": "#d6c9ee",
+                        "inverse-primary": "#685c5c",
+                        "on-tertiary-fixed-variant": "#5d5372",
+                        "surface-container-high": "#241f18",
+                        "on-primary": "#685c5c",
+                        "surface-tint": "#fff8f7",
+                        "surface-container-low": "#16130e",
+                        "on-tertiary-fixed": "#403755",
+                        "on-primary-fixed-variant": "#655959",
+                        "surface-container-highest": "#2a251e",
+                        "surface-container": "#1d1913",
+                        "error-container": "#8a1632",
+                        "tertiary-dim": "#d6c9ee",
+                        "secondary-fixed-dim": "#d6e7da",
+                        "on-error": "#490013",
+                        "primary-container": "#f9e7e7",
+                        "tertiary-fixed": "#e4d7fd",
+                        "outline-variant": "#4d473e",
+                        "inverse-on-surface": "#59544f",
+                        "primary-dim": "#eddcdc",
+                        "on-primary-fixed": "#483d3d",
+                        "secondary": "#bacabe",
+                        "primary": "#fff8f7",
+                        "on-secondary": "#35433a",
+                        "primary-fixed-dim": "#e1d1d1",
+                        "primary-fixed": "#f0dfde",
+                        "on-surface": "#efe4d8",
+                        "on-secondary-container": "#98a89c",
+                        "surface-dim": "#110e0a",
+                        "secondary-fixed": "#e5f5e8",
+                        "inverse-surface": "#fff8f3",
+                        "on-secondary-fixed": "#3d4b42",
+                        "on-background": "#efe4d8",
+                        "on-tertiary-container": "#534968",
+                        "surface-bright": "#312b23"
+                    },
+                    fontFamily: {
+                        "headline": ["Newsreader", "serif"],
+                        "body": ["Manrope", "sans-serif"],
+                        "label": ["Jost", "sans-serif"],
+                        "serif-alt": ["Instrument Serif", "serif"]
+                    },
+                    borderRadius: { "DEFAULT": "0.125rem", "lg": "0.25rem", "xl": "0.5rem", "full": "0.75rem" },
+                },
+            },
+        }
+    </script>
+<style>.material-symbols-outlined {
+    font-variation-settings: "FILL" 0, "wght" 300, "GRAD" 0, "opsz" 24
+    }
+.grain-overlay {
+    background-image: url(https://lh3.googleusercontent.com/aida-public/AB6AXuC1_0muf50_khUg4sRVbKLxj1FbHGLn5RCtCSz_P0CamSLjm-Qg6EN_K_R-vOTHEzXfLKJ550I0wacVUo-htINOSj4L0ScquNgH0GLiQZws2fECmUqbZUUdnFtRgAds5wIWhg9pEBLz4NRE9sfW66HWBE49-l8VZVsjaQAyRITUkJrzxwgzZRDRGMDVnTjiBaPtpbXXMiYYLVEB-n6Yeh4_mmzvHJa6Avm6ijz6IOAlOuc0lpgZfdRibutPUvYjWaTF8ATSXBHNVcCL);
+    opacity: 0.05;
+    pointer-events: none
+    }
+.bg-blob {
+    filter: blur(80px);
+    z-index: -1
+    }
+.amount-bleed {
+    font-size: clamp(6rem, 15vw, 12rem);
+    line-height: 0.8;
+    letter-spacing: -0.05em
+    }</style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-surface-dim text-on-surface font-body selection:bg-tertiary/30 min-h-screen overflow-x-hidden">
+<div class="grain-overlay fixed inset-0 z-50"></div>
+<!-- Background Atmospheric Elements -->
+<div class="fixed inset-0 overflow-hidden pointer-events-none -z-10">
+<div class="absolute top-[-10%] right-[-5%] w-[500px] h-[500px] rounded-full bg-on-tertiary-container/20 bg-blob"></div>
+<div class="absolute bottom-[-10%] left-[-10%] w-[600px] h-[600px] rounded-full bg-secondary-container/30 bg-blob"></div>
+</div>
+<!-- Top Navigation Anchor -->
+<header class="flex justify-between items-center w-full px-6 py-4 fixed top-0 z-[60] bg-[#110E0A]">
+<div class="flex items-center gap-4">
+<span class="material-symbols-outlined text-on-surface cursor-pointer p-2 hover:bg-surface-container-high rounded-full transition-colors">arrow_back_ios_new</span>
+<span class="text-[11px] font-medium tracking-[0.15em] uppercase font-label text-on-surface-variant">Transaction Details</span>
+</div>
+<div class="text-2xl font-serif-alt italic text-[#FFF8F7] tracking-widest">BLOOM</div>
+<div class="flex items-center gap-4">
+<span class="material-symbols-outlined text-on-surface p-2 cursor-pointer">share</span>
+</div>
+</header>
+<main class="pt-24 pb-32 px-6 max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-12 relative">
+<!-- Merchant Info Section (Asymmetric Left Column) -->
+<div class="lg:col-span-7 flex flex-col gap-12">
+<section class="space-y-4">
+<p class="text-[10px] font-bold tracking-[0.2em] uppercase font-label text-secondary">CURATED MERCHANT</p>
+<h1 class="text-7xl md:text-8xl font-headline font-light italic leading-none text-primary">L’Artisan Floral</h1>
+<div class="flex gap-8 items-center border-l border-outline-variant/30 pl-6 mt-6">
+<div>
+<p class="text-[10px] font-bold tracking-[0.15em] uppercase font-label text-on-surface-variant">Date</p>
+<p class="text-lg font-headline">Oct 24, 2024</p>
+</div>
+<div>
+<p class="text-[10px] font-bold tracking-[0.15em] uppercase font-label text-on-surface-variant">Location</p>
+<p class="text-lg font-headline">Paris, FR</p>
+</div>
+</div>
+</section>
+<!-- Sub-Category Breakdown (Artistic List/Chart) -->
+<section class="space-y-8 bg-surface-container-low/40 p-8 rounded-lg">
+<h3 class="text-[10px] font-bold tracking-[0.2em] uppercase font-label text-on-surface-variant">Spending Breakdown</h3>
+<div class="space-y-6">
+<div class="space-y-2">
+<div class="flex justify-between items-end">
+<span class="text-sm font-medium">Bespoke Arrangement</span>
+<span class="text-sm font-headline italic">€420.00</span>
+</div>
+<div class="h-1 w-full bg-surface-container-highest relative">
+<div class="absolute h-full bg-primary w-[70%] shadow-[0_0_10px_rgba(255,248,247,0.3)]"></div>
+</div>
+</div>
+<div class="space-y-2">
+<div class="flex justify-between items-end">
+<span class="text-sm font-medium">Delivery &amp; Wrapping</span>
+<span class="text-sm font-headline italic">€174.50</span>
+</div>
+<div class="h-1 w-full bg-surface-container-highest relative">
+<div class="absolute h-full bg-tertiary w-[30%] shadow-[0_0_10px_rgba(241,231,255,0.3)]"></div>
+</div>
+</div>
+</div>
+</section>
+<!-- Custom Notes -->
+<section class="space-y-4 max-w-md">
+<h3 class="text-[10px] font-bold tracking-[0.2em] uppercase font-label text-on-surface-variant">Curator's Note</h3>
+<p class="text-xl font-serif-alt italic leading-relaxed text-on-surface/80 border-l-2 border-tertiary/20 pl-6">
+                    "Purchased for the gallery opening. The White Lilies and Orchids match the minimalist theme. Exceptionally high-quality petals this season."
+                </p>
+</section>
+</div>
+<!-- Financial & Receipt Section (Right Column) -->
+<div class="lg:col-span-5 flex flex-col gap-16 lg:text-right">
+<!-- Massive Amount Bleed -->
+<div class="relative">
+<h3 class="text-[10px] font-bold tracking-[0.2em] uppercase font-label text-on-surface-variant mb-4 lg:text-right">Total Invested</h3>
+<div class="amount-bleed font-headline font-black text-primary/10 absolute -right-12 top-0 pointer-events-none select-none">€594.50</div>
+<div class="text-8xl md:text-9xl font-headline font-bold text-primary relative z-10 drop-shadow-[0_0_20px_rgba(255,248,247,0.15)]">
+                    594.50
+                    <span class="text-4xl align-top font-light ml-2">€</span>
+</div>
+</div>
+<!-- Receipt Photo Preview -->
+<div class="relative group mt-12 lg:ml-auto w-full max-w-sm">
+<div class="absolute -inset-1 bg-gradient-to-tr from-tertiary/20 to-primary/10 rounded-lg blur opacity-25 group-hover:opacity-50 transition duration-1000"></div>
+<div class="relative overflow-hidden bg-surface-container-highest rounded-lg border border-outline-variant/20 aspect-[3/4]">
+<img alt="Receipt preview on a dark stone surface" class="w-full h-full object-cover grayscale brightness-75 group-hover:scale-105 transition-transform duration-700" data-alt="Monochrome photograph of a boutique shop receipt" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAG6RQj8f-4ud_QkfepZ4tHzJn4ioswsur-2pTGXC7hlTD3JmugLA3KveDvxYvMvY86qGpQQtlwFhQcL2RfUTqh9V9APTiqEHlpkNUGasZct8TLVscjkoj00SopfS8rOMMdKfsaSReJD7YbyEZTZLIIa_VIvTx__IU7h3nmc-SaPQxRuHEuZ7tKThzmStfeF4kDSBe7rmyjtA0-QSnX8CNqPpNjQbJu_FqlltJMxPrSzYYOz5klO0YfKrhPN1Y8CrAw4cLzTNunGLt0"/>
+<div class="absolute inset-0 bg-background/40 backdrop-blur-md flex flex-col items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-500">
+<span class="material-symbols-outlined text-4xl mb-2">zoom_in</span>
+<span class="font-label text-[10px] tracking-widest uppercase">View Full Receipt</span>
+</div>
+<div class="absolute bottom-4 left-4 right-4 p-4 bg-surface-dim/80 backdrop-blur-xl rounded border border-outline-variant/10">
+<p class="text-[9px] font-bold uppercase tracking-widest text-on-surface-variant">Verified Receipt Scan</p>
+<p class="text-[11px] font-medium">L'Artisan_Floral_Paris_2410.pdf</p>
+</div>
+</div>
+</div>
+</div>
+</main>
+<!-- Floating Action Cluster (Magnetic Buttons with Glow) -->
+<div class="fixed bottom-12 left-1/2 -translate-x-1/2 z-[100] flex gap-4 items-center">
+<!-- Edit -->
+<button class="w-14 h-14 flex items-center justify-center bg-surface-container-highest text-on-surface rounded border border-outline-variant/20 hover:border-primary/50 hover:shadow-[0_0_20px_rgba(255,248,247,0.1)] transition-all active:scale-90 group">
+<span class="material-symbols-outlined group-hover:text-primary transition-colors">edit</span>
+</button>
+<!-- Confirm (Primary) -->
+<button class="px-8 h-16 flex items-center justify-center bg-primary text-background rounded-lg hover:shadow-[0_0_30px_rgba(255,248,247,0.4)] transition-all active:scale-95">
+<span class="material-symbols-outlined mr-2" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+<span class="font-label text-xs font-bold tracking-[0.2em] uppercase">Confirm Transaction</span>
+</button>
+<!-- Delete -->
+<button class="w-14 h-14 flex items-center justify-center bg-surface-container-highest text-on-surface rounded border border-outline-variant/20 hover:border-error/50 hover:shadow-[0_0_20px_rgba(253,111,133,0.1)] transition-all active:scale-90 group">
+<span class="material-symbols-outlined group-hover:text-error transition-colors">delete</span>
+</button>
+</div>
+<!-- Background Decoration -->
+<div class="fixed top-0 left-0 w-full h-full pointer-events-none -z-20">
+<div class="absolute top-[20%] left-[-10%] w-[1px] h-[60%] bg-gradient-to-b from-transparent via-outline-variant/20 to-transparent"></div>
+<div class="absolute top-[20%] right-[15%] w-[1px] h-[40%] bg-gradient-to-b from-transparent via-outline-variant/20 to-transparent"></div>
+</div>
+</body></html>

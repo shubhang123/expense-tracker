@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&amp;family=Jost:wght@300;400;500;600;700&amp;family=Manrope:wght@300;400;500;600;700&amp;family=Newsreader:ital,opsz,wght@0,6..72,200..800;1,6..72,200..800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "on-primary-container": "#605454",
+              "background": "#110e0a",
+              "tertiary-container": "#e4d7fd",
+              "surface": "#110e0a",
+              "secondary-dim": "#adbdb1",
+              "secondary-container": "#1b2921",
+              "surface-container-lowest": "#000000",
+              "on-surface-variant": "#b3aa9f",
+              "on-tertiary": "#5c5271",
+              "error-dim": "#c8475d",
+              "on-error-container": "#ff97a3",
+              "tertiary": "#f1e7ff",
+              "error": "#fd6f85",
+              "outline": "#7c746b",
+              "surface-variant": "#2a251e",
+              "on-secondary-fixed-variant": "#59685e",
+              "tertiary-fixed-dim": "#d6c9ee",
+              "inverse-primary": "#685c5c",
+              "on-tertiary-fixed-variant": "#5d5372",
+              "surface-container-high": "#241f18",
+              "on-primary": "#685c5c",
+              "surface-tint": "#fff8f7",
+              "surface-container-low": "#16130e",
+              "on-tertiary-fixed": "#403755",
+              "on-primary-fixed-variant": "#655959",
+              "surface-container-highest": "#2a251e",
+              "surface-container": "#1d1913",
+              "error-container": "#8a1632",
+              "tertiary-dim": "#d6c9ee",
+              "secondary-fixed-dim": "#d6e7da",
+              "on-error": "#490013",
+              "primary-container": "#f9e7e7",
+              "tertiary-fixed": "#e4d7fd",
+              "outline-variant": "#4d473e",
+              "inverse-on-surface": "#59544f",
+              "primary-dim": "#eddcdc",
+              "on-primary-fixed": "#483d3d",
+              "secondary": "#bacabe",
+              "primary": "#fff8f7",
+              "on-secondary": "#35433a",
+              "primary-fixed-dim": "#e1d1d1",
+              "primary-fixed": "#f0dfde",
+              "on-surface": "#efe4d8",
+              "on-secondary-container": "#98a89c",
+              "surface-dim": "#110e0a",
+              "secondary-fixed": "#e5f5e8",
+              "inverse-surface": "#fff8f3",
+              "on-secondary-fixed": "#3d4b42",
+              "on-background": "#efe4d8",
+              "on-tertiary-container": "#534968",
+              "surface-bright": "#312b23"
+            },
+            fontFamily: {
+              "headline": ["Newsreader", "serif"],
+              "body": ["Manrope", "sans-serif"],
+              "label": ["Jost", "sans-serif"]
+            },
+            borderRadius: {"DEFAULT": "0.125rem", "lg": "0.25rem", "xl": "0.5rem", "full": "0.75rem"},
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 300, 'GRAD' 0, 'opsz' 24;
+            font-size: 20px;
+        }
+        .grain-overlay {
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+            opacity: 0.05;
+            pointer-events: none;
+        }
+        .organic-shape {
+            filter: blur(80px);
+            z-index: -1;
+        }
+        input[type='range']::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 12px;
+            height: 12px;
+            background: #FFF8F7;
+            border-radius: 2px;
+            cursor: pointer;
+            box-shadow: 0 0 10px rgba(255, 248, 247, 0.6);
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-surface-dim text-on-surface font-body selection:bg-tertiary/30 min-h-screen relative overflow-x-hidden">
+<div class="fixed inset-0 grain-overlay"></div>
+<!-- Background Organic Shapes -->
+<div class="fixed -top-24 -left-24 w-96 h-96 bg-on-tertiary-container opacity-20 organic-shape"></div>
+<div class="fixed top-1/2 -right-48 w-[500px] h-[500px] bg-secondary-container opacity-10 organic-shape"></div>
+<!-- Top Navigation Anchor -->
+<header class="bg-[#110E0A] flex justify-between items-center w-full px-6 py-4 fixed top-0 z-50">
+<div class="flex items-center gap-4">
+<div class="w-10 h-10 rounded-sm bg-surface-container-high flex items-center justify-center overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="User profile portrait in soft lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDSeueC0RzAZ8AjeKzLIJI875TG-0vuUrFAC8YmoGsG6yb5PhL8tSwK82P2tlSyRMO-dtVFWKmYePDKT4uvVHqVjIYiT-qpeS1Nuq4XA0E5J5I9sY_5yt2PFVEmmCA_qfe7ZlFiN0Nd94uo-dUKzTRIuziAeOK_LEpN0z0sUIzGRDL6ce8LSeRuyao5M3-U5QcZwN2IVR89GsTgivu0_uDqN7Ntg2LtxB5btoCMAmsH0Ch0DquZTMYkb9ucpkZOugPvErkOz83lBo0L"/>
+</div>
+<span class="text-2xl font-serif italic text-[#FFF8F7] tracking-widest">BLOOM</span>
+</div>
+<div class="flex items-center gap-8">
+<nav class="hidden md:flex gap-10">
+<span class="text-[11px] font-medium tracking-[0.15em] uppercase font-label text-[#4D473E] hover:text-[#F1E7FF] transition-colors duration-300 cursor-pointer">ATRIUM</span>
+<span class="text-[11px] font-medium tracking-[0.15em] uppercase font-label text-[#FFF8F7] hover:text-[#F1E7FF] transition-colors duration-300 cursor-pointer">GARDENS</span>
+<span class="text-[11px] font-medium tracking-[0.15em] uppercase font-label text-[#4D473E] hover:text-[#F1E7FF] transition-colors duration-300 cursor-pointer">FLOW</span>
+</nav>
+<div class="flex items-center gap-4 text-[#FFF8F7]">
+<span class="material-symbols-outlined cursor-pointer">notifications</span>
+</div>
+</div>
+</header>
+<main class="pt-28 pb-32 px-6 max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-16 relative">
+<!-- Search & Filter Controls (Asymmetric Sidebar) -->
+<aside class="lg:col-span-4 flex flex-col gap-12">
+<section>
+<h1 class="font-headline text-6xl text-primary leading-none mb-4">Search</h1>
+<p class="text-on-surface-variant text-sm max-w-xs">Filter through your curated history of value with architectural precision.</p>
+</section>
+<!-- Keyword Search -->
+<div class="space-y-4">
+<label class="text-[11px] font-medium tracking-[0.15em] uppercase font-label text-outline-variant">Merchant Keywords</label>
+<div class="relative group">
+<input class="w-full bg-transparent border-none border-b border-outline-variant/20 py-3 pl-0 pr-8 focus:ring-0 focus:border-primary text-primary transition-all placeholder:text-outline-variant/40" placeholder="Search entries..." type="text"/>
+<span class="material-symbols-outlined absolute right-0 top-1/2 -translate-y-1/2 text-outline-variant group-focus-within:text-primary">search</span>
+</div>
+</div>
+<!-- Smart Filters -->
+<div class="space-y-4">
+<label class="text-[11px] font-medium tracking-[0.15em] uppercase font-label text-outline-variant">Intelligence Layer</label>
+<div class="flex flex-wrap gap-3">
+<button class="px-4 py-2 rounded-sm border-[0.5px] border-outline-variant/30 text-[11px] font-bold tracking-[0.1em] uppercase font-label bg-surface-container-high text-primary drop-shadow-[0_0_8px_rgba(255,248,247,0.1)]">High-Value</button>
+<button class="px-4 py-2 rounded-sm border-[0.5px] border-outline-variant/15 text-[11px] font-bold tracking-[0.1em] uppercase font-label text-outline-variant hover:border-outline-variant/40 transition-all">Recurring</button>
+<button class="px-4 py-2 rounded-sm border-[0.5px] border-outline-variant/15 text-[11px] font-bold tracking-[0.1em] uppercase font-label text-outline-variant hover:border-outline-variant/40 transition-all">Subscriptions</button>
+</div>
+</div>
+<!-- Amount Range -->
+<div class="space-y-6">
+<div class="flex justify-between items-end">
+<label class="text-[11px] font-medium tracking-[0.15em] uppercase font-label text-outline-variant">Amount Scale</label>
+<span class="text-xl font-headline italic text-primary">$0 — $15,000</span>
+</div>
+<div class="relative h-px bg-outline-variant/20 w-full mt-4">
+<input class="absolute inset-0 w-full h-px appearance-none bg-transparent accent-primary cursor-pointer" type="range"/>
+<div class="absolute inset-0 h-[2px] bg-primary/40 shadow-[0_0_15px_rgba(255,248,247,0.3)] w-3/4"></div>
+</div>
+</div>
+<!-- Date Range (Calendar Trigger) -->
+<div class="space-y-4">
+<label class="text-[11px] font-medium tracking-[0.15em] uppercase font-label text-outline-variant">Chronology</label>
+<div class="bg-surface-container-low p-6 rounded-sm border border-outline-variant/10">
+<div class="flex justify-between items-center mb-6">
+<span class="font-headline text-lg italic text-on-surface">October 2023</span>
+<div class="flex gap-4 text-outline-variant">
+<span class="material-symbols-outlined text-sm cursor-pointer">chevron_left</span>
+<span class="material-symbols-outlined text-sm cursor-pointer">chevron_right</span>
+</div>
+</div>
+<div class="grid grid-cols-7 gap-2 text-center">
+<span class="text-[9px] font-bold uppercase text-outline-variant/60">M</span>
+<span class="text-[9px] font-bold uppercase text-outline-variant/60">T</span>
+<span class="text-[9px] font-bold uppercase text-outline-variant/60">W</span>
+<span class="text-[9px] font-bold uppercase text-outline-variant/60">T</span>
+<span class="text-[9px] font-bold uppercase text-outline-variant/60">F</span>
+<span class="text-[9px] font-bold uppercase text-outline-variant/60">S</span>
+<span class="text-[9px] font-bold uppercase text-outline-variant/60">S</span>
+<!-- Mock Days -->
+<span class="text-xs py-1 text-outline-variant/40">28</span>
+<span class="text-xs py-1 text-outline-variant/40">29</span>
+<span class="text-xs py-1 text-outline-variant/40">30</span>
+<span class="text-xs py-1 text-on-surface">1</span>
+<span class="text-xs py-1 text-on-surface">2</span>
+<span class="text-xs py-1 bg-primary text-on-primary-container rounded-sm">3</span>
+<span class="text-xs py-1 text-on-surface">4</span>
+</div>
+</div>
+</div>
+</aside>
+<!-- Search Results (The Ledger) -->
+<div class="lg:col-span-8 flex flex-col gap-8">
+<div class="flex justify-between items-baseline border-b border-outline-variant/10 pb-4">
+<span class="text-[11px] font-medium tracking-[0.2em] uppercase font-label text-outline-variant">24 Results Matched</span>
+<button class="text-[10px] font-bold tracking-[0.15em] uppercase font-label text-on-tertiary hover:text-tertiary transition-colors">Clear All Filters</button>
+</div>
+<div class="flex flex-col">
+<!-- Ledger Item 1 -->
+<div class="group py-8 px-4 flex items-center hover:bg-surface-container-high transition-all duration-500 rounded-sm relative">
+<div class="w-24 shrink-0">
+<span class="text-[11px] font-bold tracking-[0.1em] uppercase font-label text-outline-variant block mb-1">Oct 12</span>
+<span class="text-[10px] font-medium text-outline-variant/60 block">14:32 PM</span>
+</div>
+<div class="flex-grow flex flex-col">
+<span class="text-2xl font-serif text-primary italic">Aesthetica Gallery</span>
+<span class="text-[11px] font-medium tracking-[0.05em] uppercase font-label text-on-tertiary mt-1">Acquisition — Private Collection</span>
+</div>
+<div class="text-right">
+<span class="font-headline text-4xl text-primary">$4,200.00</span>
+<div class="flex justify-end mt-2">
+<span class="text-[9px] px-2 py-0.5 border border-outline-variant/20 rounded-full font-bold uppercase tracking-wider text-outline-variant group-hover:border-primary/40 group-hover:text-primary transition-all">Cleared</span>
+</div>
+</div>
+</div>
+<!-- Ledger Item 2 -->
+<div class="group py-8 px-4 flex items-center hover:bg-surface-container-high transition-all duration-500 rounded-sm relative">
+<div class="w-24 shrink-0">
+<span class="text-[11px] font-bold tracking-[0.1em] uppercase font-label text-outline-variant block mb-1">Oct 10</span>
+<span class="text-[10px] font-medium text-outline-variant/60 block">09:15 AM</span>
+</div>
+<div class="flex-grow flex flex-col">
+<span class="text-2xl font-serif text-primary italic">Atelier Flora</span>
+<span class="text-[11px] font-medium tracking-[0.05em] uppercase font-label text-on-tertiary mt-1">Recurring — Living Space</span>
+</div>
+<div class="text-right">
+<span class="font-headline text-4xl text-primary">$185.00</span>
+<div class="flex justify-end mt-2">
+<span class="text-[9px] px-2 py-0.5 border border-outline-variant/20 rounded-full font-bold uppercase tracking-wider text-outline-variant group-hover:border-primary/40 group-hover:text-primary transition-all">Cleared</span>
+</div>
+</div>
+</div>
+<!-- Ledger Item 3 -->
+<div class="group py-8 px-4 flex items-center hover:bg-surface-container-high transition-all duration-500 rounded-sm relative">
+<div class="w-24 shrink-0">
+<span class="text-[11px] font-bold tracking-[0.1em] uppercase font-label text-outline-variant block mb-1">Oct 08</span>
+<span class="text-[10px] font-medium text-outline-variant/60 block">11:00 AM</span>
+</div>
+<div class="flex-grow flex flex-col">
+<span class="text-2xl font-serif text-primary italic">Lumière Noir</span>
+<span class="text-[11px] font-medium tracking-[0.05em] uppercase font-label text-on-tertiary mt-1">Dining — Editorial Gastronomy</span>
+</div>
+<div class="text-right">
+<span class="font-headline text-4xl text-primary">$890.00</span>
+<div class="flex justify-end mt-2">
+<span class="text-[9px] px-2 py-0.5 border border-error-dim/40 rounded-full font-bold uppercase tracking-wider text-error-dim">Pending</span>
+</div>
+</div>
+</div>
+<!-- Ledger Item 4 -->
+<div class="group py-8 px-4 flex items-center hover:bg-surface-container-high transition-all duration-500 rounded-sm relative">
+<div class="w-24 shrink-0">
+<span class="text-[11px] font-bold tracking-[0.1em] uppercase font-label text-outline-variant block mb-1">Oct 05</span>
+<span class="text-[10px] font-medium text-outline-variant/60 block">18:45 PM</span>
+</div>
+<div class="flex-grow flex flex-col">
+<span class="text-2xl font-serif text-primary italic">Velvet Horizon Travel</span>
+<span class="text-[11px] font-medium tracking-[0.05em] uppercase font-label text-on-tertiary mt-1">Transport — First Class Ritual</span>
+</div>
+<div class="text-right">
+<span class="font-headline text-4xl text-primary">$12,800.00</span>
+<div class="flex justify-end mt-2">
+<span class="text-[9px] px-2 py-0.5 border border-outline-variant/20 rounded-full font-bold uppercase tracking-wider text-outline-variant group-hover:border-primary/40 group-hover:text-primary transition-all">Cleared</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Empty State / Load More (Editorial Style) -->
+<div class="mt-12 flex flex-col items-center py-16 border border-dashed border-outline-variant/10">
+<span class="material-symbols-outlined text-4xl text-outline-variant/20 mb-4">filter_list_off</span>
+<span class="font-headline text-2xl italic text-outline-variant/40">End of history.</span>
+<p class="text-[11px] font-bold tracking-[0.1em] uppercase font-label text-outline-variant/20 mt-2">Refine your criteria to discover deeper layers.</p>
+</div>
+</div>
+</main>
+<!-- Bottom Navigation Bar (Shared) -->
+<nav class="md:hidden fixed bottom-0 left-0 w-full z-50 flex justify-around items-center px-4 pb-8 pt-4 bg-[#110E0A]/90 backdrop-blur-xl border-t border-[#4D473E]/15">
+<div class="flex flex-col items-center justify-center text-[#4D473E] hover:text-[#F1E7FF] transition-colors">
+<span class="material-symbols-outlined">grid_view</span>
+<span class="text-[10px] font-bold tracking-[0.1em] uppercase font-label mt-1">ATRIUM</span>
+</div>
+<div class="flex flex-col items-center justify-center text-[#FFF8F7] drop-shadow-[0_0_8px_rgba(255,248,247,0.4)] transform scale-110">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">filter_vintage</span>
+<span class="text-[10px] font-bold tracking-[0.1em] uppercase font-label mt-1">GARDENS</span>
+</div>
+<div class="flex flex-col items-center justify-center text-[#4D473E] hover:text-[#F1E7FF] transition-colors">
+<span class="material-symbols-outlined">tsunami</span>
+<span class="text-[10px] font-bold tracking-[0.1em] uppercase font-label mt-1">FLOW</span>
+</div>
+<div class="flex flex-col items-center justify-center text-[#4D473E] hover:text-[#F1E7FF] transition-colors">
+<span class="material-symbols-outlined">person_2</span>
+<span class="text-[10px] font-bold tracking-[0.1em] uppercase font-label mt-1">PROFILE</span>
+</div>
+</nav>
+<!-- Decorative Floating Element -->
+<div class="fixed bottom-12 right-12 hidden lg:block">
+<div class="w-16 h-16 rounded-full bg-surface-container-highest flex items-center justify-center border border-primary/10 group cursor-pointer shadow-2xl">
+<span class="material-symbols-outlined text-primary group-hover:rotate-180 transition-transform duration-700">add</span>
+<div class="absolute inset-0 bg-primary/5 rounded-full blur-xl scale-0 group-hover:scale-150 transition-transform duration-700"></div>
+</div>
+</div>
+</body></html>

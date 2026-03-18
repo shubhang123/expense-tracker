@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>BLOOM | Analytics &amp; Reports</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&amp;family=Newsreader:ital,opsz,wght@0,6..72,200..800;1,6..72,200..800&amp;family=Manrope:wght@200;300;400;500;600;700;800&amp;family=Jost:ital,wght@0,100..900;1,100..900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<style>
+        body {
+            font-family: 'Manrope', sans-serif;
+            background-color: #110E0A;
+            color: #EFE4D8;
+            overflow-x: hidden;
+        }
+        .font-serif { font-family: 'Instrument Serif', serif; }
+        .font-headline { font-family: 'Newsreader', serif; }
+        .font-jost { font-family: 'Jost', sans-serif; }
+        
+        .mesh-gradient {
+            background-image: 
+                radial-gradient(at 0% 0%, rgba(83, 73, 104, 0.15) 0px, transparent 50%),
+                radial-gradient(at 100% 0%, rgba(27, 41, 33, 0.15) 0px, transparent 50%),
+                radial-gradient(at 100% 100%, rgba(83, 73, 104, 0.1) 0px, transparent 50%),
+                radial-gradient(at 0% 100%, rgba(27, 41, 33, 0.1) 0px, transparent 50%);
+            filter: contrast(120%) brightness(100%);
+        }
+
+        .noise-overlay {
+            position: fixed;
+            inset: 0;
+            z-index: 10;
+            opacity: 0.05;
+            pointer-events: none;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+        }
+
+        .chart-glow-line {
+            filter: drop-shadow(0 0 8px rgba(241, 231, 255, 0.4));
+        }
+
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 300, 'GRAD' 0, 'opsz' 24;
+        }
+    </style>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              colors: {
+                "on-primary-container": "#605454",
+                "background": "#110e0a",
+                "tertiary-container": "#e4d7fd",
+                "surface": "#110e0a",
+                "secondary-dim": "#adbdb1",
+                "secondary-container": "#1b2921",
+                "surface-container-lowest": "#000000",
+                "on-surface-variant": "#b3aa9f",
+                "on-tertiary": "#5c5271",
+                "error-dim": "#c8475d",
+                "on-error-container": "#ff97a3",
+                "tertiary": "#f1e7ff",
+                "error": "#fd6f85",
+                "outline": "#7c746b",
+                "surface-variant": "#2a251e",
+                "on-secondary-fixed-variant": "#59685e",
+                "tertiary-fixed-dim": "#d6c9ee",
+                "inverse-primary": "#685c5c",
+                "on-tertiary-fixed-variant": "#5d5372",
+                "surface-container-high": "#241f18",
+                "on-primary": "#685c5c",
+                "surface-tint": "#fff8f7",
+                "surface-container-low": "#16130e",
+                "on-tertiary-fixed": "#403755",
+                "on-primary-fixed-variant": "#655959",
+                "surface-container-highest": "#2a251e",
+                "surface-container": "#1d1913",
+                "error-container": "#8a1632",
+                "tertiary-dim": "#d6c9ee",
+                "secondary-fixed-dim": "#d6e7da",
+                "on-error": "#490013",
+                "primary-container": "#f9e7e7",
+                "tertiary-fixed": "#e4d7fd",
+                "outline-variant": "#4d473e",
+                "inverse-on-surface": "#59544f",
+                "primary-dim": "#eddcdc",
+                "on-primary-fixed": "#483d3d",
+                "secondary": "#bacabe",
+                "primary": "#fff8f7",
+                "on-secondary": "#35433a",
+                "primary-fixed-dim": "#e1d1d1",
+                "primary-fixed": "#f0dfde",
+                "on-surface": "#efe4d8",
+                "on-secondary-container": "#98a89c",
+                "surface-dim": "#110e0a",
+                "secondary-fixed": "#e5f5e8",
+                "inverse-surface": "#fff8f3",
+                "on-secondary-fixed": "#3d4b42",
+                "on-background": "#efe4d8",
+                "on-tertiary-container": "#534968",
+                "surface-bright": "#312b23"
+              },
+              fontFamily: {
+                "headline": ["Newsreader"],
+                "body": ["Manrope"],
+                "label": ["Manrope"]
+              },
+              borderRadius: {"DEFAULT": "0.125rem", "lg": "0.25rem", "xl": "0.5rem", "full": "0.75rem"},
+            },
+          },
+        }
+    </script>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background text-on-background min-h-screen selection:bg-tertiary/30">
+<div class="noise-overlay"></div>
+<div class="fixed inset-0 mesh-gradient z-0"></div>
+<!-- TopAppBar -->
+<nav class="flex justify-between items-center w-full px-6 py-4 fixed top-0 z-50 bg-[#110E0A] dark:bg-[#110E0A] transition-all duration-300">
+<div class="flex items-center gap-4">
+<div class="w-10 h-10 rounded-full bg-surface-container-high flex items-center justify-center overflow-hidden">
+<img alt="User profile" class="w-full h-full object-cover" data-alt="Portrait of a sophisticated professional woman" src="https://lh3.googleusercontent.com/aida-public/AB6AXuC37sBd6PQyAbMwE1UNCflrPV3LVhG2NKUglBtWchSkdq1O3BRqnyzSDblMrwVqWWvzqF__qJXPWnCYKhE_esgOmlBxQ-LJ_vBUMMeqUjU4MwqrAnmio6zve9oTTJJCLt3s6STr5cu7idgQIanngFkEZdmGoDG651QR1b1JP1I8_9WLgSgwj1FnXJlO9hPkB7mRk8Sied0TrR16JMMQcljz9f9Xse1SUh6gj1C9f5lBfkB_7l_u1XLklVj-MWnu310HA1z9htnWbf5S"/>
+</div>
+<span class="text-2xl font-serif italic text-[#FFF8F7] tracking-widest uppercase">BLOOM</span>
+</div>
+<div class="hidden md:flex items-center gap-12">
+<a class="text-[11px] font-medium tracking-[0.15em] uppercase font-jost text-[#4D473E] hover:text-[#F1E7FF] transition-colors duration-300" href="#">Atrium</a>
+<a class="text-[11px] font-medium tracking-[0.15em] uppercase font-jost text-[#4D473E] hover:text-[#F1E7FF] transition-colors duration-300" href="#">Gardens</a>
+<a class="text-[11px] font-medium tracking-[0.15em] uppercase font-jost text-[#FFF8F7] transition-colors duration-300" href="#">Flow</a>
+<a class="text-[11px] font-medium tracking-[0.15em] uppercase font-jost text-[#4D473E] hover:text-[#F1E7FF] transition-colors duration-300" href="#">Profile</a>
+</div>
+<div class="flex items-center gap-6 text-[#FFF8F7]">
+<button class="material-symbols-outlined hover:opacity-70 transition-all active:scale-95">notifications</button>
+<button class="material-symbols-outlined md:hidden">menu</button>
+</div>
+</nav>
+<main class="relative z-20 pt-32 pb-40 px-6 max-w-7xl mx-auto">
+<!-- Header Section -->
+<header class="mb-24 flex flex-col md:flex-row md:items-end justify-between gap-8">
+<div class="max-w-2xl">
+<h1 class="text-7xl md:text-9xl font-headline italic leading-[0.85] tracking-tighter text-primary mb-6">
+                    Growth <br/> Aesthetics
+                </h1>
+<p class="text-lg md:text-xl font-headline italic text-on-tertiary-container/80 leading-relaxed">
+                    "Value is not merely a number, but a quiet accumulation of intentional choices, flowing like water through the architecture of time."
+                </p>
+</div>
+<div class="flex gap-4">
+<button class="group relative px-8 py-3 bg-primary text-surface-dim font-jost text-[11px] font-bold tracking-[0.2em] uppercase rounded-sm overflow-hidden transition-all hover:shadow-[0_0_20px_rgba(255,248,247,0.3)]">
+<span class="relative z-10">Generate CSV</span>
+<div class="absolute inset-0 bg-tertiary translate-y-full group-hover:translate-y-0 transition-transform duration-500"></div>
+</button>
+<button class="px-8 py-3 border border-outline-variant/30 text-primary font-jost text-[11px] font-bold tracking-[0.2em] uppercase rounded-sm hover:bg-surface-bright transition-all">
+                    PDF Report
+                </button>
+</div>
+</header>
+<!-- Bento Grid Analytics -->
+<div class="grid grid-cols-1 md:grid-cols-12 gap-6">
+<!-- Hero Metric Card -->
+<div class="md:col-span-8 bg-surface-container-low rounded-lg p-10 flex flex-col justify-between min-h-[500px] border border-outline-variant/5">
+<div class="flex justify-between items-start">
+<div>
+<span class="text-[10px] font-bold tracking-[0.2em] uppercase text-on-surface-variant font-jost">Total Portfolio Value</span>
+<div class="flex items-baseline gap-4 mt-2">
+<h2 class="text-6xl md:text-8xl font-headline text-primary">$492,084</h2>
+<span class="text-secondary font-jost text-sm font-bold tracking-widest">+12.4%</span>
+</div>
+</div>
+<div class="flex gap-2">
+<button class="px-3 py-1 bg-surface-bright text-primary text-[10px] font-bold font-jost rounded-sm">1M</button>
+<button class="px-3 py-1 text-on-surface-variant text-[10px] font-bold font-jost rounded-sm hover:bg-surface-bright transition-all">6M</button>
+<button class="px-3 py-1 text-on-surface-variant text-[10px] font-bold font-jost rounded-sm hover:bg-surface-bright transition-all">1Y</button>
+</div>
+</div>
+<!-- Line Chart Visualization -->
+<div class="relative h-64 mt-12 w-full">
+<svg class="w-full h-full preserve-3d" viewbox="0 0 800 200">
+<!-- Chart Trails -->
+<path class="chart-glow-line" d="M0 150 Q 100 120 200 160 T 400 80 T 600 120 T 800 40" fill="none" stroke="url(#gradient-line)" stroke-width="3"></path>
+<path d="M0 180 Q 150 160 300 170 T 500 140 T 700 150 T 800 110" fill="none" stroke="#4D473E" stroke-dasharray="4 4" stroke-width="1"></path>
+<defs>
+<lineargradient id="gradient-line" x1="0%" x2="100%" y1="0%" y2="0%">
+<stop offset="0%" stop-color="#534968"></stop>
+<stop offset="50%" stop-color="#F1E7FF"></stop>
+<stop offset="100%" stop-color="#FFF8F7"></stop>
+</lineargradient>
+</defs>
+</svg>
+<!-- Data Points -->
+<div class="absolute left-[25%] top-[80%] w-2 h-2 rounded-full bg-primary shadow-[0_0_12px_#FFF8F7]"></div>
+<div class="absolute left-[50%] top-[40%] w-2 h-2 rounded-full bg-primary shadow-[0_0_12px_#FFF8F7]"></div>
+<div class="absolute left-[75%] top-[60%] w-2 h-2 rounded-full bg-primary shadow-[0_0_12px_#FFF8F7]"></div>
+</div>
+<div class="grid grid-cols-4 gap-4 mt-8 pt-8 border-t border-outline-variant/10">
+<div>
+<span class="block text-[9px] font-bold uppercase tracking-[0.2em] text-on-surface-variant mb-1">Peak</span>
+<span class="text-xl font-headline text-primary">$512k</span>
+</div>
+<div>
+<span class="block text-[9px] font-bold uppercase tracking-[0.2em] text-on-surface-variant mb-1">Lows</span>
+<span class="text-xl font-headline text-primary">$402k</span>
+</div>
+<div>
+<span class="block text-[9px] font-bold uppercase tracking-[0.2em] text-on-surface-variant mb-1">Volatility</span>
+<span class="text-xl font-headline text-primary">0.14</span>
+</div>
+<div>
+<span class="block text-[9px] font-bold uppercase tracking-[0.2em] text-on-surface-variant mb-1">Alpha</span>
+<span class="text-xl font-headline text-secondary">+4.2%</span>
+</div>
+</div>
+</div>
+<!-- Distribution Chart -->
+<div class="md:col-span-4 bg-surface-container-high rounded-lg p-10 flex flex-col border border-outline-variant/10">
+<span class="text-[10px] font-bold tracking-[0.2em] uppercase text-on-surface-variant font-jost mb-8">Asset Allocation</span>
+<div class="flex-grow flex items-center justify-center relative">
+<!-- Concentric Rings Visualization -->
+<div class="w-48 h-48 rounded-full border-[12px] border-secondary-container relative flex items-center justify-center">
+<div class="absolute inset-0 rounded-full border-[12px] border-tertiary border-t-transparent border-l-transparent rotate-45 shadow-[0_0_15px_rgba(241,231,255,0.2)]"></div>
+<div class="text-center">
+<span class="block text-4xl font-headline text-primary">64%</span>
+<span class="text-[9px] font-bold uppercase tracking-widest text-on-surface-variant">Liquid</span>
+</div>
+</div>
+</div>
+<div class="space-y-6 mt-12">
+<div class="flex justify-between items-center">
+<div class="flex items-center gap-3">
+<div class="w-2 h-2 rounded-full bg-tertiary"></div>
+<span class="text-xs font-jost font-medium tracking-wide">Equities</span>
+</div>
+<span class="text-sm font-headline">42.5%</span>
+</div>
+<div class="flex justify-between items-center">
+<div class="flex items-center gap-3">
+<div class="w-2 h-2 rounded-full bg-secondary"></div>
+<span class="text-xs font-jost font-medium tracking-wide">Bonds</span>
+</div>
+<span class="text-sm font-headline">21.0%</span>
+</div>
+<div class="flex justify-between items-center">
+<div class="flex items-center gap-3">
+<div class="w-2 h-2 rounded-full bg-on-tertiary"></div>
+<span class="text-xs font-jost font-medium tracking-wide">Alternative</span>
+</div>
+<span class="text-sm font-headline">36.5%</span>
+</div>
+</div>
+</div>
+<!-- Comparison Bar Chart Section -->
+<div class="md:col-span-12 bg-surface-container-low rounded-lg p-10 border border-outline-variant/5">
+<div class="flex justify-between items-center mb-16">
+<div>
+<h3 class="text-3xl font-headline text-primary">Performance Benchmark</h3>
+<p class="text-sm font-jost text-on-surface-variant mt-2 tracking-wide uppercase font-semibold">Comparing against global treasury standards</p>
+</div>
+<div class="flex items-center gap-4">
+<div class="flex items-center gap-2">
+<div class="w-2 h-2 rounded-sm bg-primary"></div>
+<span class="text-[10px] uppercase font-jost tracking-widest">BLOOM</span>
+</div>
+<div class="flex items-center gap-2">
+<div class="w-2 h-2 rounded-sm bg-outline-variant"></div>
+<span class="text-[10px] uppercase font-jost tracking-widest">S&amp;P 500</span>
+</div>
+</div>
+</div>
+<div class="flex items-end justify-between h-48 gap-4 px-4">
+<!-- Iterating bars -->
+<div class="flex flex-col items-center gap-4 flex-1">
+<div class="w-full flex justify-center gap-1">
+<div class="w-3 bg-primary rounded-t-sm h-32 shadow-[0_0_15px_rgba(255,248,247,0.1)]"></div>
+<div class="w-3 bg-outline-variant/30 rounded-t-sm h-24"></div>
+</div>
+<span class="text-[9px] font-jost text-on-surface-variant">JAN</span>
+</div>
+<div class="flex flex-col items-center gap-4 flex-1">
+<div class="w-full flex justify-center gap-1">
+<div class="w-3 bg-primary rounded-t-sm h-40 shadow-[0_0_15px_rgba(255,248,247,0.1)]"></div>
+<div class="w-3 bg-outline-variant/30 rounded-t-sm h-28"></div>
+</div>
+<span class="text-[9px] font-jost text-on-surface-variant">FEB</span>
+</div>
+<div class="flex flex-col items-center gap-4 flex-1">
+<div class="w-full flex justify-center gap-1">
+<div class="w-3 bg-primary rounded-t-sm h-36 shadow-[0_0_15px_rgba(255,248,247,0.1)]"></div>
+<div class="w-3 bg-outline-variant/30 rounded-t-sm h-32"></div>
+</div>
+<span class="text-[9px] font-jost text-on-surface-variant">MAR</span>
+</div>
+<div class="flex flex-col items-center gap-4 flex-1">
+<div class="w-full flex justify-center gap-1">
+<div class="w-3 bg-primary rounded-t-sm h-28 shadow-[0_0_15px_rgba(255,248,247,0.1)]"></div>
+<div class="w-3 bg-outline-variant/30 rounded-t-sm h-34"></div>
+</div>
+<span class="text-[9px] font-jost text-on-surface-variant">APR</span>
+</div>
+<div class="flex flex-col items-center gap-4 flex-1">
+<div class="w-full flex justify-center gap-1">
+<div class="w-3 bg-primary rounded-t-sm h-44 shadow-[0_0_15px_rgba(255,248,247,0.1)]"></div>
+<div class="w-3 bg-outline-variant/30 rounded-t-sm h-20"></div>
+</div>
+<span class="text-[9px] font-jost text-on-surface-variant">MAY</span>
+</div>
+<div class="flex flex-col items-center gap-4 flex-1">
+<div class="w-full flex justify-center gap-1">
+<div class="w-3 bg-primary rounded-t-sm h-48 shadow-[0_0_20px_rgba(255,248,247,0.2)]"></div>
+<div class="w-3 bg-outline-variant/30 rounded-t-sm h-30"></div>
+</div>
+<span class="text-[9px] font-jost text-on-surface-variant">JUN</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Recent Transactions/Insights Section -->
+<section class="mt-24">
+<h4 class="text-[11px] font-bold tracking-[0.3em] uppercase text-on-tertiary-container mb-12 border-b border-outline-variant/10 pb-4">Historical Flow</h4>
+<div class="space-y-4">
+<div class="group flex items-center justify-between p-6 bg-surface-container-low hover:bg-surface-container-high transition-colors duration-300">
+<div class="flex flex-col">
+<span class="text-[10px] font-bold tracking-widest uppercase text-on-surface-variant font-jost">JUNE 14, 2024</span>
+<span class="text-2xl font-headline text-primary">Equity Dividend Realization</span>
+</div>
+<div class="text-right">
+<span class="block text-4xl font-headline text-secondary">+$1,240.00</span>
+<span class="text-[9px] uppercase font-jost tracking-tighter text-on-surface-variant">Transferred to Atrium</span>
+</div>
+</div>
+<div class="group flex items-center justify-between p-6 bg-surface-container-low hover:bg-surface-container-high transition-colors duration-300">
+<div class="flex flex-col">
+<span class="text-[10px] font-bold tracking-widest uppercase text-on-surface-variant font-jost">JUNE 12, 2024</span>
+<span class="text-2xl font-headline text-primary">Gallery Acquisition: Piece #024</span>
+</div>
+<div class="text-right">
+<span class="block text-4xl font-headline text-error-dim">-$14,500.00</span>
+<span class="text-[9px] uppercase font-jost tracking-tighter text-on-surface-variant">Capital Allocation</span>
+</div>
+</div>
+<div class="group flex items-center justify-between p-6 bg-surface-container-low hover:bg-surface-container-high transition-colors duration-300">
+<div class="flex flex-col">
+<span class="text-[10px] font-bold tracking-widest uppercase text-on-surface-variant font-jost">JUNE 08, 2024</span>
+<span class="text-2xl font-headline text-primary">Venture Seed Round B</span>
+</div>
+<div class="text-right">
+<span class="block text-4xl font-headline text-tertiary">-$25,000.00</span>
+<span class="text-[9px] uppercase font-jost tracking-tighter text-on-surface-variant">Pending Verification</span>
+</div>
+</div>
+</div>
+</section>
+</main>
+<!-- BottomNavBar -->
+<nav class="fixed bottom-0 left-0 w-full z-50 flex justify-around items-center px-4 pb-8 pt-4 bg-[#110E0A]/90 backdrop-blur-xl border-t border-[#4D473E]/15">
+<a class="flex flex-col items-center justify-center text-[#4D473E] hover:text-[#F1E7FF]" href="#">
+<span class="material-symbols-outlined mb-1">grid_view</span>
+<span class="text-[10px] font-bold tracking-[0.1em] uppercase font-jost">ATRIUM</span>
+</a>
+<a class="flex flex-col items-center justify-center text-[#4D473E] hover:text-[#F1E7FF]" href="#">
+<span class="material-symbols-outlined mb-1">filter_vintage</span>
+<span class="text-[10px] font-bold tracking-[0.1em] uppercase font-jost">GARDENS</span>
+</a>
+<a class="flex flex-col items-center justify-center text-[#FFF8F7] drop-shadow-[0_0_8px_rgba(255,248,247,0.4)] scale-110" href="#">
+<span class="material-symbols-outlined mb-1">tsunami</span>
+<span class="text-[10px] font-bold tracking-[0.1em] uppercase font-jost">FLOW</span>
+</a>
+<a class="flex flex-col items-center justify-center text-[#4D473E] hover:text-[#F1E7FF]" href="#">
+<span class="material-symbols-outlined mb-1">person_2</span>
+<span class="text-[10px] font-bold tracking-[0.1em] uppercase font-jost">PROFILE</span>
+</a>
+</nav>
+</body></html>

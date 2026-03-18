@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>BLOOM | Curator Profile</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&amp;family=Inter:wght@400;500;600&amp;family=Manrope:wght@300;400;500;600;700;800&amp;family=Newsreader:ital,opsz,wght@0,6..72,200..800;1,6..72,200..800&amp;family=Jost:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "on-primary-container": "#605454",
+                        "background": "#110e0a",
+                        "tertiary-container": "#e4d7fd",
+                        "surface": "#110e0a",
+                        "secondary-dim": "#adbdb1",
+                        "secondary-container": "#1b2921",
+                        "surface-container-lowest": "#000000",
+                        "on-surface-variant": "#b3aa9f",
+                        "on-tertiary": "#5c5271",
+                        "error-dim": "#c8475d",
+                        "on-error-container": "#ff97a3",
+                        "tertiary": "#f1e7ff",
+                        "error": "#fd6f85",
+                        "outline": "#7c746b",
+                        "surface-variant": "#2a251e",
+                        "on-secondary-fixed-variant": "#59685e",
+                        "tertiary-fixed-dim": "#d6c9ee",
+                        "inverse-primary": "#685c5c",
+                        "on-tertiary-fixed-variant": "#5d5372",
+                        "surface-container-high": "#241f18",
+                        "on-primary": "#685c5c",
+                        "surface-tint": "#fff8f7",
+                        "surface-container-low": "#16130e",
+                        "on-tertiary-fixed": "#403755",
+                        "on-primary-fixed-variant": "#655959",
+                        "surface-container-highest": "#2a251e",
+                        "surface-container": "#1d1913",
+                        "error-container": "#8a1632",
+                        "tertiary-dim": "#d6c9ee",
+                        "secondary-fixed-dim": "#d6e7da",
+                        "on-error": "#490013",
+                        "primary-container": "#f9e7e7",
+                        "tertiary-fixed": "#e4d7fd",
+                        "outline-variant": "#4d473e",
+                        "inverse-on-surface": "#59544f",
+                        "primary-dim": "#eddcdc",
+                        "on-primary-fixed": "#483d3d",
+                        "secondary": "#bacabe",
+                        "primary": "#fff8f7",
+                        "on-secondary": "#35433a",
+                        "primary-fixed-dim": "#e1d1d1",
+                        "primary-fixed": "#f0dfde",
+                        "on-surface": "#efe4d8",
+                        "on-secondary-container": "#98a89c",
+                        "surface-dim": "#110e0a",
+                        "secondary-fixed": "#e5f5e8",
+                        "inverse-surface": "#fff8f3",
+                        "on-secondary-fixed": "#3d4b42",
+                        "on-background": "#efe4d8",
+                        "on-tertiary-container": "#534968",
+                        "surface-bright": "#312b23"
+                    },
+                    fontFamily: {
+                        "headline": ["Newsreader", "serif"],
+                        "body": ["Manrope", "sans-serif"],
+                        "label": ["Manrope", "sans-serif"],
+                        "serif": ["Instrument Serif", "serif"],
+                        "jost": ["Jost", "sans-serif"]
+                    },
+                    borderRadius: { "DEFAULT": "0.125rem", "lg": "0.25rem", "xl": "0.5rem", "full": "0.75rem" },
+                },
+            },
+        }
+    </script>
+<style>.material-symbols-outlined {
+    font-variation-settings: "FILL" 0, "wght" 300, "GRAD" 0, "opsz" 24;
+    font-size: 20px
+    }
+.grain-overlay {
+    background-image: url(https://lh3.googleusercontent.com/aida-public/AB6AXuCXVdUzgZ_iL6Q8FZmJfceh8yUHh2kArbdnKgfdfTDqOmM662q6jMoXrfNZHQ-dnTiif3vhJENwzptM_6PupaFxQ2KThcQ-jjXAbpDVlkhD1GlfvbZn1loTzXksEdxcyCAlWqzhTd86rMlaX-6mAyvLqjPhkyHDY1oasSBwfHZL7U0ChI8yz86v98S3Z6jCvm81lFo5DBaT2HPDwWG48rtDd4eGR9e8_D0gLA7_Tx55lOirvRCvtvHHNjFfJpION3do-JSvYEq66paU);
+    opacity: 0.05;
+    pointer-events: none
+    }
+.text-glow {
+    text-shadow: 0 0 12px rgba(255, 248, 247, 0.3)
+    }
+.status-glow {
+    box-shadow: 0 0 15px rgba(241, 231, 255, 0.4)
+    }
+.wave-path {
+    stroke-dasharray: 1000;
+    stroke-dashoffset: 1000
+    }</style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-surface-dim text-on-background font-body selection:bg-tertiary-container selection:text-on-tertiary-container overflow-x-hidden">
+<div class="fixed inset-0 grain-overlay z-[100]"></div>
+<header class="bg-[#110E0A] dark:bg-[#110E0A] flex justify-between items-center w-full px-6 py-4 fixed top-0 z-[60]">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 rounded-full bg-surface-container-high overflow-hidden border border-outline-variant/20">
+<img alt="User profile photo" class="w-full h-full object-cover" data-alt="Portrait of a person with editorial lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBVphFdIF9mP2E-mPEgyQktPrOK-cPpnN60MVYlOpYYBVbdyvQOwCHoKGBl_PI6nIESk48Su7aSiarm1pmXAt8EvumzjQUaI7wwrKKmHsvZtArp2BWYTbRZgEMwooKola_dkAetWCq3G7z3NdJdXVejZg3rTHlncRbS4cGoQJIps1xY_S1J4ZjhUPCbu2NIB2RWRvW8naApYrwZb9gUcvD6LRdVUc6Xj0EMX0_3VsNvATDtjhhZ8Axje2OBgLCRK8R1wv0J-l-hr_dG"/>
+</div>
+<span class="text-2xl font-serif italic text-[#FFF8F7] tracking-widest">BLOOM</span>
+</div>
+<div class="flex items-center gap-6">
+<span class="material-symbols-outlined text-[#4D473E] hover:text-[#F1E7FF] transition-colors duration-300 cursor-pointer">notifications</span>
+</div>
+</header>
+<main class="pt-24 pb-32 px-6 max-w-screen-xl mx-auto">
+<section class="grid grid-cols-1 md:grid-cols-12 gap-8 items-start">
+<div class="md:col-span-5 lg:col-span-4 flex flex-col space-y-12">
+<div class="flex flex-col items-start">
+<span class="text-[11px] font-medium tracking-[0.15em] uppercase font-jost text-on-surface-variant mb-4">Identity</span>
+<h1 class="text-6xl md:text-7xl font-serif leading-tight text-primary">Elena<br/>Vance</h1>
+<p class="mt-4 text-tertiary italic font-serif text-2xl">Luminous Contributor</p>
+<div class="mt-10 flex items-center gap-4">
+<div class="w-[2px] h-12 bg-gradient-to-b from-tertiary via-tertiary/20 to-transparent status-glow"></div>
+<div>
+<span class="block text-[10px] font-bold tracking-[0.1em] uppercase font-jost text-on-surface-variant">Cloud Sync</span>
+<span class="text-sm font-medium text-primary tracking-wide">Securely tethered</span>
+</div>
+</div>
+</div>
+<div class="space-y-8">
+<div>
+<span class="text-[11px] font-medium tracking-[0.15em] uppercase font-jost text-on-surface-variant mb-6 block">Personalization</span>
+<div class="space-y-4">
+<div class="group flex justify-between items-center p-4 bg-surface-container-low transition-colors hover:bg-surface-container-high rounded-sm">
+<span class="text-sm font-medium tracking-wide">Atmosphere</span>
+<span class="text-sm text-tertiary font-serif italic">Nocturnal Gallery</span>
+</div>
+<div class="group flex justify-between items-center p-4 bg-surface-container-low transition-colors hover:bg-surface-container-high rounded-sm">
+<span class="text-sm font-medium tracking-wide">Numeral Scale</span>
+<span class="text-sm text-tertiary font-serif italic">Architectural</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="md:col-span-7 lg:col-span-8 space-y-12">
+<div class="bg-surface-container-low p-8 md:p-12 relative overflow-hidden">
+<div class="absolute top-0 right-0 w-64 h-64 bg-tertiary/5 blur-[100px] rounded-full -mr-32 -mt-32"></div>
+<span class="text-[11px] font-medium tracking-[0.15em] uppercase font-jost text-on-surface-variant mb-12 block">Security Perimeter</span>
+<div class="grid grid-cols-1 lg:grid-cols-2 gap-12">
+<div class="flex flex-col space-y-6">
+<div class="flex items-center justify-between">
+<div class="flex flex-col">
+<span class="text-lg font-serif italic text-primary">Biometric Lock</span>
+<span class="text-[11px] font-medium tracking-[0.1em] uppercase font-jost text-on-surface-variant">Face ID / Fingerprint</span>
+</div>
+<div class="relative w-14 h-7 bg-surface-container-highest rounded-full flex items-center px-1 cursor-pointer transition-all border border-outline-variant/10">
+<div class="absolute left-1 w-5 h-5 bg-primary rounded-full transform translate-x-7 shadow-[0_0_10px_rgba(255,248,247,0.3)]"></div>
+</div>
+</div>
+<p class="text-sm text-on-surface-variant leading-relaxed max-w-xs">
+                                Ensure your curated financial history remains private using hardware-level encryption.
+                            </p>
+</div>
+<div class="flex flex-col space-y-6">
+<div class="flex items-center justify-between">
+<div class="flex flex-col">
+<span class="text-lg font-serif italic text-primary">PIN Entry</span>
+<span class="text-[11px] font-medium tracking-[0.1em] uppercase font-jost text-on-surface-variant">Manual Fallback</span>
+</div>
+<span class="material-symbols-outlined text-tertiary text-2xl">dialpad</span>
+</div>
+<div class="flex gap-2">
+<div class="w-10 h-1 bg-primary/20 rounded-full"></div>
+<div class="w-10 h-1 bg-primary/20 rounded-full"></div>
+<div class="w-10 h-1 bg-primary/20 rounded-full"></div>
+<div class="w-10 h-1 bg-primary/20 rounded-full"></div>
+</div>
+<button class="text-left text-[11px] font-bold tracking-[0.15em] uppercase font-jost text-primary hover:text-tertiary transition-colors">Modify Sequence</button>
+</div>
+</div>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+<div class="bg-surface-container-high p-8 flex flex-col justify-between aspect-video">
+<span class="text-[11px] font-medium tracking-[0.15em] uppercase font-jost text-on-surface-variant">Active Sessions</span>
+<div class="flex flex-col">
+<span class="text-4xl font-serif italic text-primary">02</span>
+<span class="text-sm text-on-surface-variant">London, GB • Paris, FR</span>
+</div>
+</div>
+<div class="bg-surface-container-high p-8 flex flex-col justify-between aspect-video">
+<span class="text-[11px] font-medium tracking-[0.15em] uppercase font-jost text-on-surface-variant">Encryption Level</span>
+<div class="flex flex-col">
+<span class="text-4xl font-serif italic text-primary">AES-256</span>
+<span class="text-sm text-on-surface-variant">Quantum Resistant Vault</span>
+</div>
+</div>
+</div>
+</div>
+</section>
+</main>
+<div class="fixed bottom-24 left-0 w-full px-6 pointer-events-none opacity-40">
+<svg class="w-full" fill="none" viewbox="0 0 1440 120" xmlns="http://www.w3.org/2000/svg">
+<path d="M0 60C120 40 240 20 360 40C480 60 600 100 720 100C840 100 960 60 1080 40C1200 20 1320 40 1440 60V120H0V60Z" fill="url(#paint0_linear)"></path>
+<defs>
+<lineargradient gradientunits="userSpaceOnUse" id="paint0_linear" x1="720" x2="720" y1="20" y2="120">
+<stop stop-color="#534968" stop-opacity="0.3"></stop>
+<stop offset="1" stop-color="#110E0A" stop-opacity="0"></stop>
+</lineargradient>
+</defs>
+</svg>
+</div>
+<nav class="fixed bottom-0 left-0 w-full z-50 bg-[#110E0A]/90 backdrop-blur-xl flex justify-around items-center px-4 pb-8 pt-4 border-t border-[#4D473E]/15">
+<div class="flex flex-col items-center justify-center text-[#4D473E] hover:text-[#F1E7FF]">
+<span class="material-symbols-outlined mb-1">grid_view</span>
+<span class="text-[10px] font-bold tracking-[0.1em] uppercase font-jost">ATRIUM</span>
+</div>
+<div class="flex flex-col items-center justify-center text-[#4D473E] hover:text-[#F1E7FF]">
+<span class="material-symbols-outlined mb-1">filter_vintage</span>
+<span class="text-[10px] font-bold tracking-[0.1em] uppercase font-jost">GARDENS</span>
+</div>
+<div class="flex flex-col items-center justify-center text-[#4D473E] hover:text-[#F1E7FF]">
+<span class="material-symbols-outlined mb-1">tsunami</span>
+<span class="text-[10px] font-bold tracking-[0.1em] uppercase font-jost">FLOW</span>
+</div>
+<div class="flex flex-col items-center justify-center text-[#FFF8F7] drop-shadow-[0_0_8px_rgba(255,248,247,0.4)] transform scale-110">
+<span class="material-symbols-outlined mb-1" style="font-variation-settings: 'FILL' 1;">person_2</span>
+<span class="text-[10px] font-bold tracking-[0.1em] uppercase font-jost">PROFILE</span>
+</div>
+</nav>
+</body></html>

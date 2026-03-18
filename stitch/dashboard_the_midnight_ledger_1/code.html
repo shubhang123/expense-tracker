@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@300;400;500;600;700&amp;family=Instrument+Serif:ital@0;1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#ec5b13",
+                        "background-light": "#f8f6f6",
+                        "background-dark": "#120d0b",
+                        "sage": "#b2c2a1",
+                        "lavender": "#c3b1e1",
+                        "butter": "#f3e5ab",
+                        "charcoal-glass": "rgba(34, 22, 16, 0.7)",
+                    },
+                    fontFamily: {
+                        "display": ["Public Sans", "sans-serif"],
+                        "serif-display": ["Instrument Serif", "serif"]
+                    },
+                    borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+                },
+            },
+        }
+    </script>
+<style>.glow-text {
+    text-shadow: 0 0 20px rgba(236, 91, 19, 0.4)
+    }
+.bioluminescent-bg {
+    background: radial-gradient(circle at 50% -20%, rgba(236, 91, 13, 0.15) 0%, transparent 50%), radial-gradient(circle at 0% 40%, rgba(178, 194, 161, 0.05) 0%, transparent 30%), radial-gradient(circle at 100% 80%, rgba(195, 177, 225, 0.05) 0%, transparent 30%)
+    }
+.grain-texture {
+    background-image: url(https://lh3.googleusercontent.com/aida-public/AB6AXuDHDTxff5sDWMTaqgfem7wOmQoB1m2N0sPlXEDvF4oOyrXKdwpd-i02yyW-0J86EfiY3oxkFqzvrjjLOsjBEWAt2BBpZ-0T9BwXUTxhYRQNZNuxqRapYweWP8nuumNQ29tjDFrRhTP7koRZB9BDuy1iyqAoQSfDrs31lMRVrGioRbvrZ2TwJ5jSt5R7Jeem5-XxFPh8rMdWioka5OIXsjYh98uZGrAaoknTRWVScCyLOlB3Q_5gEaKEZryTMu9oQHBGJCePMue4O9OC);
+    opacity: 0.03;
+    pointer-events: none
+    }
+.vine-progress {
+    background: linear-gradient(90deg, #b2c2a1 0%, #ec5b13 100%);
+    box-shadow: 0 0 10px rgba(178, 194, 161, 0.3)
+    }</style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="font-display bg-background-light dark:bg-background-dark text-slate-900 dark:text-slate-100 min-h-screen relative overflow-x-hidden">
+<div class="fixed inset-0 grain-texture z-50"></div>
+<div class="bioluminescent-bg absolute inset-0 z-0"></div>
+<div class="relative z-10 flex flex-col min-h-screen max-w-md mx-auto border-x border-primary/10 bg-background-light/50 dark:bg-background-dark/50 backdrop-blur-sm">
+<!-- Header -->
+<header class="flex items-center p-6 justify-between">
+<div class="flex size-10 shrink-0 items-center justify-center rounded-full border border-primary/20 bg-primary/5">
+<span class="material-symbols-outlined text-primary">eco</span>
+</div>
+<h2 class="text-primary font-bold tracking-[0.2em] text-sm uppercase">Bloom</h2>
+<div class="flex w-10 items-center justify-end">
+<button class="relative p-2 rounded-full hover:bg-primary/10 transition-colors">
+<span class="material-symbols-outlined text-slate-400">notifications</span>
+<span class="absolute top-2 right-2 size-2 bg-primary rounded-full border-2 border-background-dark"></span>
+</button>
+</div>
+</header>
+<!-- Grand Total Display -->
+<section class="px-6 py-12 text-center">
+<p class="text-slate-400 text-xs uppercase tracking-widest mb-2 font-medium">Total Outflow</p>
+<h1 class="font-serif-display italic text-7xl md:text-8xl text-slate-100 glow-text leading-none">$4,280.50</h1>
+<div class="mt-4 flex items-center justify-center gap-2 text-sage text-sm">
+<span class="material-symbols-outlined text-sm">trending_up</span>
+<span>12% from last month</span>
+</div>
+</section>
+<!-- Active Splits (Vines) -->
+<section class="px-6 mb-10">
+<div class="flex justify-between items-end mb-6">
+<h3 class="text-xl font-semibold text-slate-100">Active Splits</h3>
+<button class="text-primary text-sm font-medium">View all</button>
+</div>
+<div class="space-y-4">
+<!-- Bali Trip Card -->
+<div class="p-5 rounded-2xl bg-charcoal-glass border border-white/5 backdrop-blur-md relative overflow-hidden group">
+<div class="flex justify-between items-start mb-4">
+<div>
+<h4 class="text-slate-100 font-medium">Trip to Bali</h4>
+<p class="text-xs text-slate-500">Shared with 5 people</p>
+</div>
+<span class="text-sage font-medium">$1,240</span>
+</div>
+<div class="w-full bg-white/5 h-1.5 rounded-full overflow-hidden">
+<div class="vine-progress h-full rounded-full" style="width: 65%;"></div>
+</div>
+<div class="flex justify-between mt-2">
+<span class="text-[10px] uppercase tracking-tighter text-slate-500">Organic Growth</span>
+<span class="text-[10px] uppercase tracking-tighter text-slate-500">65% Settled</span>
+</div>
+</div>
+<!-- Housemates Card -->
+<div class="p-5 rounded-2xl bg-charcoal-glass border border-white/5 backdrop-blur-md relative overflow-hidden group">
+<div class="flex justify-between items-start mb-4">
+<div>
+<h4 class="text-slate-100 font-medium">Housemates</h4>
+<p class="text-xs text-slate-500">Rent &amp; Utilities</p>
+</div>
+<span class="text-lavender font-medium">$850</span>
+</div>
+<div class="w-full bg-white/5 h-1.5 rounded-full overflow-hidden">
+<div class="vine-progress h-full rounded-full opacity-80" style="width: 30%;"></div>
+</div>
+<div class="flex justify-between mt-2">
+<span class="text-[10px] uppercase tracking-tighter text-slate-500">Seeding Phase</span>
+<span class="text-[10px] uppercase tracking-tighter text-slate-500">30% Settled</span>
+</div>
+</div>
+</div>
+</section>
+<!-- Spending Anatomy (Blobs) -->
+<section class="px-6 mb-10 overflow-hidden">
+<h3 class="text-xl font-semibold text-slate-100 mb-6">Spending Anatomy</h3>
+<div class="flex items-center justify-around gap-4 h-48 relative">
+<!-- Food Blob -->
+<div class="flex flex-col items-center gap-3">
+<div class="size-24 bg-sage/20 rounded-[40%_60%_70%_30%/40%_50%_60%_50%] border border-sage/40 flex items-center justify-center relative">
+<span class="material-symbols-outlined text-sage text-3xl">restaurant</span>
+</div>
+<span class="text-xs font-medium text-sage/80">Food (42%)</span>
+</div>
+<!-- Travel Blob -->
+<div class="flex flex-col items-center gap-3">
+<div class="size-32 bg-lavender/20 rounded-[60%_40%_30%_70%/50%_30%_70%_50%] border border-lavender/40 flex items-center justify-center relative">
+<span class="material-symbols-outlined text-lavender text-4xl">flight_takeoff</span>
+</div>
+<span class="text-xs font-medium text-lavender/80">Travel (28%)</span>
+</div>
+<!-- Art Blob -->
+<div class="flex flex-col items-center gap-3">
+<div class="size-20 bg-butter/20 rounded-[50%_50%_20%_80%/30%_40%_60%_70%] border border-butter/40 flex items-center justify-center relative">
+<span class="material-symbols-outlined text-butter text-2xl">palette</span>
+</div>
+<span class="text-xs font-medium text-butter/80">Art (15%)</span>
+</div>
+</div>
+</section>
+<!-- Exhibition Ledger -->
+<section class="px-6 mb-24">
+<h3 class="text-xl font-semibold text-slate-100 mb-6">Exhibition Ledger</h3>
+<div class="space-y-1">
+<div class="group flex items-center justify-between p-4 -mx-4 rounded-xl transition-all duration-300 hover:bg-white/[0.03] hover:shadow-[inset_0_0_20px_rgba(255,255,255,0.02)]">
+<div class="flex items-center gap-4">
+<div class="size-10 rounded-full bg-white/5 flex items-center justify-center text-slate-400 group-hover:text-primary transition-colors">
+<span class="material-symbols-outlined">shopping_bag</span>
+</div>
+<div>
+<p class="text-slate-100 text-sm font-medium">Concept Store</p>
+<p class="text-slate-500 text-[10px] uppercase tracking-widest">Yesterday, 4:20 PM</p>
+</div>
+</div>
+<span class="text-slate-100 text-sm font-semibold">-$245.00</span>
+</div>
+<div class="group flex items-center justify-between p-4 -mx-4 rounded-xl transition-all duration-300 hover:bg-white/[0.03] hover:shadow-[inset_0_0_20px_rgba(255,255,255,0.02)] border-t border-white/5">
+<div class="flex items-center gap-4">
+<div class="size-10 rounded-full bg-white/5 flex items-center justify-center text-slate-400 group-hover:text-sage transition-colors">
+<span class="material-symbols-outlined">local_cafe</span>
+</div>
+<div>
+<p class="text-slate-100 text-sm font-medium">Botanical Brews</p>
+<p class="text-slate-500 text-[10px] uppercase tracking-widest">Yesterday, 10:15 AM</p>
+</div>
+</div>
+<span class="text-slate-100 text-sm font-semibold">-$8.40</span>
+</div>
+<div class="group flex items-center justify-between p-4 -mx-4 rounded-xl transition-all duration-300 hover:bg-white/[0.03] hover:shadow-[inset_0_0_20px_rgba(255,255,255,0.02)] border-t border-white/5">
+<div class="flex items-center gap-4">
+<div class="size-10 rounded-full bg-white/5 flex items-center justify-center text-slate-400 group-hover:text-lavender transition-colors">
+<span class="material-symbols-outlined">payments</span>
+</div>
+<div>
+<p class="text-slate-100 text-sm font-medium">Split: Bali Flight</p>
+<p class="text-slate-500 text-[10px] uppercase tracking-widest">2 Days Ago</p>
+</div>
+</div>
+<span class="text-sage text-sm font-semibold">+$450.00</span>
+</div>
+</div>
+</section>
+<!-- Bottom Navigation -->
+<nav class="fixed bottom-0 left-1/2 -translate-x-1/2 w-full max-w-md bg-background-dark/80 backdrop-blur-xl border-t border-white/10 px-6 py-4 flex justify-between items-center z-50">
+<a class="flex flex-col items-center gap-1 text-primary" href="#">
+<span class="material-symbols-outlined fill-1">home</span>
+<span class="text-[10px] font-medium uppercase tracking-tighter">Home</span>
+</a>
+<a class="flex flex-col items-center gap-1 text-slate-500 hover:text-slate-300" href="#">
+<span class="material-symbols-outlined">group</span>
+<span class="text-[10px] font-medium uppercase tracking-tighter">Splits</span>
+</a>
+<div class="relative -top-8 size-14 bg-primary rounded-full flex items-center justify-center text-white shadow-lg shadow-primary/20 cursor-pointer hover:scale-105 transition-transform">
+<span class="material-symbols-outlined text-3xl">add</span>
+</div>
+<a class="flex flex-col items-center gap-1 text-slate-500 hover:text-slate-300" href="#">
+<span class="material-symbols-outlined">receipt_long</span>
+<span class="text-[10px] font-medium uppercase tracking-tighter">Ledger</span>
+</a>
+<a class="flex flex-col items-center gap-1 text-slate-500 hover:text-slate-300" href="#">
+<span class="material-symbols-outlined">monitoring</span>
+<span class="text-[10px] font-medium uppercase tracking-tighter">Stats</span>
+</a>
+</nav>
+</div>
+<!-- Decorative Luminous Accents -->
+<div class="fixed top-1/4 -right-20 size-64 bg-primary/10 blur-[100px] pointer-events-none"></div>
+<div class="fixed bottom-1/4 -left-20 size-64 bg-sage/10 blur-[100px] pointer-events-none"></div>
+</body></html>

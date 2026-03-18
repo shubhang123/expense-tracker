@@ -28,8 +28,11 @@ import {
 import { Separator } from '@/components/ui/separator';
 import { useState } from 'react';
 import { useIsMobile } from '@/hooks/use-mobile';
-import type { Profile } from '@/lib/types';
 import { FloatingActionButton } from './floating-action-button';
+
+type Profile = {
+  avatarUrl: string;
+};
 
 export function AppLayout({ children }: { children: React.ReactNode }) {
   const [profile] = useLocalStorage<Profile>('user-profile', {
@@ -72,54 +75,48 @@ export function AppLayout({ children }: { children: React.ReactNode }) {
   );
 
   return (
-    <div className="flex flex-col h-screen bg-black text-white">
-      <header className="flex items-center justify-between p-4">
-        <Link href="/profile">
-          <Avatar>
-            <AvatarImage
-              src={profile.avatarUrl}
-              alt="User"
-              data-ai-hint="person avatar"
-            />
-            <AvatarFallback>U</AvatarFallback>
-          </Avatar>
-        </Link>
-        <Sheet open={isSheetOpen} onOpenChange={setIsSheetOpen}>
-          <SheetTrigger asChild>
-            <Button variant="ghost" size="icon">
-              <Menu className="h-6 w-6" />
-            </Button>
-          </SheetTrigger>
-          <SheetContent
-            side={isMobile ? 'bottom' : 'right'}
-            className="bg-neutral-900/80 text-white backdrop-blur-xl border-neutral-700 rounded-t-3xl md:rounded-l-3xl md:rounded-t-none"
-          >
-            <SheetHeader>
-              <SheetTitle className="text-primary text-2xl">
-                Settings
-              </SheetTitle>
-            </SheetHeader>
-            <div className="flex flex-col space-y-4 py-8">
-              <SheetMenuItems />
-            </div>
-          </SheetContent>
-        </Sheet>
+    <div className="flex flex-col min-h-screen bg-surface-dim text-on-background relative overflow-x-hidden">
+      {/* Midnight Ledger Header */}
+      <header className="flex items-center p-6 justify-between sticky top-0 z-50 bg-surface-dim/80 backdrop-blur-md">
+        <div className="flex size-10 shrink-0 items-center justify-center rounded-full border border-[#ec5b13]/20 bg-[#ec5b13]/5">
+          <span className="material-symbols-outlined text-[#ec5b13]">eco</span>
+        </div>
+        <h2 className="text-[#ec5b13] font-bold tracking-[0.2em] text-sm uppercase Jost">Bloom</h2>
+        <div className="flex w-10 items-center justify-end">
+          <button className="relative p-2 rounded-full hover:bg-[#ec5b13]/10 transition-colors">
+            <span className="material-symbols-outlined text-on-surface-variant">notifications</span>
+            <span className="absolute top-2 right-2 size-2 bg-[#ec5b13] rounded-full border-2 border-surface-dim"></span>
+          </button>
+        </div>
       </header>
 
-      <main className="flex-1 overflow-y-auto px-4">{children}</main>
+      <main className="flex-1 max-w-7xl mx-auto w-full px-6 py-12 pb-32">
+        {children}
+      </main>
 
-      <footer className="sticky bottom-0 left-0 right-0 bg-black/50 backdrop-blur-lg">
-        <div className="flex justify-around items-center p-4 max-w-md mx-auto relative h-20">
-          <Link href="/" className="p-2">
-            <Home className="h-7 w-7 text-white" />
-          </Link>
-          
-          <Link href="/notifications" className="p-2">
-            <Bell className="h-7 w-7 text-white" />
-          </Link>
-        </div>
-      </footer>
-      <FloatingActionButton />
+      {/* BLOOM Bottom Navigation */}
+      <nav className="fixed bottom-0 left-0 w-full z-[101] flex justify-around items-center px-4 pb-8 pt-4 bg-surface/90 backdrop-blur-xl border-t border-outline-variant/15">
+        <Link href="/" className="flex flex-col items-center justify-center text-outline hover:text-tertiary transition-colors">
+          <span className="material-symbols-outlined mb-1">grid_view</span>
+          <span className="text-[10px] font-bold tracking-[0.1em] uppercase Jost leading-none">ATRIUM</span>
+        </Link>
+        <Link href="/categories" className="flex flex-col items-center justify-center text-primary drop-shadow-[0_0_8px_rgba(255,248,247,0.4)] transform scale-110 transition-all duration-500">
+          <span className="material-symbols-outlined mb-1">filter_vintage</span>
+          <span className="text-[10px] font-bold tracking-[0.1em] uppercase Jost leading-none">GARDENS</span>
+        </Link>
+        <Link href="/flows" className="flex flex-col items-center justify-center text-outline hover:text-tertiary transition-colors">
+          <span className="material-symbols-outlined mb-1">tsunami</span>
+          <span className="text-[10px] font-bold tracking-[0.1em] uppercase Jost leading-none">FLOW</span>
+        </Link>
+        <Link href="/profile" className="flex flex-col items-center justify-center text-outline hover:text-tertiary transition-colors">
+          <span className="material-symbols-outlined mb-1">person_2</span>
+          <span className="text-[10px] font-bold tracking-[0.1em] uppercase Jost leading-none">PROFILE</span>
+        </Link>
+      </nav>
+
+      {/* Floating Background Elements for Atmosphere */}
+      <div className="fixed top-1/4 -left-32 w-96 h-96 bg-secondary/5 breathing-blob z-0 pointer-events-none"></div>
+      <div className="fixed bottom-1/4 -right-32 w-80 h-80 bg-tertiary/5 breathing-blob z-0 pointer-events-none"></div>
     </div>
   );
 }

@@ -1,0 +1,57 @@
+'use client';
+
+import { ArrowLeft } from 'lucide-react';
+import Link from 'next/link';
+import { Button } from '@/components/ui/button';
+import { AddTransactionForm } from '@/components/forms/add-transaction-form';
+import { categories as initialCategories, transactions as initialTransactions } from '@/lib/data';
+import { useLocalStorage } from '@/hooks/use-local-storage';
+import { useSearchParams } from 'next/navigation';
+import React from 'react';
+
+function AddTransactionPageContent() {
+  const [transactions, setTransactions] = useLocalStorage(
+    'transactions',
+    initialTransactions
+  );
+  const [categories] = useLocalStorage('categories', initialCategories);
+
+  const searchParams = useSearchParams();
+  const category = searchParams.get('category');
+
+  const handleAddTransaction = (data: any) => {
+    const newTransaction = {
+      ...data,
+      id: `trx-${Date.now()}`,
+      date: new Date(data.date).toISOString(),
+    };
+    setTransactions([newTransaction, ...transactions]);
+  };
+
+  return (
+    <div className="space-y-6">
+      <div className="flex items-center gap-4">
+        <Button asChild variant="ghost" size="icon">
+          <Link href="/">
+            <ArrowLeft />
+          </Link>
+        </Button>
+        <h1 className="text-2xl font-bold">Add Transaction</h1>
+      </div>
+
+      <AddTransactionForm
+        categories={categories}
+        onSubmit={handleAddTransaction}
+        defaultCategory={category}
+      />
+    </div>
+  );
+}
+
+export default function AddContent() {
+  return (
+    <React.Suspense fallback={<div>Loading...</div>}>
+      <AddTransactionPageContent />
+    </React.Suspense>
+  );
+}

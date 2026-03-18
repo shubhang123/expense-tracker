@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700&amp;family=Newsreader:ital,opsz,wght@0,6..72,200..800;1,6..72,200..800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "surface": "#110e0a",
+                        "tertiary-container": "#e4d7fd",
+                        "tertiary-dim": "#d6c9ee",
+                        "secondary": "#bacabe",
+                        "primary-fixed-dim": "#e1d1d1",
+                        "on-background": "#efe4d8",
+                        "primary-container": "#f9e7e7",
+                        "secondary-container": "#1b2921",
+                        "primary-dim": "#eddcdc",
+                        "tertiary": "#f1e7ff",
+                        "outline-variant": "#4d473e",
+                        "surface-variant": "#2a251e",
+                        "surface-container-highest": "#2a251e",
+                        "on-tertiary-container": "#534968",
+                        "on-secondary-fixed-variant": "#59685e",
+                        "on-primary-fixed": "#483d3d",
+                        "inverse-on-surface": "#59544f",
+                        "surface-tint": "#fff8f7",
+                        "inverse-surface": "#fff8f3",
+                        "surface-dim": "#110e0a",
+                        "surface-container-high": "#241f18",
+                        "error-container": "#8a1632",
+                        "surface-container-lowest": "#000000",
+                        "outline": "#7c746b",
+                        "secondary-fixed": "#e5f5e8",
+                        "surface-container": "#1d1913",
+                        "on-error-container": "#ff97a3",
+                        "on-surface": "#efe4d8",
+                        "on-secondary-container": "#98a89c",
+                        "inverse-primary": "#685c5c",
+                        "primary": "#fff8f7",
+                        "on-secondary": "#35433a",
+                        "on-surface-variant": "#b3aa9f",
+                        "on-tertiary": "#5c5271",
+                        "surface-container-low": "#16130e",
+                        "secondary-dim": "#adbdb1",
+                        "error": "#fd6f85",
+                        "error-dim": "#c8475d",
+                        "tertiary-fixed-dim": "#d6c9ee",
+                        "on-secondary-fixed": "#3d4b42",
+                        "on-error": "#490013",
+                        "on-primary-fixed-variant": "#655959",
+                        "tertiary-fixed": "#e4d7fd",
+                        "primary-fixed": "#f0dfde",
+                        "background": "#110e0a",
+                        "on-tertiary-fixed-variant": "#5d5372",
+                        "secondary-fixed-dim": "#d6e7da",
+                        "on-primary-container": "#605454",
+                        "on-tertiary-fixed": "#403755",
+                        "surface-bright": "#312b23",
+                        "on-primary": "#685c5c"
+                    },
+                    fontFamily: {
+                        "headline": ["Newsreader"],
+                        "body": ["Manrope"],
+                        "label": ["Manrope"]
+                    },
+                    borderRadius: { "DEFAULT": "0.125rem", "lg": "0.25rem", "xl": "0.5rem", "full": "0.75rem" },
+                },
+            },
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .noise-overlay {
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+            opacity: 0.05;
+        }
+        .mesh-gradient {
+            background: radial-gradient(circle at 20% 30%, #1b2921 0%, transparent 50%),
+                        radial-gradient(circle at 80% 70%, #534968 0%, transparent 50%),
+                        #110e0a;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-surface text-on-surface font-body min-h-screen selection:bg-tertiary-container selection:text-on-tertiary-container overflow-x-hidden">
+<!-- Grain Overlay -->
+<div class="fixed inset-0 pointer-events-none noise-overlay z-[100]"></div>
+<!-- Background Gradient -->
+<div class="fixed inset-0 mesh-gradient -z-10"></div>
+<!-- Top Navigation Shell -->
+<nav class="fixed top-0 w-full z-50 bg-[#110E0A]/80 backdrop-blur-xl flex justify-between items-center px-6 py-4 w-full">
+<div class="flex items-center gap-4">
+<div class="w-8 h-8 rounded-full border border-tertiary/30 p-0.5">
+<img alt="User profile with bioluminescent glow border" class="w-full h-full rounded-full object-cover" data-alt="Close up portrait of a woman with ethereal lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAWaEr0apsvihRmrvQ-c7fy6URGBsvgRF9jJYTSalVHliWht-LVyL34mfHsYa1rUCnTB2X0s23hupJO5cPiqJoJ5AfGfxRqLUxMQp7kgChDNPEp_FNeJCZ2mGKvh7N0jDQs2KWdjC7Zzc3uW57693YHAFV8qzKhLZUnxfcKX0jOZfeFZSRXTdUP88cXdQy69gJqxc98eKDcGS4iqikzcFWXNQTPOWAq6pK4vNI9v3e95ynpDroZu8GVYs0PRjvs2iRSo7-GMCJVnqYF"/>
+</div>
+<span class="font-headline text-2xl tracking-[0.2em] text-[#FFF8F7] uppercase">BLOOM</span>
+</div>
+<button class="text-[#FFF8F7] flex items-center justify-center p-2">
+<span class="material-symbols-outlined" data-icon="notifications">notifications</span>
+</button>
+</nav>
+<!-- Main Content Canvas -->
+<main class="pt-24 pb-32 px-6 max-w-2xl mx-auto min-h-screen">
+<!-- Header Section -->
+<header class="mb-16 text-left">
+<div class="flex items-center gap-2 mb-2">
+<span class="material-symbols-outlined text-outline text-sm" data-icon="location_on">location_on</span>
+<span class="font-label text-[11px] uppercase tracking-[0.15em] text-on-surface-variant">THE BALI GARDEN</span>
+</div>
+<h1 class="font-headline text-6xl text-primary tracking-tighter mb-4">Trip to Bali</h1>
+<div class="flex items-baseline gap-3">
+<span class="font-headline text-4xl text-primary-fixed-dim">$12,450.00</span>
+<span class="font-label text-[11px] uppercase tracking-[0.2em] text-outline">TOTAL VOLUME</span>
+</div>
+</header>
+<!-- Asymmetric Breakdown Section -->
+<section class="grid grid-cols-1 gap-12">
+<!-- Frosted Glass Card: Summary -->
+<div class="bg-surface-container-low/60 backdrop-blur-2xl rounded-xl p-8 border border-outline-variant/15 shadow-2xl relative overflow-hidden">
+<!-- Geometric Accent -->
+<div class="absolute top-0 right-0 w-32 h-32 border-r border-t border-outline-variant/20 -translate-y-1/2 translate-x-1/2 rotate-45"></div>
+<div class="flex justify-between items-start mb-12">
+<div>
+<p class="font-label text-[10px] uppercase tracking-[0.2em] text-on-tertiary-container mb-1">CULTIVATED BY</p>
+<p class="text-on-surface font-medium">You &amp; 4 others</p>
+</div>
+<div class="text-right">
+<p class="font-label text-[10px] uppercase tracking-[0.2em] text-on-tertiary-container mb-1">DATE CREATED</p>
+<p class="text-on-surface font-medium">Aug 14, 2024</p>
+</div>
+</div>
+<div class="space-y-10">
+<!-- Member Row: Active/You -->
+<div class="flex items-center justify-between group">
+<div class="flex items-center gap-4">
+<div class="relative">
+<div class="absolute inset-0 rounded-full bg-tertiary blur-md opacity-20 group-hover:opacity-40 transition-opacity"></div>
+<img alt="Member avatar" class="w-12 h-12 rounded-full border border-tertiary/40 relative z-10" data-alt="Soft lit portrait of a woman" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCNyCu0tfsFhxjRxXH_XS9VreHYn_N16mPCcPPsNEz3eXoMAN7gCU4MY7XvWWF0LFSt-MSsPVUt7F-5lITdWL039QF1OFDSjBZ0dvl2Yb17IF24oij_5DBeOEmWwoeuW2JXWDWneVjRaetrj8hszsNaDwD8X_lou9fshTuoSRj6DnnEaDV_PpnAwyXPDBxH7-32eqS7x6dnqapaA4JTRCWRwd9f5_gk0IaBib0Soo9-GWPJsrDXKQYkjBiAoB_3MEg7qCukKEf7hIi0"/>
+</div>
+<div>
+<p class="font-medium text-on-surface">You</p>
+<p class="font-label text-[9px] uppercase tracking-[0.15em] text-secondary">SETTLED</p>
+</div>
+</div>
+<div class="text-right">
+<p class="font-headline text-2xl text-primary-dim">$4,200.00</p>
+<p class="font-label text-[9px] uppercase tracking-[0.1em] text-outline">CONTRIBUTED</p>
+</div>
+</div>
+<!-- Member Row: Pending -->
+<div class="flex items-center justify-between group">
+<div class="flex items-center gap-4">
+<div class="relative">
+<img alt="Member avatar" class="w-12 h-12 rounded-full border border-outline-variant/30 grayscale hover:grayscale-0 transition-all" data-alt="Man with a thoughtful expression in shadow" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAaR3gVtSBAvM-Q3f2U5F7nN2ZMWXxfXkRCEVPyWdyRVQ7Ziohqwf0goK0-zB92izWXNFaV6DPRPedCUr2XV6_cvViVLZw5tH3rEVh1zjhBj3LqL4hZzovr4c179LlSQrNiMMWSv-LabUVESiuRZwhYOUwZccnjY4f7SucShWuRwq_5OwFeSSX1uS9YuxE1HUQJ_imL5JuB_eo_hvia7f4aY7AWWAbB5lZSBVqxkWiRPRf6224D8fF8osRTlyuhQ164UyFhyyRaHIb2"/>
+</div>
+<div>
+<p class="font-medium text-on-surface">Julian Vane</p>
+<p class="font-label text-[9px] uppercase tracking-[0.15em] text-error-dim">PENDING</p>
+</div>
+</div>
+<div class="text-right">
+<p class="font-headline text-2xl text-outline">$2,150.00</p>
+<p class="font-label text-[9px] uppercase tracking-[0.1em] text-outline">OWES YOU</p>
+</div>
+</div>
+<!-- Member Row: Settled -->
+<div class="flex items-center justify-between group">
+<div class="flex items-center gap-4">
+<div class="relative">
+<img alt="Member avatar" class="w-12 h-12 rounded-full border border-outline-variant/30" data-alt="Smiling woman with sunset lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCn4rW94ecPx2Nlu0bABsQrHXyWgseaRl6sFRW9V0bxjMXfUZhgPc14V8V_E-1phKj15dXONClSB4K36A8h7d-8LEPwKlD5b7ocXKm6S7l6EMmDeOlqOJjvWiakxYhkX52bDfLk3aeGPV9YWUw7nN3MRO0O2VLoI7WoDwABM-McYbHq-W-uJa97ZxJg1NhT8Xjy1IQGizc4FASBQHAf8U07gIbC4d_FmlSJWCUx5jodZX0BHF-qhqDwLm1PCEOEGNilmwbkku9Zs1Pn"/>
+</div>
+<div>
+<p class="font-medium text-on-surface">Elena S.</p>
+<p class="font-label text-[9px] uppercase tracking-[0.15em] text-secondary">SETTLED</p>
+</div>
+</div>
+<div class="text-right">
+<p class="font-headline text-2xl text-on-surface-variant">$3,050.00</p>
+<p class="font-label text-[9px] uppercase tracking-[0.1em] text-outline">CONTRIBUTED</p>
+</div>
+</div>
+</div>
+</div>
+<!-- Call to Action Section -->
+<div class="flex flex-col items-center justify-center pt-8">
+<p class="font-label text-[11px] uppercase tracking-[0.3em] text-outline mb-8">NET BALANCE: $2,150.00 PENDING</p>
+<button class="group relative px-12 py-5 bg-primary text-on-primary rounded-sm overflow-hidden transition-all duration-300 hover:scale-[1.02] active:scale-95 shadow-[0_0_40px_-10px_rgba(255,248,247,0.3)]">
+<div class="absolute inset-0 bg-tertiary opacity-0 group-hover:opacity-10 transition-opacity"></div>
+<span class="relative z-10 font-label text-[12px] font-bold uppercase tracking-[0.25em]">Tend the Garden</span>
+<!-- Radial Glow Underlay -->
+<div class="absolute -bottom-1/2 left-1/2 -translate-x-1/2 w-32 h-32 bg-tertiary/20 blur-[40px] rounded-full"></div>
+</button>
+<button class="mt-8 font-label text-[10px] uppercase tracking-[0.2em] text-outline hover:text-primary transition-colors border-b border-outline-variant/20 pb-1">
+                    Request Reminders
+                </button>
+</div>
+</section>
+</main>
+<!-- Navigation Shell (Bottom) -->
+<nav class="fixed bottom-6 left-1/2 -translate-x-1/2 w-[90%] max-w-md rounded-2xl border border-[#4D473E]/20 bg-[#16130E]/90 backdrop-blur-2xl flex justify-around items-center h-20 px-4 shadow-[0_20px_50px_rgba(0,0,0,0.5)] z-50">
+<div class="flex flex-col items-center justify-center text-[#4D473E] hover:text-[#F1E7FF] transition-all">
+<span class="material-symbols-outlined mb-1" data-icon="dashboard">dashboard</span>
+<span class="font-sans text-[11px] uppercase tracking-[0.15em]">ATRIUM</span>
+</div>
+<div class="flex flex-col items-center justify-center text-[#FFF8F7] scale-110">
+<span class="material-symbols-outlined mb-1" data-icon="Account_Balance_Wallet" style="font-variation-settings: 'FILL' 1;">account_balance_wallet</span>
+<span class="font-sans text-[11px] uppercase tracking-[0.15em]">GARDENS</span>
+</div>
+<div class="flex flex-col items-center justify-center text-[#4D473E] hover:text-[#F1E7FF] transition-all">
+<span class="material-symbols-outlined mb-1" data-icon="swap_calls">swap_calls</span>
+<span class="font-sans text-[11px] uppercase tracking-[0.15em]">FLOW</span>
+</div>
+<div class="flex flex-col items-center justify-center text-[#4D473E] hover:text-[#F1E7FF] transition-all">
+<span class="material-symbols-outlined mb-1" data-icon="person">person</span>
+<span class="font-sans text-[11px] uppercase tracking-[0.15em]">PROFILE</span>
+</div>
+</nav>
+<!-- Aesthetic Decor: Fine lines -->
+<div class="fixed top-0 left-12 w-[1px] h-full bg-outline-variant/5 -z-20"></div>
+<div class="fixed top-0 right-12 w-[1px] h-full bg-outline-variant/5 -z-20"></div>
+</body></html>
